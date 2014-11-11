@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="14"
         android:targetSdkVersion="16" />
 
     <application
@@ -25,6 +25,7 @@
         </activity>
         <activity
             android:name="com.pinisielektra.apps.DashboardActivity"
+            android:theme="@style/Theme.AppCompat.Light"
             android:label="@string/title_activity_dashboard" >
         </activity>
     </application>

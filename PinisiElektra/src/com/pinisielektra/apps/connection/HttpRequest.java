@@ -28,8 +28,6 @@ public class HttpRequest {
  
 	public static String get(String sUrl) throws MalformedURLException, IOException {
 		
-//		String result = null;
-		
 		HttpClient client = new DefaultHttpClient();
 		
 		HttpGet httpGet = new HttpGet(sUrl);
@@ -44,27 +42,6 @@ public class HttpRequest {
 	    }
 		
 		return buffer.toString();
-		/*
-		URL url = new URL(sUrl);
-		
-		HttpURLConnection connUrl = (HttpURLConnection) url.openConnection();
-		connUrl.setDefaultUseCaches(false);
-		connUrl.setUseCaches(false);
-		
-		InputStreamReader reader = new InputStreamReader(connUrl.getInputStream());
-		BufferedReader in = new BufferedReader(reader);
-		
-		StringBuilder builder = new StringBuilder();
-		String line = null;
-		while ((line = in.readLine()) != null) { 
-			builder.append(line);
-		}
-		result = builder.toString();
-		
-		reader.close();
-		*/
-		
-		//return result;
 	}
 	
 	public static String post(String sUrl, String data) throws MalformedURLException, IOException {
@@ -107,11 +84,6 @@ public class HttpRequest {
 		List<NameValuePair> param = new ArrayList<NameValuePair>();
 		while (keys.hasMoreElements()) {
 			key = (String) keys.nextElement();
-//			data.append(URLEncoder.encode(key, "UTF-8"));
-//			data.append('=');
-//			data.append(URLEncoder.encode(params.get(key), "UTF-8"));
-//			data.append("&");
-			
 			param.add(new BasicNameValuePair(key, params.get(key)));
 		}
 		post.setEntity(new UrlEncodedFormEntity(param));
@@ -124,7 +96,6 @@ public class HttpRequest {
 	    }
 		
 		return buffer.toString();
-//		return HttpRequest.post(sUrl, data.toString());
 	}
 	
 	public static String delete (String sUrl) throws MalformedURLException, IOException {		

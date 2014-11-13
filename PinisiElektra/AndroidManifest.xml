@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="14"
+        android:minSdkVersion="8"
         android:targetSdkVersion="16" />
 
     <application
@@ -16,7 +16,7 @@
         <activity
             android:name="com.pinisielektra.apps.MainActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Light.NoTitleBar"  >
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,8 +25,12 @@
         </activity>
         <activity
             android:name="com.pinisielektra.apps.DashboardActivity"
-            android:theme="@style/Theme.AppCompat.Light"
-            android:label="@string/title_activity_dashboard" >
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity
+            android:name="com.pinisielektra.apps.FilteringActivity"
+            android:label="@string/title_activity_filtering" >
         </activity>
     </application>
 

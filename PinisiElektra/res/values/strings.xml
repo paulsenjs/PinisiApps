@@ -12,12 +12,12 @@
     <string name="action_about">About</string>
     <string name="action_logout">Logout</string>
     <string name="title_activity_filtering">FilteringActivity</string>
-    
+
     <!-- filtering -->
-	<string name="title_filtering_date">Tanggal</string>
-	<string name="title_filtering_date_untill">s/d</string>
-	<string name="title_filtering_sort">Urutkan</string>
-	<string name="title_search">Cari</string>
-	
-	
+    <string name="title_filtering_date">Tanggal</string>
+    <string name="title_filtering_date_untill">s/d</string>
+    <string name="title_filtering_sort">Urutkan</string>
+    <string name="title_search">Cari</string>
+    <string name="title_activity_pie_chart">PieChartActivity</string>
+
 </resources>

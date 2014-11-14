@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pinisielektra.apps.FilteringActivity;
+import com.pinisielektra.apps.PieChartActivity;
 import com.pinisielektra.apps.R;
 
 public class DashboardFragment extends Fragment implements OnClickListener{
@@ -64,6 +65,8 @@ public class DashboardFragment extends Fragment implements OnClickListener{
 			break;
 		case R.id.img_best_selling_products:
 			Toast.makeText(getActivity(), "best sales", Toast.LENGTH_SHORT).show();
+			Intent intent2 = new Intent(getActivity(), PieChartActivity.class);
+			startActivity(intent2);
 			break;
 		case R.id.img_inventory:
 			Toast.makeText(getActivity(), "inventory", Toast.LENGTH_SHORT).show();

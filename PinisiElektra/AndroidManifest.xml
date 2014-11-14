@@ -32,6 +32,10 @@
             android:name="com.pinisielektra.apps.FilteringActivity"
             android:label="@string/title_activity_filtering" >
         </activity>
+        <activity
+            android:name="com.pinisielektra.apps.PieChartActivity"
+            android:label="@string/title_activity_pie_chart" >
+        </activity>
     </application>
 
 </manifest>

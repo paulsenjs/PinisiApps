@@ -1,13 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item
-        android:id="@+id/action_mypage"
+        android:id="@+id/action_pie_chart"
         android:orderInCategory="100"
         android:title="@string/action_view_pie_chart"/>
-    
-    <item
-        android:id="@+id/action_faq"
-        android:orderInCategory="100"
-        android:title="@string/action_custom_search"/>
     
     <item
         android:id="@+id/action_about"

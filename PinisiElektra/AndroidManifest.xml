@@ -8,6 +8,9 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -30,11 +33,18 @@
         </activity>
         <activity
             android:name="com.pinisielektra.apps.FilteringActivity"
-            android:label="@string/title_activity_filtering" >
+            android:label="@string/title_activity_filtering"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity
             android:name="com.pinisielektra.apps.PieChartActivity"
-            android:label="@string/title_activity_pie_chart" >
+            android:label="@string/title_activity_pie_chart"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
+        <activity
+            android:name="com.pinisielektra.apps.ReportActivity"
+            android:label="@string/title_activity_report"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
     </application>
 

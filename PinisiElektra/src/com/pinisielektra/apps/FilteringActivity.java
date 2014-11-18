@@ -1,44 +1,66 @@
 package com.pinisielektra.apps;
 
-import android.os.Bundle;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
-public class FilteringActivity extends Activity implements OnClickListener {
+public class FilteringActivity extends ActionBarActivity implements OnClickListener {
 
 	private EditText edtFromDate;
 	private EditText edtToDate;
 	private int lYear;
 	private int lMonth;
 	private int lDay;
-	static final int FROM_DATE_DIALOG_ID = 990;
-	static final int TO_DATE_DIALOG_ID = 999;
+	private static final int FROM_DATE_DIALOG_ID = 990;
+	private static final int TO_DATE_DIALOG_ID = 999;
+	private Button btnSearch;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_filtering);
 		
+		btnSearch = (Button) findViewById(R.id.btnSearch);
+		
 		edtFromDate = (EditText) findViewById(R.id.edtFrom);
 		edtToDate = (EditText) findViewById(R.id.edtTo);
 		
 		edtFromDate.setOnClickListener(this);
 		edtToDate.setOnClickListener(this);
+		btnSearch.setOnClickListener(this);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.filtering, menu);
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		boolean itemSelected = false;
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			itemSelected = true;
+			break;
+		default:
+			break;
+		}
+		return itemSelected;
+	}
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onClick(View v) {
@@ -49,13 +71,13 @@ public class FilteringActivity extends Activity implements OnClickListener {
 		case R.id.edtTo:
 			showDialog(TO_DATE_DIALOG_ID);
 			break;
-
+		case R.id.btnSearch:
+			startActivity(new Intent().setClass(this, ReportActivity.class));
+			break;
 		default:
 			break;
 		}
-		
 	}
-	
 	
 	@Override
 	@Deprecated

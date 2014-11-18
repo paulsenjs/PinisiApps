@@ -2,11 +2,11 @@ package com.pinisielektra.apps;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -16,7 +16,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Legend;
 import com.github.mikephil.charting.utils.Legend.LegendPosition;
 
-public class PieChartActivity extends Activity {
+public class PieChartActivity extends ActionBarActivity {
 
 	private PieChart mChart;
 	
@@ -66,15 +66,29 @@ public class PieChartActivity extends Activity {
         l.setPosition(LegendPosition.RIGHT_OF_CHART);
         l.setXEntrySpace(7f);
         l.setYEntrySpace(5f);
+        
+        getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.pie_chart, menu);
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		boolean itemSelected = false;
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			itemSelected = true;
+			break;	
+		default:
+			break;
+		}
+		return itemSelected;
+	}
+	
 	private void setData(int count, float range) {
 
         float mult = range;

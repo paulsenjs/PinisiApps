@@ -43,7 +43,6 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.filtering, menu);
 		return true;
 	}
 

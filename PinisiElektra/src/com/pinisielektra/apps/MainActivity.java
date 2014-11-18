@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -101,28 +99,13 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 			}
 		}
 	}
-    
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
 	@Override
 	public void resultSuccess(int type, String result) {
-		Toast.makeText(this, "Welcome ...", Toast.LENGTH_SHORT).show();
 		try {
 			JSONObject jObj = new JSONObject(result);
 			if (jObj.optString("result").equalsIgnoreCase("1")) {
+				Toast.makeText(this, "Welcome ...", Toast.LENGTH_SHORT).show();
 				JSONArray jArray = jObj.getJSONArray("rows");
 				for (int i=0; i<jArray.length(); i++) {
 					JSONObject jObjArr = jArray.getJSONObject(i);

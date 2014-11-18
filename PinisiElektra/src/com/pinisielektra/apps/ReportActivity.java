@@ -1,5 +1,6 @@
 package com.pinisielektra.apps;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -56,11 +57,8 @@ public class ReportActivity extends ActionBarActivity {
 			public boolean onMenuItemClick(MenuItem item) {
 				
 				switch (item.getItemId()) {
-				case R.id.action_mypage:
-					itemSelected = true;
-					break;
-
-				case R.id.action_faq:
+				case R.id.action_pie_chart:
+					startActivity(new Intent().setClass(ReportActivity.this, PieChartActivity.class));
 					itemSelected = true;
 					break;
 

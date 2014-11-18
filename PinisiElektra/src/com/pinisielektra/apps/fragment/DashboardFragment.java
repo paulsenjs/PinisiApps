@@ -65,20 +65,11 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.img_sales_report:
-			Toast.makeText(getActivity(), "sales report", Toast.LENGTH_SHORT).show();
+		case R.id.img_best_selling_products:
+		case R.id.img_purchasing_report:
+		case R.id.img_inventory:
 			Intent intent = new Intent(getActivity(), FilteringActivity.class);
 			startActivity(intent);
-			break;
-		case R.id.img_best_selling_products:
-			Toast.makeText(getActivity(), "best sales", Toast.LENGTH_SHORT).show();
-			Intent intent2 = new Intent(getActivity(), PieChartActivity.class);
-			startActivity(intent2);
-			break;
-		case R.id.img_inventory:
-			Toast.makeText(getActivity(), "inventory", Toast.LENGTH_SHORT).show();
-			break;
-		case R.id.img_purchasing_report:
-			Toast.makeText(getActivity(), "purchasing", Toast.LENGTH_SHORT).show();
 			break;
 		case R.id.img_input_purchasing:
 			Toast.makeText(getActivity(), "input", Toast.LENGTH_SHORT).show();

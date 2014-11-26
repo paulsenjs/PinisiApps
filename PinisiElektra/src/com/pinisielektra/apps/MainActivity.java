@@ -33,6 +33,7 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 	private EditText edtUserName;
 	private EditText edtPassword;
 	private TextView txtLogin;
+	private TextView txtRegister;
 	private ProgressDialog mProgressDialog;
 	
     @Override
@@ -45,6 +46,7 @@ public class MainActivity extends Activity implements IHttpResponseListener {
         edtUserName = (EditText) findViewById(R.id.edtUserName);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
         txtLogin = (TextView) findViewById(R.id.text_login);
+        txtRegister = (TextView) findViewById(R.id.text_register);
         
         mProgressDialog = new ProgressDialog(this);
         
@@ -72,6 +74,14 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 			@Override
 			public void onClick(View v) {
 				runLoginChecker();
+			}
+		});
+		
+		txtRegister.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				startActivity(new Intent().setClass(MainActivity.this, RegisterActivity.class));
 			}
 		});
     }

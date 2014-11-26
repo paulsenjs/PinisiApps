@@ -13,18 +13,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pinisielektra.apps.DashboardActivitySecondDepth;
 import com.pinisielektra.apps.FilteringActivity;
+import com.pinisielektra.apps.InputActivity;
 import com.pinisielektra.apps.PieChartActivity;
 import com.pinisielektra.apps.R;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
 
 public class DashboardFragment extends Fragment implements OnClickListener, IHttpResponseListener{
 	
-	private ImageView btnSalesReport;
-	private ImageView btnBestSales;
-	private ImageView btnInventoryReport;
-	private ImageView btnPurchaseReport;
-	private ImageView btnInputPurchasing;
+	private ImageView btnPembelian;
+	private ImageView btnPenjualan;
+	private ImageView btnInventory;
+	private ImageView btnPelanggan;
+	private ImageView btnDistributor;
 	private TextView txtName;
 	
 	@Override
@@ -37,18 +39,18 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 		
-		btnSalesReport = (ImageView) view.findViewById(R.id.img_sales_report);
-		btnBestSales = (ImageView) view.findViewById(R.id.img_best_selling_products);
-		btnInventoryReport = (ImageView) view.findViewById(R.id.img_inventory);
-		btnPurchaseReport = (ImageView) view.findViewById(R.id.img_purchasing_report);
-		btnInputPurchasing = (ImageView) view.findViewById(R.id.img_input_purchasing);
+		btnPembelian = (ImageView) view.findViewById(R.id.imgPembelian);
+		btnPenjualan = (ImageView) view.findViewById(R.id.imgPenjualan);
+		btnInventory = (ImageView) view.findViewById(R.id.imgInventory);
+		btnPelanggan = (ImageView) view.findViewById(R.id.imgPelanggan);
+		btnDistributor = (ImageView) view.findViewById(R.id.imgDistributor);
 		txtName = (TextView) view.findViewById(R.id.txt_username);
 		
-		btnSalesReport.setOnClickListener(this);
-		btnBestSales.setOnClickListener(this);
-		btnInventoryReport.setOnClickListener(this);
-		btnPurchaseReport.setOnClickListener(this);
-		btnInputPurchasing.setOnClickListener(this);
+		btnPembelian.setOnClickListener(this);
+		btnPenjualan.setOnClickListener(this);
+		btnInventory.setOnClickListener(this);
+		btnPelanggan.setOnClickListener(this);
+		btnDistributor.setOnClickListener(this);
 		
 		txtName.setText("Hi " + getActivity().getIntent().getExtras().getString("uName"));
 		
@@ -64,15 +66,20 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.img_sales_report:
-		case R.id.img_best_selling_products:
-		case R.id.img_purchasing_report:
-		case R.id.img_inventory:
-			Intent intent = new Intent(getActivity(), FilteringActivity.class);
-			startActivity(intent);
+		case R.id.imgPembelian:
+			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_pembelian"));
 			break;
-		case R.id.img_input_purchasing:
-			Toast.makeText(getActivity(), "input", Toast.LENGTH_SHORT).show();
+		case R.id.imgPenjualan:
+			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_penjualan"));
+			break;
+		case R.id.imgInventory:
+			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_inventory"));
+			break;
+		case R.id.imgPelanggan:
+			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_pelanggan"));
+			break;
+		case R.id.imgDistributor:
+			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_distributor"));
 			break;
 		default:
 			break;

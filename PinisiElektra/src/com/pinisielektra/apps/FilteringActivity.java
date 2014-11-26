@@ -1,5 +1,8 @@
 package com.pinisielektra.apps;
 
+import com.pinisielektra.apps.connection.HttpConnectionTask;
+import com.pinisielektra.apps.utils.Constants;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
@@ -23,12 +26,14 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 	private static final int FROM_DATE_DIALOG_ID = 990;
 	private static final int TO_DATE_DIALOG_ID = 999;
 	private Button btnSearch;
+	private String menuIntent;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_filtering);
 		
+		menuIntent = getIntent().getExtras().getString("menu");
 		btnSearch = (Button) findViewById(R.id.btnSearch);
 		
 		edtFromDate = (EditText) findViewById(R.id.edtFrom);
@@ -71,7 +76,20 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 			showDialog(TO_DATE_DIALOG_ID);
 			break;
 		case R.id.btnSearch:
-			startActivity(new Intent().setClass(this, ReportActivity.class));
+			if (menuIntent != null) {
+				if (menuIntent.equalsIgnoreCase("menu_pembelian")){
+					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_pembelian"));
+				}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_penjualan"));
+				}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_pelanggan"));
+				}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_distributor"));
+				}else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_inventory"));
+				}
+			}
+
 			break;
 		default:
 			break;

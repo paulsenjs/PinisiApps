@@ -1,0 +1,294 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".InputActivity" >
+
+    <!-- Pembelian -->
+    <RelativeLayout
+        android:id="@+id/relativePembelian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/txtKodeBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtKodeBarangPembelian"
+            android:layout_alignBottom="@+id/edtKodeBarangPembelian"
+            android:layout_alignParentLeft="true"
+            android:text="Kode Barang" />
+
+        <EditText
+            android:id="@+id/edtKodeBarangPembelian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtSatuanPembelian"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:singleLine="true" >
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtSatuanPembelian"
+            android:layout_alignBottom="@+id/edtSatuanPembelian"
+            android:layout_alignParentLeft="true"
+            android:text="Satuan" />
+
+        <EditText
+            android:id="@+id/edtSatuanPembelian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtKodeBarangPembelian"
+            android:layout_toRightOf="@+id/textView2"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtKodeDistributorPembelian"
+            android:layout_alignBottom="@+id/edtKodeDistributorPembelian"
+            android:layout_alignParentLeft="true"
+            android:text="Kode Distributor" />
+
+        <EditText
+            android:id="@+id/edtKodeDistributorPembelian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtSatuanPembelian"
+            android:layout_toRightOf="@+id/textView2"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtTglTrxPembelian"
+            android:layout_alignBottom="@+id/edtTglTrxPembelian"
+            android:layout_alignParentLeft="true"
+            android:text="Tgl Transaksi" />
+
+        <EditText
+            android:id="@+id/edtTglTrxPembelian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtSatuanPembelian"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtKodeDistributorPembelian"
+            android:ems="10" />
+    </RelativeLayout>
+
+    <!-- Penjualan -->
+    <RelativeLayout
+        android:id="@+id/relativePenjualan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativePembelian"
+        android:layout_marginTop="14dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_world" />
+    </RelativeLayout>
+
+    <!-- Pelanggan -->
+    <RelativeLayout
+        android:id="@+id/relativePelanggan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativePenjualan"
+        android:layout_marginTop="14dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_world" />
+    </RelativeLayout>
+
+    <!-- Distributor -->
+    <RelativeLayout
+        android:id="@+id/relativeDistributor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativePelanggan"
+        android:layout_marginTop="14dp"
+        android:visibility="gone" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_world" />
+    </RelativeLayout>
+
+    <!-- Inventory -->
+    <RelativeLayout
+        android:id="@+id/relativeInventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeDistributor"
+        android:layout_marginTop="14dp"
+        android:visibility="visible" >
+
+        <TextView
+            android:id="@+id/txtKodeBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtKodeBarangInventory"
+            android:layout_alignBottom="@+id/edtKodeBarangInventory"
+            android:layout_alignParentLeft="true"
+            android:text="Kode Barang" />
+
+        <EditText
+            android:id="@+id/edtKodeBarangInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtSatuanInventory"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:singleLine="true" >
+        </EditText>
+
+        
+       	<TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtNamaBarangInventory"
+            android:layout_alignBottom="@+id/edtNamaBarangInventory"
+            android:layout_alignParentLeft="true"
+            android:text="Nama Barang" />
+
+        <EditText
+            android:id="@+id/edtNamaBarangInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtKodeBarangInventory"
+            android:ems="10" />
+        
+        
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtKategoriIdInventory"
+            android:layout_alignBottom="@+id/edtKategoriIdInventory"
+            android:layout_alignParentLeft="true"
+            android:text="Kategori Id" />
+
+        <EditText
+            android:id="@+id/edtKategoriIdInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtNamaBarangInventory"
+            android:ems="10" />
+        
+        
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtSatuanInventory"
+            android:layout_alignBottom="@+id/edtSatuanInventory"
+            android:layout_alignParentLeft="true"
+            android:text="Satuan" />
+
+        <EditText
+            android:id="@+id/edtSatuanInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtKategoriIdInventory"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtHargaJualInventory"
+            android:layout_alignBottom="@+id/edtHargaJualInventory"
+            android:layout_alignParentLeft="true"
+            android:text="Harga Jual" />
+
+        <EditText
+            android:id="@+id/edtHargaJualInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtSatuanInventory"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtSatuanInventory"
+            android:ems="10" />
+        
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtHargaBeliInventory"
+            android:layout_alignBottom="@+id/edtHargaBeliInventory"
+            android:layout_alignParentLeft="true"
+            android:text="Harga Beli" />
+
+        <EditText
+            android:id="@+id/edtHargaBeliInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtSatuanInventory"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtHargaJualInventory"
+            android:ems="10" />
+        
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtExpDateInventory"
+            android:layout_alignBottom="@+id/edtExpDateInventory"
+            android:layout_alignParentLeft="true"
+            android:text="Expired Date" />
+
+        <EditText
+            android:id="@+id/edtExpDateInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtSatuanInventory"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtHargaBeliInventory"
+            android:ems="10" />
+        
+    </RelativeLayout>
+
+    <!-- Button -->
+    <RelativeLayout
+        android:id="@+id/relativeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeInventory"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:visibility="visible" >
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="add"
+            android:onClick="actionSendData" />
+    </RelativeLayout>
+
+</RelativeLayout>

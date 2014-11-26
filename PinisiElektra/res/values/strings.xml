@@ -20,5 +20,9 @@
     <string name="title_activity_pie_chart">PieChartActivity</string>
     <string name="title_activity_filtering">FilteringActivity</string>
     <string name="title_activity_report">ReportActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="user_name">User Name</string>
+    <string name="title_activity_dashboard_activity_second_depth">DashboardActivitySecondDepth</string>
+    <string name="title_activity_input">InputActivity</string>
 
 </resources>

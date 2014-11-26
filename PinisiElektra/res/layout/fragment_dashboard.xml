@@ -45,7 +45,7 @@
                         android:orientation="vertical" >
 
                         <ImageView
-                            android:id="@+id/img_sales_report"
+                            android:id="@+id/imgPenjualan"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:src="@drawable/img_sales_report" />
@@ -55,7 +55,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:text="Laporan Penjualan"
+                            android:text="Penjualan"
                             android:textColor="#484848" />
                     </LinearLayout>
 
@@ -67,7 +67,7 @@
                         android:orientation="vertical" >
 
                         <ImageView
-                            android:id="@+id/img_best_selling_products"
+                            android:id="@+id/imgPembelian"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:src="@drawable/img_best_sales" />
@@ -77,7 +77,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:text="Product Terbaik"
+                            android:text="Pembelian"
                             android:textColor="#484848" />
                     </LinearLayout>
                 </LinearLayout>
@@ -96,7 +96,7 @@
                         android:orientation="vertical" >
 
                         <ImageView
-                            android:id="@+id/img_inventory"
+                            android:id="@+id/imgInventory"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:src="@drawable/img_inventory" />
@@ -118,7 +118,7 @@
                         android:orientation="vertical" >
 
                         <ImageView
-                            android:id="@+id/img_purchasing_report"
+                            android:id="@+id/imgPelanggan"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:src="@drawable/img_purchasing_report" />
@@ -128,7 +128,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:text="Laporan Pembelian"
+                            android:text="Pelanggan"
                             android:textColor="#484848" />
                     </LinearLayout>
                 </LinearLayout>
@@ -147,7 +147,7 @@
                         android:orientation="vertical" >
 
                         <ImageView
-                            android:id="@+id/img_input_purchasing"
+                            android:id="@+id/imgDistributor"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:src="@drawable/img_input_purchasing" />
@@ -157,7 +157,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
-                            android:text="Input Pembelian"
+                            android:text="Distributor"
                             android:textColor="#484848" />
                     </LinearLayout>
 
@@ -168,7 +168,7 @@
                         android:gravity="center_horizontal"
                         android:orientation="vertical" >
                         
-                        <ImageView
+<!--                         <ImageView
                             android:id="@+id/img_input_sales"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
@@ -180,7 +180,7 @@
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="Input Penjualan"
-                            android:textColor="#484848" />
+                            android:textColor="#484848" /> -->
                         
                     </LinearLayout>
                 </LinearLayout>

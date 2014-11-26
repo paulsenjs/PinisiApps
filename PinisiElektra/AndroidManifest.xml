@@ -46,6 +46,18 @@
             android:label="@string/title_activity_report"
             android:theme="@style/Theme.AppCompat.Light" >
         </activity>
+        <activity
+            android:name="com.pinisielektra.apps.RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="com.pinisielektra.apps.DashboardActivitySecondDepth"
+            android:label="@string/title_activity_dashboard_activity_second_depth" >
+        </activity>
+        <activity
+            android:name="com.pinisielektra.apps.InputActivity"
+            android:label="@string/title_activity_input" >
+        </activity>
     </application>
 
 </manifest>

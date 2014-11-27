@@ -9,8 +9,47 @@
     tools:context=".ReportActivity" >
 
     <TableLayout
+        android:id="@+id/tableRowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <!-- <TextView
+            android:id="@+id/TextView04"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/rounshape"
+            android:text="Nama Barang" />
+
+        <TextView
+            android:id="@+id/TextView04"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/rounshape"
+            android:text="Satuan" />
+
+        <TextView
+            android:id="@+id/TextView04"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/rounshape"
+            android:text="Harga Beli" />
+        
+        <TextView
+            android:id="@+id/TextView05"
+            android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/rounshape"
+            android:text="Harga Jual" /> -->
+    </TableLayout>
+
+    <TableLayout
         android:id="@+id/tableData"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tableRowLayout" />
 
 </RelativeLayout>

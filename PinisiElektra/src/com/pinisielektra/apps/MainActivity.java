@@ -73,7 +73,12 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 
 			@Override
 			public void onClick(View v) {
-				runLoginChecker();
+				 if (edtUserName.getText().toString().contains(" ")) {
+					 edtUserName.setError("No Spaces Allowed");
+				     Toast.makeText(MainActivity.this, "No Spaces Allowed", 5000).show();
+				 }else{
+					 runLoginChecker();					 
+				 }
 			}
 		});
 		

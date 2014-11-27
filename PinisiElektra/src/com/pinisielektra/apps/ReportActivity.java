@@ -62,6 +62,27 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 	private void initTableData(int arrSize){
 		tableData.setStretchAllColumns(true);
 		tableData.bringToFront();
+
+		TableRow mainTR = new TableRow(this);
+		TextView head1 = new TextView(this);
+		head1.setText("Nama Barang");
+		
+		TextView head2 = new TextView(this);
+		head2.setText("Satuan");
+		
+		TextView head3 = new TextView(this);
+		head3.setText("Harga Beli");
+		
+		TextView head4 = new TextView(this);
+		head4.setText("Harga Jual");
+		
+		mainTR.addView(head1);
+		mainTR.addView(head2);
+		mainTR.addView(head3);
+		mainTR.addView(head4);
+		
+		tableData.addView(mainTR);
+		
 	    for(int i = 0; i < arrSize; i++){
 	        TableRow tr =  new TableRow(this);
 	        TextView c1 = new TextView(this);

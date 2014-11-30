@@ -9,6 +9,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
@@ -20,7 +21,7 @@ import com.pinisielektra.apps.connection.HttpConnectionTask;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
 import com.pinisielektra.apps.utils.Constants;
 
-public class InputActivity extends Activity implements IHttpResponseListener{
+public class EditInputActivity extends Activity implements IHttpResponseListener{
 
 	//pembelian
 	private EditText edtKodeBarangPembelian;
@@ -39,7 +40,7 @@ public class InputActivity extends Activity implements IHttpResponseListener{
 	private ProgressDialog mProgressDialog;
 	private Hashtable<String, String> hashPost;
 	private String currentDate;
-	private String menuIntent;
+	private String[] menuIntent;
 	
 	private RelativeLayout relativePembelian;
 	private RelativeLayout relativePenjualan;
@@ -58,8 +59,8 @@ public class InputActivity extends Activity implements IHttpResponseListener{
 		setContentView(R.layout.activity_input);
 		
 		mProgressDialog = new ProgressDialog(this);
-		currentDate = (String) android.text.format.DateFormat.format("yyyy-MM-dd hh:mm:ss", new java.util.Date());
-		menuIntent = getIntent().getExtras().getString("menu");
+		currentDate = DateFormat.getDateTimeInstance().format(new Date());
+		menuIntent = getIntent().getExtras().getStringArray("edit");
 		
 		relativePembelian = (RelativeLayout)findViewById(R.id.relativePembelian);
 		relativePenjualan = (RelativeLayout)findViewById(R.id.relativePenjualan);
@@ -67,44 +68,9 @@ public class InputActivity extends Activity implements IHttpResponseListener{
 		relativeDistributor = (RelativeLayout)findViewById(R.id.relativeDistributor);
 		relativeInventory = (RelativeLayout)findViewById(R.id.relativeInventory);
 		
-		if (menuIntent != null) {
-			if (menuIntent.equalsIgnoreCase("menu_pembelian")){
-				relativePembelian.setVisibility(View.VISIBLE);
-				relativePenjualan.setVisibility(View.GONE);
-				relativePelanggan.setVisibility(View.GONE);
-				relativeDistributor.setVisibility(View.GONE);
-				relativeInventory.setVisibility(View.GONE);
-			}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
-				relativePembelian.setVisibility(View.GONE);
-				relativePenjualan.setVisibility(View.VISIBLE);
-				relativePelanggan.setVisibility(View.GONE);
-				relativeDistributor.setVisibility(View.GONE);
-				relativeInventory.setVisibility(View.GONE);
-			}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
-				relativePembelian.setVisibility(View.GONE);
-				relativePenjualan.setVisibility(View.GONE);
-				relativePelanggan.setVisibility(View.VISIBLE);
-				relativeDistributor.setVisibility(View.GONE);
-				relativeInventory.setVisibility(View.GONE);
-			}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
-				relativePembelian.setVisibility(View.GONE);
-				relativePenjualan.setVisibility(View.GONE);
-				relativePelanggan.setVisibility(View.GONE);
-				relativeDistributor.setVisibility(View.VISIBLE);
-				relativeInventory.setVisibility(View.GONE);
-			}else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
-				relativePembelian.setVisibility(View.GONE);
-				relativePenjualan.setVisibility(View.GONE);
-				relativePelanggan.setVisibility(View.GONE);
-				relativeDistributor.setVisibility(View.GONE);
-				relativeInventory.setVisibility(View.VISIBLE);
-			}
-		}
-		
 		edtKodeBarangPembelian = (EditText) findViewById(R.id.edtKodeBarangPembelian);
 		edtSatuanPembelian = (EditText) findViewById(R.id.edtSatuanPembelian);
 		edtKodeDistributor = (EditText) findViewById(R.id.edtKodeDistributorPembelian);
-
 		edtKodeBarangInventory = (EditText) findViewById(R.id.edtKodeBarangInventory); 
 		edtNamaBarangInventory = (EditText) findViewById(R.id.edtNamaBarangInventory);
 		edtKategoryIdInventory = (EditText) findViewById(R.id.edtKategoriIdInventory);
@@ -118,45 +84,97 @@ public class InputActivity extends Activity implements IHttpResponseListener{
 				showDialog(EXP_DATE_DIALOG_ID);
 			}
 		});
+		
+		if (menuIntent != null) {
+			if (menuIntent[0].equalsIgnoreCase("edit_pembelian")){
+				relativePembelian.setVisibility(View.VISIBLE);
+				relativePenjualan.setVisibility(View.GONE);
+				relativePelanggan.setVisibility(View.GONE);
+				relativeDistributor.setVisibility(View.GONE);
+				relativeInventory.setVisibility(View.GONE);
+				showPembelianCurrentData(menuIntent);
+			}else if (menuIntent[0].equalsIgnoreCase("edit_penjualan")) {
+				relativePembelian.setVisibility(View.GONE);
+				relativePenjualan.setVisibility(View.VISIBLE);
+				relativePelanggan.setVisibility(View.GONE);
+				relativeDistributor.setVisibility(View.GONE);
+				relativeInventory.setVisibility(View.GONE);
+			}else if (menuIntent[0].equalsIgnoreCase("edit_pelanggan")) {
+				relativePembelian.setVisibility(View.GONE);
+				relativePenjualan.setVisibility(View.GONE);
+				relativePelanggan.setVisibility(View.VISIBLE);
+				relativeDistributor.setVisibility(View.GONE);
+				relativeInventory.setVisibility(View.GONE);
+			}else if (menuIntent[0].equalsIgnoreCase("edit_distributor")) {
+				relativePembelian.setVisibility(View.GONE);
+				relativePenjualan.setVisibility(View.GONE);
+				relativePelanggan.setVisibility(View.GONE);
+				relativeDistributor.setVisibility(View.VISIBLE);
+				relativeInventory.setVisibility(View.GONE);
+			}else if (menuIntent[0].equalsIgnoreCase("edit_inventory")) {
+				relativePembelian.setVisibility(View.GONE);
+				relativePenjualan.setVisibility(View.GONE);
+				relativePelanggan.setVisibility(View.GONE);
+				relativeDistributor.setVisibility(View.GONE);
+				relativeInventory.setVisibility(View.VISIBLE);
+				showIventoryCurrentData(menuIntent);
+			}
+		}
 	}
 
+	private void showIventoryCurrentData(String[] data) {
+		edtKodeBarangInventory.setText(data[1]);
+		edtNamaBarangInventory.setText(data[2]);
+		edtKategoryIdInventory.setText(data[3]);
+		edtSatuanInventory.setText(data[4]);
+		edtHargaJualInventory.setText(data[5]);
+		edtHargaBeliInventory.setText(data[6]);
+		edtExpDateInventory.setText(data[7]);
+	}
+	
+	private void showPembelianCurrentData(String[] data) {
+		edtKodeBarangPembelian.setText(data[1]);
+		edtSatuanPembelian.setText(data[2]);
+		edtKodeDistributor.setText(data[3]);
+	}
+	
 	public void actionSendData(View v) {
 		mProgressDialog.show();
 		
-		if (menuIntent.equalsIgnoreCase("menu_pembelian")){
+		if (menuIntent[0].equalsIgnoreCase("edit_pembelian")){
 			hashPost = new Hashtable<String, String>();
-			hashPost.put("cmd", "add");
+			hashPost.put("cmd", "edit");
 			hashPost.put("kodebarang", edtKodeBarangPembelian.getText().toString());
 			hashPost.put("satuan", edtSatuanPembelian.getText().toString());
 			hashPost.put("kodedistributor", edtKodeDistributor.getText().toString());
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_PEMBELIAN);
-		}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+		}else if (menuIntent[0].equalsIgnoreCase("edit_penjualan")) {
 			hashPost = new Hashtable<String, String>();
-			hashPost.put("cmd", "add");
+			hashPost.put("cmd", "edit");
 //			hashPost.put("kodebarang", edtKodeBarangPembelian.getText().toString());
 //			hashPost.put("satuan", edtSatuanPembelian.getText().toString());
 //			hashPost.put("kodedistributor", edtKodeDistributor.getText().toString());
 //			hashPost.put("tgl_transaksi", currentDate);
 //			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_ADD_PEMBELIAN);
-		}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+		}else if (menuIntent[0].equalsIgnoreCase("edit_pelanggan")) {
 			hashPost = new Hashtable<String, String>();
-			hashPost.put("cmd", "add");
+			hashPost.put("cmd", "edit");
 //			hashPost.put("kodebarang", edtKodeBarangPembelian.getText().toString());
 //			hashPost.put("satuan", edtSatuanPembelian.getText().toString());
 //			hashPost.put("kodedistributor", edtKodeDistributor.getText().toString());
 //			hashPost.put("tgl_transaksi", currentDate);
 //			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_ADD_PEMBELIAN);
-		}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+		}else if (menuIntent[0].equalsIgnoreCase("edit_distributor")) {
 			hashPost = new Hashtable<String, String>();
-			hashPost.put("cmd", "add");
+			hashPost.put("cmd", "edit");
 //			hashPost.put("kodebarang", edtKodeBarangPembelian.getText().toString());
 //			hashPost.put("satuan", edtSatuanPembelian.getText().toString());
 //			hashPost.put("kodedistributor", edtKodeDistributor.getText().toString());
 //			hashPost.put("tgl_transaksi", currentDate);
 //			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_ADD_PEMBELIAN);
-		}else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+		}else if (menuIntent[0].equalsIgnoreCase("edit_inventory")) {
 			hashPost = new Hashtable<String, String>();
-			hashPost.put("cmd", "add");
+			hashPost.put("cmd", "edit");
 			hashPost.put("kodebarang", edtKodeBarangInventory.getText().toString());
 			hashPost.put("namabarang", edtNamaBarangInventory.getText().toString());
 			hashPost.put("categoryid", edtKategoryIdInventory.getText().toString());

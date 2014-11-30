@@ -58,6 +58,10 @@
             android:name="com.pinisielektra.apps.InputActivity"
             android:label="@string/title_activity_input" >
         </activity>
+        <activity
+            android:name="com.pinisielektra.apps.EditInputActivity"
+            android:label="@string/title_activity_input" >
+        </activity>
     </application>
 
 </manifest>

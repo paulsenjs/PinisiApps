@@ -5,51 +5,112 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".ReportActivity" >
 
-    <TableLayout
-        android:id="@+id/tableRowLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <!-- <TextView
-            android:id="@+id/TextView04"
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/rounshape"
-            android:text="Nama Barang" />
-
-        <TextView
-            android:id="@+id/TextView04"
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/rounshape"
-            android:text="Satuan" />
-
-        <TextView
-            android:id="@+id/TextView04"
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/rounshape"
-            android:text="Harga Beli" />
-        
-        <TextView
-            android:id="@+id/TextView05"
-            android:layout_width="wrap_content"
-        	android:layout_height="wrap_content"
-            android:gravity="center"
-            android:background="@drawable/rounshape"
-            android:text="Harga Jual" /> -->
-    </TableLayout>
-
-    <TableLayout
+    <!--
+         <TableLayout
         android:id="@+id/tableData"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    -->
+
+
+    <!-- Third header line and column headings -->
+
+    <LinearLayout
+        android:id="@+id/linearPembelianHeader"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tableRowLayout" />
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/column_header1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Kode Barang"
+            android:gravity="center_horizontal"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/column_header2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Satuan"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/column_header3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Distributor"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/column_header4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Tgl Transaksi"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearInventoryHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearPembelianHeader"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/column_header1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nama"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/column_header2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Satuan"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/column_header3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Harga Beli"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/column_header4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Harga Jual"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lstListData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearInventoryHeader" >
+    </ListView>
 
 </RelativeLayout>

@@ -14,8 +14,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:visibility="gone" >
+        android:visibility="visible" >
+        
+        <TextView
+            android:id="@+id/txtIdPembelian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtIdTransPembelian"
+            android:layout_alignBottom="@+id/edtIdTransPembelian"
+            android:layout_alignParentLeft="true"
+            android:text="Id Transaksi" />
 
+        <EditText
+            android:id="@+id/edtIdTransPembelian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtSatuanPembelian"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:singleLine="true" >
+        </EditText>
+        
         <TextView
             android:id="@+id/txtKodeBarang"
             android:layout_width="wrap_content"
@@ -30,6 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edtSatuanPembelian"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_below="@+id/edtIdTransPembelian"
             android:layout_alignParentRight="true"
             android:ems="10"
             android:singleLine="true" >
@@ -142,7 +163,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeDistributor"
         android:layout_marginTop="14dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/txtKodeBarang"

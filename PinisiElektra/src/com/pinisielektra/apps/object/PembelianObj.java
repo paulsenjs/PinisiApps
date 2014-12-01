@@ -1,6 +1,9 @@
 package com.pinisielektra.apps.object;
 
-public class PembelianObj {
+import java.io.Serializable;
+
+public class PembelianObj implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String idTrans;
 	private String kodeBarang;
 	private String tglTransaksi;

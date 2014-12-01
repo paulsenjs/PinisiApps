@@ -1,5 +1,8 @@
 package com.pinisielektra.apps.object;
 
-public class PelangganObj {
+import java.io.Serializable;
+
+public class PelangganObj implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 }

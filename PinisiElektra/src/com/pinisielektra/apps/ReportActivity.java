@@ -16,7 +16,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -37,7 +36,8 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 
 	private String menuIntent;
 	private String passMenuIntent;
-
+	private String totalSatuan;
+	
 	private LinearLayout linearHeaderPembelian;
 	private LinearLayout linearHeaderInventory;
 	
@@ -45,11 +45,11 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 	private ListView lstDataReport;
 	private ReportAdapter reportAdapter;
 
+	private PembelianObj pembelianObj;
 	private InventoryObj inventoryObj;
+
 	private ArrayList<Object> arrObj;
 
-	private PembelianObj pembelianObj;
-	
 	private Hashtable<String, String> hashPost;
 
 	private static final int ID_PENJUALAN = 1;
@@ -130,7 +130,24 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 
 				switch (item.getItemId()) {
 				case R.id.action_pie_chart:
-					startActivity(new Intent().setClass(ReportActivity.this, PieChartActivity.class));
+					Intent intent = new Intent(ReportActivity.this, PieChartActivity.class);					
+					
+					if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
+						intent.putExtra("id_menu", ID_PEMBELIAN);
+					} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+						intent.putExtra("id_menu", ID_PENJUALAN);
+					} else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+						intent.putExtra("id_menu", ID_PELANGGAN);
+					} else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+						intent.putExtra("id_menu", ID_DISTRIBUTOR);
+					} else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+						intent.putExtra("id_menu", ID_INVENTORY);
+					}
+					
+					intent.putExtra("pie_chart_data", getArrObj());
+					intent.putExtra("total_satuan", getTotalSatuan());
+					startActivity(intent);
+					
 					itemSelected = true;
 					break;
 
@@ -160,10 +177,15 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject jObjArr = jArray.getJSONObject(i);
 				pembelianObj = new PembelianObj();
+				pembelianObj.setIdTrans(jObjArr.optString(OBJ_ID_TRANS));
 				pembelianObj.setKodeBarang(jObjArr.optString(OBJ_KODE_BARANG));
+				pembelianObj.setTglTransaksi(jObjArr.optString(OBJ_TGL_TRANS));
 				pembelianObj.setSatuan(jObjArr.optString(OBJ_SATUAN_BARANG));
 				pembelianObj.setKodeDistributor(jObjArr.optString(OBJ_KODE_DISTRIBUTOR));
-				pembelianObj.setTglTransaksi(jObjArr.optString(OBJ_TGL_TRANS));
+				pembelianObj.setCreator(jObjArr.optString(OBJ_CREATOR));
+				pembelianObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
+				pembelianObj.setEditor(jObjArr.optString(OBJ_EDITOR));
+				pembelianObj.setDateEdited(jObjArr.optString(OBJ_DATE_EDITED));
 				
 				arrObj.add(pembelianObj);
 			}
@@ -171,6 +193,7 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 			e.printStackTrace();
 		}
 		
+		setArrObj(arrObj);
 		reportAdapter = new ReportAdapter(ID_PEMBELIAN, this, arrObj);
 		lstDataReport.setAdapter(reportAdapter);
 		lstDataReport.setOnItemClickListener(this);
@@ -200,6 +223,7 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 			e.printStackTrace();
 		}
 		
+		setArrObj(arrObj);
 		reportAdapter = new ReportAdapter(ID_INVENTORY, this, arrObj);
 		lstDataReport.setAdapter(reportAdapter);
 		lstDataReport.setOnItemClickListener(this);
@@ -212,7 +236,8 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 			if (jObj.optString("result").equalsIgnoreCase("1")) {
 				if (type == 0) {
 					JSONArray jArray = jObj.getJSONArray("rows");
-
+					setTotalSatuan(jObj.optString(OBJ_TOTAL_SATUAN));
+					
 					if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
 						processPembelianResult(jArray);
 					} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
@@ -262,7 +287,8 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 						strPassingData = new String[]{"edit_pembelian",
 								((PembelianObj) arrObj.get(position)).getKodeBarang(),
 								((PembelianObj) arrObj.get(position)).getSatuan(),
-								((PembelianObj) arrObj.get(position)).getKodeDistributor()};
+								((PembelianObj) arrObj.get(position)).getKodeDistributor(),
+								((PembelianObj) arrObj.get(position)).getIdTrans()};
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_penjualan")) {
 
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_pelanggan")) {
@@ -286,6 +312,7 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 						hashPost = new Hashtable<String, String>();
 						hashPost.put("cmd", "del");
 						hashPost.put(OBJ_ID_TRANS, ((PembelianObj) arrObj.get(position)).getIdTrans());
+						new HttpConnectionTask(hashPost, ReportActivity.this, 1).execute(Constants.API_POST_PEMBELIAN);
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_penjualan")) {
 
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_pelanggan")) {
@@ -296,8 +323,8 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 						hashPost = new Hashtable<String, String>();
 						hashPost.put("cmd", "del");
 						hashPost.put(OBJ_KODE_BARANG, ((InventoryObj) arrObj.get(position)).getKodeBarang());
+						new HttpConnectionTask(hashPost, ReportActivity.this, 1).execute(Constants.API_POST_INVENTORY);
 					}
-					new HttpConnectionTask(hashPost, ReportActivity.this, 1).execute(Constants.API_POST_INVENTORY);
 					break;
 				default:
 					break;
@@ -323,5 +350,21 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 	@Override
 	public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
 		showChoicePopUp(pos);
+	}
+	
+	private String getTotalSatuan() {
+		return totalSatuan;
+	}
+
+	private void setTotalSatuan(String totalSatuan) {
+		this.totalSatuan = totalSatuan;
+	}
+	
+	private ArrayList<Object> getArrObj() {
+		return arrObj;
+	}
+
+	private void setArrObj(ArrayList<Object> arrObj) {
+		this.arrObj = arrObj;
 	}
 }

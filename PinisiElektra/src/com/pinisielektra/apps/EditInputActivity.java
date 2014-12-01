@@ -1,7 +1,5 @@
 package com.pinisielektra.apps;
 
-import java.text.DateFormat;
-import java.util.Date;
 import java.util.Hashtable;
 
 import android.app.Activity;
@@ -9,7 +7,6 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.DatePicker;
@@ -20,13 +17,15 @@ import android.widget.Toast;
 import com.pinisielektra.apps.connection.HttpConnectionTask;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
 import com.pinisielektra.apps.utils.Constants;
+import com.pinisielektra.apps.utils.JsonObjConstant;
 
-public class EditInputActivity extends Activity implements IHttpResponseListener{
+public class EditInputActivity extends Activity implements IHttpResponseListener, JsonObjConstant{
 
 	//pembelian
 	private EditText edtKodeBarangPembelian;
 	private EditText edtSatuanPembelian;
 	private EditText edtKodeDistributor;
+	private EditText edtIdTransaksi;
 	
 	//inventory
 	private EditText edtKodeBarangInventory;
@@ -39,7 +38,6 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 	
 	private ProgressDialog mProgressDialog;
 	private Hashtable<String, String> hashPost;
-	private String currentDate;
 	private String[] menuIntent;
 	
 	private RelativeLayout relativePembelian;
@@ -59,7 +57,6 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 		setContentView(R.layout.activity_input);
 		
 		mProgressDialog = new ProgressDialog(this);
-		currentDate = DateFormat.getDateTimeInstance().format(new Date());
 		menuIntent = getIntent().getExtras().getStringArray("edit");
 		
 		relativePembelian = (RelativeLayout)findViewById(R.id.relativePembelian);
@@ -68,6 +65,7 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 		relativeDistributor = (RelativeLayout)findViewById(R.id.relativeDistributor);
 		relativeInventory = (RelativeLayout)findViewById(R.id.relativeInventory);
 		
+		edtIdTransaksi = (EditText) findViewById(R.id.edtIdTransPembelian);
 		edtKodeBarangPembelian = (EditText) findViewById(R.id.edtKodeBarangPembelian);
 		edtSatuanPembelian = (EditText) findViewById(R.id.edtSatuanPembelian);
 		edtKodeDistributor = (EditText) findViewById(R.id.edtKodeDistributorPembelian);
@@ -136,6 +134,7 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 		edtKodeBarangPembelian.setText(data[1]);
 		edtSatuanPembelian.setText(data[2]);
 		edtKodeDistributor.setText(data[3]);
+		edtIdTransaksi.setText(data[4]);
 	}
 	
 	public void actionSendData(View v) {
@@ -144,9 +143,10 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 		if (menuIntent[0].equalsIgnoreCase("edit_pembelian")){
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "edit");
-			hashPost.put("kodebarang", edtKodeBarangPembelian.getText().toString());
-			hashPost.put("satuan", edtSatuanPembelian.getText().toString());
-			hashPost.put("kodedistributor", edtKodeDistributor.getText().toString());
+			hashPost.put(OBJ_ID_TRANS, edtIdTransaksi.getText().toString());
+			hashPost.put(OBJ_KODE_BARANG, edtKodeBarangPembelian.getText().toString());
+			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPembelian.getText().toString());
+			hashPost.put(OBJ_KODE_DISTRIBUTOR, edtKodeDistributor.getText().toString());
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_PEMBELIAN);
 		}else if (menuIntent[0].equalsIgnoreCase("edit_penjualan")) {
 			hashPost = new Hashtable<String, String>();
@@ -175,13 +175,13 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 		}else if (menuIntent[0].equalsIgnoreCase("edit_inventory")) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "edit");
-			hashPost.put("kodebarang", edtKodeBarangInventory.getText().toString());
-			hashPost.put("namabarang", edtNamaBarangInventory.getText().toString());
-			hashPost.put("categoryid", edtKategoryIdInventory.getText().toString());
-			hashPost.put("satuan", edtSatuanInventory.getText().toString());
-			hashPost.put("harga_jual", edtHargaJualInventory.getText().toString());
-			hashPost.put("harga_beli", edtHargaBeliInventory.getText().toString());
-			hashPost.put("exp_date", edtExpDateInventory.getText().toString());
+			hashPost.put(OBJ_KODE_BARANG, edtKodeBarangInventory.getText().toString());
+			hashPost.put(OBJ_NAMA_BARANG, edtNamaBarangInventory.getText().toString());
+			hashPost.put(OBJ_CATEGORY_ID, edtKategoryIdInventory.getText().toString());
+			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanInventory.getText().toString());
+			hashPost.put(OBJ_HARGA_JUAL, edtHargaJualInventory.getText().toString());
+			hashPost.put(OBJ_HARGA_BELI, edtHargaBeliInventory.getText().toString());
+			hashPost.put(OBJ_EXP_DATE, edtExpDateInventory.getText().toString());
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_INVENTORY);
 		}
 	}

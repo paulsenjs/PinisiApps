@@ -15,4 +15,5 @@ public interface JsonObjConstant {
 	public static final String OBJ_ID_TRANS = "idtrans";
 	public static final String OBJ_TGL_TRANS = "tgl_transaksi";
 	public static final String OBJ_KODE_DISTRIBUTOR = "kodedistributor";
+	public static final String OBJ_TOTAL_SATUAN = "total_satuan";
 }

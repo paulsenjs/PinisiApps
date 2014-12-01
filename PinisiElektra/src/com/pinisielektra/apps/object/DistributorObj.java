@@ -1,5 +1,8 @@
 package com.pinisielektra.apps.object;
 
-public class DistributorObj {
+import java.io.Serializable;
+
+public class DistributorObj implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 }

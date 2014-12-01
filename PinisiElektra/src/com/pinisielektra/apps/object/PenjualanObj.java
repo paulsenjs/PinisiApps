@@ -1,5 +1,8 @@
 package com.pinisielektra.apps.object;
 
-public class PenjualanObj extends Object {
+import java.io.Serializable;
+
+public class PenjualanObj implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 }

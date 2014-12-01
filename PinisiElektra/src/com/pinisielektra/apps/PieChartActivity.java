@@ -15,26 +15,27 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Legend;
 import com.github.mikephil.charting.utils.Legend.LegendPosition;
+import com.pinisielektra.apps.object.InventoryObj;
+import com.pinisielektra.apps.object.PembelianObj;
 
 public class PieChartActivity extends ActionBarActivity {
 
 	private PieChart mChart;
-	
-	private String[] mMonths = new String[] {
-            "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"
-    };
-
-    private String[] mParties = new String[] {
-            "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
-            "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
-            "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
-            "Party Y", "Party Z"
-    };
-	
+	private ArrayList<Object> mIntentItemId;
+	private String mIntentTotal;
+	private int mIntentMenuId;
+    private ArrayList<String> arrItemName;
+    private ArrayList<String> arrItemSatuan;
+    
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pie_chart);
+		
+		mIntentItemId = (ArrayList<Object>) getIntent().getExtras().getSerializable("pie_chart_data");
+		mIntentTotal = getIntent().getExtras().getString("total_satuan");
+		mIntentMenuId = getIntent().getExtras().getInt("id_menu");
 		
 		mChart = (PieChart) findViewById(R.id.chart1);
 		// change the color of the center-hole
@@ -57,7 +58,37 @@ public class PieChartActivity extends ActionBarActivity {
         //mChart.setOnChartValueSelectedListener(this);
         // mChart.setTouchEnabled(false);
 
-        setData(5, 100);
+        arrItemName = new ArrayList<String>();
+        arrItemSatuan = new ArrayList<String>();
+        
+        for (int i=0; i<mIntentItemId.size(); i++) {
+        	switch (mIntentMenuId) {
+			case 1:
+//	        	arrItemName.add(((PenjualanObj)mIntentItemId.get(i)).getKodeBarang());
+//	        	arrItemSatuan.add(((PenjualanObj)mIntentItemId.get(i)).getSatuan());				
+				break;
+			case 2:
+	        	arrItemName.add(((PembelianObj)mIntentItemId.get(i)).getKodeBarang());
+	        	arrItemSatuan.add(((PembelianObj)mIntentItemId.get(i)).getSatuan());
+				break;
+			case 3:
+	        	arrItemName.add(((InventoryObj)mIntentItemId.get(i)).getNamaBarang());
+	        	arrItemSatuan.add(((InventoryObj)mIntentItemId.get(i)).getSatuan());
+				break;
+			case 4:
+//	        	arrItemName.add(((PelangganObj)mIntentItemId.get(i)).getKodeBarang());
+//	        	arrItemSatuan.add(((PelangganObj)mIntentItemId.get(i)).getSatuan());
+				break;
+			case 5:
+//	        	arrItemName.add(((DistributorObj)mIntentItemId.get(i)).getKodeBarang());
+//	        	arrItemSatuan.add(((DistributorObj)mIntentItemId.get(i)).getSatuan());
+				break;
+			default:
+				break;
+			}
+        }
+        
+        setData(mIntentItemId.size(), Integer.valueOf(mIntentTotal));
 
         mChart.animateXY(1500, 1500);
         mChart.spin(2000, 0, 360);
@@ -91,22 +122,16 @@ public class PieChartActivity extends ActionBarActivity {
 	
 	private void setData(int count, float range) {
 
-        float mult = range;
-
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-        
-        yVals1.add(0, new Entry(25, 0));
-        yVals1.add(1, new Entry(30, 0));
-        yVals1.add(2, new Entry(25, 0));
-        yVals1.add(3, new Entry(20, 0));
-        
+        for (int j=0; j<arrItemSatuan.size(); j++) {
+        	yVals1.add(j, new Entry(Float.parseFloat(arrItemSatuan.get(j)), 0));
+        }
         
         ArrayList<String> xVals = new ArrayList<String>();
-
         for (int i = 0; i < count + 1; i++)
-            xVals.add(mParties[i % mParties.length]);
+            xVals.add(arrItemName.get(i % arrItemName.size()));
 
-        PieDataSet set1 = new PieDataSet(yVals1, "Election Results");
+        PieDataSet set1 = new PieDataSet(yVals1, "");
         set1.setSliceSpace(3f);
         
         // add a lot of colors

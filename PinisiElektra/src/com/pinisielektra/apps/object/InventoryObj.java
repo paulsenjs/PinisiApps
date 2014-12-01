@@ -1,6 +1,9 @@
 package com.pinisielektra.apps.object;
 
-public class InventoryObj {
+import java.io.Serializable;
+
+public class InventoryObj implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String kodeBarang;
 	private String catId;
 	private String namaBarang;

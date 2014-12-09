@@ -1,8 +1,24 @@
 package com.pinisielektra.apps.object;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
-public class InventoryObj implements Serializable{
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+
+import com.pinisielektra.apps.connection.HttpConnectionTask;
+import com.pinisielektra.apps.connection.IHttpResponseListener;
+import com.pinisielektra.apps.utils.Constants;
+import com.pinisielektra.apps.utils.JsonObjConstant;
+
+public class InventoryObj implements Serializable, IHttpResponseListener, JsonObjConstant{
 	private static final long serialVersionUID = 1L;
 	private String kodeBarang;
 	private String catId;
@@ -15,6 +31,12 @@ public class InventoryObj implements Serializable{
 	private String dateCreated;
 	private String editor;
 	private String dateEdited;
+	private Context context;
+	private Set<String> data;
+	
+	public InventoryObj(Context ctx) {
+		this.context = ctx;
+	}
 	
 	public String getKodeBarang() {
 		return kodeBarang;
@@ -81,5 +103,36 @@ public class InventoryObj implements Serializable{
 	}
 	public void setDateEdited(String dateEdited) {
 		this.dateEdited = dateEdited;
+	}
+	
+	public void retrieveKodeBarang() {
+		new HttpConnectionTask((Activity)context, this, 1, "GET").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Constants.API_LIST_INVENTORY);
+	}
+	
+	
+	@Override
+	public void resultSuccess(int type, String result) {
+		try {
+			data = new HashSet<String>();
+			JSONObject jObj = new JSONObject(result);
+			JSONArray jArray = jObj.getJSONArray("rows");
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject jObjArr = jArray.getJSONObject(i);
+				data.add(jObjArr.optString(OBJ_KODE_BARANG));
+			}
+			
+			SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_KODE_BARANG, Context.MODE_PRIVATE).edit();
+			editor.putStringSet("kodebrg", data);
+			editor.commit();
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	@Override
+	public void resultFailed(int type, String strError) {
+		// TODO Auto-generated method stub
+		
 	}
 }

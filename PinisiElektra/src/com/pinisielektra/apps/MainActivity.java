@@ -21,6 +21,8 @@ import android.widget.Toast;
 
 import com.pinisielektra.apps.connection.HttpConnectionTask;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
+import com.pinisielektra.apps.object.DistributorObj;
+import com.pinisielektra.apps.object.InventoryObj;
 import com.pinisielektra.apps.utils.Constants;
 
 public class MainActivity extends Activity implements IHttpResponseListener {
@@ -29,12 +31,14 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 	private LinearLayout linearButtonLogin, linearImageLogo;
 	private String userName = "Jhon Doe";
 	private String userId;
-	private final String MY_PREFS_NAME = "pinisiEl_sharePref";
 	private EditText edtUserName;
 	private EditText edtPassword;
 	private TextView txtLogin;
 	private TextView txtRegister;
 	private ProgressDialog mProgressDialog;
+	
+	private DistributorObj distributorObj;
+	private InventoryObj inventoryObj;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,12 @@ public class MainActivity extends Activity implements IHttpResponseListener {
         txtLogin = (TextView) findViewById(R.id.text_login);
         txtRegister = (TextView) findViewById(R.id.text_register);
         
+        distributorObj = new DistributorObj(this);
+        distributorObj.retrieveKodeDistributor();
+        
+        inventoryObj = new InventoryObj(this);
+        inventoryObj.retrieveKodeBarang();
+        
         mProgressDialog = new ProgressDialog(this);
         
 		handler = new Handler() {
@@ -57,7 +67,7 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 			}
 		};
         
-		SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE); 
+		SharedPreferences prefs = getSharedPreferences(Constants.MY_PREFS_NAME, MODE_PRIVATE); 
 		String restoredText = prefs.getString("uId", null);
 		if (restoredText != null) {
 			linearButtonLogin.setVisibility(View.GONE);
@@ -128,7 +138,7 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 					userName = jObjArr.optString("name");
 				}
 				
-				SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
+				SharedPreferences.Editor editor = getSharedPreferences(Constants.MY_PREFS_NAME, MODE_PRIVATE).edit();
 				editor.putString("uId", userId);
 				editor.putString("uName", userName);
 				editor.commit();

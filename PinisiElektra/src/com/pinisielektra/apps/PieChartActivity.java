@@ -15,8 +15,11 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Legend;
 import com.github.mikephil.charting.utils.Legend.LegendPosition;
+import com.pinisielektra.apps.object.DistributorObj;
 import com.pinisielektra.apps.object.InventoryObj;
+import com.pinisielektra.apps.object.PelangganObj;
 import com.pinisielektra.apps.object.PembelianObj;
+import com.pinisielektra.apps.object.PenjualanObj;
 
 public class PieChartActivity extends ActionBarActivity {
 
@@ -64,8 +67,8 @@ public class PieChartActivity extends ActionBarActivity {
         for (int i=0; i<mIntentItemId.size(); i++) {
         	switch (mIntentMenuId) {
 			case 1:
-//	        	arrItemName.add(((PenjualanObj)mIntentItemId.get(i)).getKodeBarang());
-//	        	arrItemSatuan.add(((PenjualanObj)mIntentItemId.get(i)).getSatuan());				
+	        	arrItemName.add(((PenjualanObj)mIntentItemId.get(i)).getKodeBarang());
+	        	arrItemSatuan.add(((PenjualanObj)mIntentItemId.get(i)).getSatuan());				
 				break;
 			case 2:
 	        	arrItemName.add(((PembelianObj)mIntentItemId.get(i)).getKodeBarang());
@@ -76,12 +79,12 @@ public class PieChartActivity extends ActionBarActivity {
 	        	arrItemSatuan.add(((InventoryObj)mIntentItemId.get(i)).getSatuan());
 				break;
 			case 4:
-//	        	arrItemName.add(((PelangganObj)mIntentItemId.get(i)).getKodeBarang());
-//	        	arrItemSatuan.add(((PelangganObj)mIntentItemId.get(i)).getSatuan());
+	        	arrItemName.add(((PelangganObj)mIntentItemId.get(i)).getIdPel());
+	        	arrItemSatuan.add(((PelangganObj)mIntentItemId.get(i)).getNama());
 				break;
 			case 5:
-//	        	arrItemName.add(((DistributorObj)mIntentItemId.get(i)).getKodeBarang());
-//	        	arrItemSatuan.add(((DistributorObj)mIntentItemId.get(i)).getSatuan());
+	        	arrItemName.add((((DistributorObj)mIntentItemId.get(i)).getKodeDistributor()));
+	        	arrItemSatuan.add(((DistributorObj)mIntentItemId.get(i)).getDateCreated());
 				break;
 			default:
 				break;

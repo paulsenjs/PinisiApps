@@ -27,37 +27,42 @@ import android.widget.Toast;
 import com.pinisielektra.apps.adapter.ReportAdapter;
 import com.pinisielektra.apps.connection.HttpConnectionTask;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
+import com.pinisielektra.apps.object.DistributorObj;
+import com.pinisielektra.apps.object.MenuObj;
+import com.pinisielektra.apps.object.MerchantObj;
 import com.pinisielektra.apps.object.InventoryObj;
+import com.pinisielektra.apps.object.PelangganObj;
 import com.pinisielektra.apps.object.PembelianObj;
+import com.pinisielektra.apps.object.PenjualanObj;
 import com.pinisielektra.apps.utils.Constants;
 import com.pinisielektra.apps.utils.JsonObjConstant;
 
-public class ReportActivity extends ActionBarActivity implements IHttpResponseListener, JsonObjConstant, OnItemClickListener {
+public class ReportActivity extends MenuObj implements IHttpResponseListener, JsonObjConstant, OnItemClickListener {
 
 	private String menuIntent;
 	private String passMenuIntent;
 	private String totalSatuan;
 	
+	private LinearLayout linearHeaderPenjualan;
 	private LinearLayout linearHeaderPembelian;
 	private LinearLayout linearHeaderInventory;
+	private LinearLayout linearHeaderPelanggan;
+	private LinearLayout linearHeaderDistributor;
 	
 	private ProgressDialog mProgress;
 	private ListView lstDataReport;
 	private ReportAdapter reportAdapter;
 
+	private PenjualanObj penjualanObj;
 	private PembelianObj pembelianObj;
 	private InventoryObj inventoryObj;
+	private PelangganObj pelangganObj;
+//	private MerchantObj merchantObj;
+	private DistributorObj distributorObj;
 
 	private ArrayList<Object> arrObj;
 
 	private Hashtable<String, String> hashPost;
-
-	private static final int ID_PENJUALAN = 1;
-	private static final int ID_PEMBELIAN = 2;
-	private static final int ID_INVENTORY = 3;
-	private static final int ID_PELANGGAN = 4;
-	private static final int ID_DISTRIBUTOR = 5;
-	
 	private String[] strPassingData;
 
 	@Override
@@ -68,8 +73,11 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 		menuIntent = getIntent().getExtras().getString("menu");
 		lstDataReport = (ListView) findViewById(R.id.lstListData);
 
+		linearHeaderPenjualan = (LinearLayout) findViewById(R.id.linearPenjualanHeader);
 		linearHeaderPembelian = (LinearLayout) findViewById(R.id.linearPembelianHeader);
 		linearHeaderInventory = (LinearLayout) findViewById(R.id.linearInventoryHeader);
+		linearHeaderPelanggan = (LinearLayout) findViewById(R.id.linearPelangganHeader);
+		linearHeaderDistributor = (LinearLayout) findViewById(R.id.linearDistributorHeader);
 		
 		mProgress = new ProgressDialog(this);
 		mProgress.show();
@@ -78,11 +86,11 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 			if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN);
 			} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
-
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN);
 			} else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
-
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PELANGGAN);
 			} else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
-
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_DISTRIBUTOR);
 			} else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_INVENTORY);
 			}
@@ -205,7 +213,7 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 			arrObj = new ArrayList<Object>();
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject jObjArr = jArray.getJSONObject(i);
-				inventoryObj = new InventoryObj();
+				inventoryObj = new InventoryObj(this);
 				inventoryObj.setKodeBarang(jObjArr.optString(OBJ_KODE_BARANG));
 				inventoryObj.setCatId(jObjArr.optString(OBJ_CATEGORY_ID));
 				inventoryObj.setNamaBarang(jObjArr.optString(OBJ_NAMA_BARANG));
@@ -229,6 +237,86 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 		lstDataReport.setOnItemClickListener(this);
 	}
 
+	private void processPenjualanResult(JSONArray jArray) {
+		linearHeaderPenjualan.setVisibility(View.VISIBLE);
+		try {
+			arrObj = new ArrayList<Object>();
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject jObjArr = jArray.getJSONObject(i);
+				penjualanObj = new PenjualanObj();
+				penjualanObj.setIdJual(jObjArr.optString(OBJ_ID_PENJUALAN));
+				penjualanObj.setKodeBarang(jObjArr.optString(OBJ_KODE_BARANG));
+				penjualanObj.setSatuan(jObjArr.optString(OBJ_SATUAN_BARANG));
+				penjualanObj.setCreator(jObjArr.optString(OBJ_CREATOR));
+				penjualanObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
+				penjualanObj.setEditor(jObjArr.optString(OBJ_EDITOR));
+				penjualanObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
+				penjualanObj.setTglTransaksi(jObjArr.optString(OBJ_TGL_TRANS));
+				
+				arrObj.add(i, penjualanObj);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		setArrObj(arrObj);
+		reportAdapter = new ReportAdapter(ID_PENJUALAN, this, arrObj);
+		lstDataReport.setAdapter(reportAdapter);
+		lstDataReport.setOnItemClickListener(this);
+	}
+	
+	private void processDistributorResult(JSONArray jArray) {
+		linearHeaderDistributor.setVisibility(View.VISIBLE);
+		try {
+			arrObj = new ArrayList<Object>();
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject jObjArr = jArray.getJSONObject(i);
+				distributorObj = new DistributorObj(this);
+				distributorObj.setKodeDistributor(jObjArr.optString(OBJ_KODE_DISTRIBUTOR));
+				distributorObj.setNama(jObjArr.optString(OBJ_NAMA));
+				distributorObj.setCreator(jObjArr.optString(OBJ_CREATOR));
+				distributorObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
+				distributorObj.setEditor(jObjArr.optString(OBJ_EDITOR));
+				distributorObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
+				
+				arrObj.add(i, distributorObj);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		setArrObj(arrObj);
+		reportAdapter = new ReportAdapter(ID_DISTRIBUTOR, this, arrObj);
+		lstDataReport.setAdapter(reportAdapter);
+		lstDataReport.setOnItemClickListener(this);
+	}
+	
+	private void processPelangganResult(JSONArray jArray) {
+		linearHeaderPelanggan.setVisibility(View.VISIBLE);
+		try {
+			arrObj = new ArrayList<Object>();
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject jObjArr = jArray.getJSONObject(i);
+				pelangganObj = new PelangganObj();
+				pelangganObj.setIdPel(jObjArr.optString(OBJ_ID_PELANGGAN));
+				pelangganObj.setNama(jObjArr.optString(OBJ_NAMA));
+				pelangganObj.setAlamat(jObjArr.optString(OBJ_ALAMAT));
+				pelangganObj.setPhone(jObjArr.optString(OBJ_PHONE));
+				pelangganObj.setCreator(jObjArr.optString(OBJ_CREATOR));
+				pelangganObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
+				
+				arrObj.add(i, pelangganObj);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		setArrObj(arrObj);
+		reportAdapter = new ReportAdapter(ID_PELANGGAN, this, arrObj);
+		lstDataReport.setAdapter(reportAdapter);
+		lstDataReport.setOnItemClickListener(this);
+	}
+	
 	@Override
 	public void resultSuccess(int type, String result) {
 		try {
@@ -241,11 +329,11 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 					if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
 						processPembelianResult(jArray);
 					} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
-
+						processPenjualanResult(jArray);
 					} else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
-
+						processPelangganResult(jArray);
 					} else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
-
+						processDistributorResult(jArray);
 					} else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
 						processInventoryResult(jArray);
 					}					
@@ -290,11 +378,19 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 								((PembelianObj) arrObj.get(position)).getKodeDistributor(),
 								((PembelianObj) arrObj.get(position)).getIdTrans()};
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_penjualan")) {
-
+						strPassingData = new String[]{"edit_penjualan",
+								((PenjualanObj) arrObj.get(position)).getKodeBarang(),
+								((PenjualanObj) arrObj.get(position)).getTglTransaksi(),
+								((PenjualanObj) arrObj.get(position)).getSatuan()};
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_pelanggan")) {
-
+						strPassingData = new String[]{"edit_pelanggan",
+								((PelangganObj) arrObj.get(position)).getNama(),
+								((PelangganObj) arrObj.get(position)).getAlamat(),
+								((PelangganObj) arrObj.get(position)).getPhone()};
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_distributor")) {
-
+						strPassingData = new String[]{"edit_distributor",
+								((DistributorObj) arrObj.get(position)).getKodeDistributor(),
+								((DistributorObj) arrObj.get(position)).getNama()};
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_inventory")) {
 						strPassingData = new String[]{"edit_inventory",
 								((InventoryObj) arrObj.get(position)).getKodeBarang(),
@@ -314,11 +410,20 @@ public class ReportActivity extends ActionBarActivity implements IHttpResponseLi
 						hashPost.put(OBJ_ID_TRANS, ((PembelianObj) arrObj.get(position)).getIdTrans());
 						new HttpConnectionTask(hashPost, ReportActivity.this, 1).execute(Constants.API_POST_PEMBELIAN);
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_penjualan")) {
-
+						hashPost = new Hashtable<String, String>();
+						hashPost.put("cmd", "del");
+						hashPost.put(OBJ_ID_PENJUALAN, ((PenjualanObj) arrObj.get(position)).getIdJual());
+						new HttpConnectionTask(hashPost, ReportActivity.this, 1).execute(Constants.API_POST_PENJUALAN);
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_pelanggan")) {
-
+						hashPost = new Hashtable<String, String>();
+						hashPost.put("cmd", "del");
+						hashPost.put(OBJ_ID_PELANGGAN, ((PelangganObj) arrObj.get(position)).getIdPel());
+						new HttpConnectionTask(hashPost, ReportActivity.this, 1).execute(Constants.API_POST_PELANGGAN);
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_distributor")) {
-
+						hashPost = new Hashtable<String, String>();
+						hashPost.put("cmd", "del");
+						hashPost.put(OBJ_KODE_DISTRIBUTOR, ((DistributorObj) arrObj.get(position)).getKodeDistributor());
+						new HttpConnectionTask(hashPost, ReportActivity.this, 1).execute(Constants.API_POST_DISTRIBUTOR);
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_inventory")) {
 						hashPost = new Hashtable<String, String>();
 						hashPost.put("cmd", "del");

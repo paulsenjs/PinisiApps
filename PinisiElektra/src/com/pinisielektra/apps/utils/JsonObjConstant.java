@@ -16,4 +16,13 @@ public interface JsonObjConstant {
 	public static final String OBJ_TGL_TRANS = "tgl_transaksi";
 	public static final String OBJ_KODE_DISTRIBUTOR = "kodedistributor";
 	public static final String OBJ_TOTAL_SATUAN = "total_satuan";
+	public static final String OBJ_MERCHANT_ID = "merchantid";
+	public static final String OBJ_MERCHANT_NAME = "merchantname";
+	public static final String OBJ_ADDRESS = "address";
+	public static final String OBJ_USER_ID = "userid";
+	public static final String OBJ_ID_PELANGGAN = "idpel";
+	public static final String OBJ_NAMA = "nama";
+	public static final String OBJ_PHONE = "phone";
+	public static final String OBJ_ALAMAT = "alamat";
+	public static final String OBJ_ID_PENJUALAN = "idjual";
 }

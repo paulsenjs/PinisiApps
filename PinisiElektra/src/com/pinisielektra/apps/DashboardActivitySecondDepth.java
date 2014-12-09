@@ -1,16 +1,16 @@
 package com.pinisielektra.apps;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
-public class DashboardActivitySecondDepth extends Activity {
+import com.pinisielektra.apps.object.MenuObj;
+import com.pinisielektra.apps.utils.JsonObjConstant;
 
-	private Button btnInputData;
-	private Button btnReport;
+public class DashboardActivitySecondDepth extends MenuObj implements JsonObjConstant{
+
+//	private Button btnInputData;
+//	private Button btnReport;
 	private String menuIntent;
 	
 	@Override
@@ -20,8 +20,8 @@ public class DashboardActivitySecondDepth extends Activity {
 	
 		menuIntent = getIntent().getExtras().getString("menu"); 
 		
-		btnInputData = (Button) findViewById(R.id.btnInput);
-		btnReport = (Button) findViewById(R.id.btnReport);
+//		btnInputData = (Button) findViewById(R.id.btnInput);
+//		btnReport = (Button) findViewById(R.id.btnReport);
 	}
 
 	public void goToFormInput(View v) {

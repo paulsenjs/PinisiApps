@@ -24,8 +24,7 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 	//pembelian
 	private EditText edtKodeBarangPembelian;
 	private EditText edtSatuanPembelian;
-	private EditText edtKodeDistributor;
-	private EditText edtIdTransaksi;
+	private EditText edtKodeDistributorPembelian;
 	
 	//inventory
 	private EditText edtKodeBarangInventory;
@@ -35,6 +34,20 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 	private EditText edtHargaJualInventory;
 	private EditText edtHargaBeliInventory;
 	private EditText edtExpDateInventory;
+	
+	//pelanggan
+	private EditText edtNamaPelanggan;
+	private EditText edtAlamatPelanggan;
+	private EditText edtPhonePelanggan;
+	
+	//distributor
+	private EditText edtKodeDistributor;
+	private EditText edtNamaDistributor;
+	
+	//penjualan
+	private EditText edtKodeBarangPenjualan;
+	private EditText edtTglTransaksiPenjualan;
+	private EditText edtSatuanPenjualan;	
 	
 	private ProgressDialog mProgressDialog;
 	private Hashtable<String, String> hashPost;
@@ -65,10 +78,9 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 		relativeDistributor = (RelativeLayout)findViewById(R.id.relativeDistributor);
 		relativeInventory = (RelativeLayout)findViewById(R.id.relativeInventory);
 		
-		edtIdTransaksi = (EditText) findViewById(R.id.edtIdTransPembelian);
 		edtKodeBarangPembelian = (EditText) findViewById(R.id.edtKodeBarangPembelian);
 		edtSatuanPembelian = (EditText) findViewById(R.id.edtSatuanPembelian);
-		edtKodeDistributor = (EditText) findViewById(R.id.edtKodeDistributorPembelian);
+		edtKodeDistributorPembelian = (EditText) findViewById(R.id.edtKodeDistributorPembelian);
 		edtKodeBarangInventory = (EditText) findViewById(R.id.edtKodeBarangInventory); 
 		edtNamaBarangInventory = (EditText) findViewById(R.id.edtNamaBarangInventory);
 		edtKategoryIdInventory = (EditText) findViewById(R.id.edtKategoriIdInventory);
@@ -82,6 +94,17 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 				showDialog(EXP_DATE_DIALOG_ID);
 			}
 		});
+		
+		edtNamaPelanggan = (EditText) findViewById(R.id.edtNamaPelanggan);
+		edtPhonePelanggan = (EditText) findViewById(R.id.edtPhonePelanggan);
+		edtAlamatPelanggan = (EditText) findViewById(R.id.edtAlamatPelanggan);
+		
+		edtKodeDistributor = (EditText) findViewById(R.id.edtKodeDistributor);
+		edtNamaDistributor = (EditText) findViewById(R.id.edtNamaDistributor);
+		
+		edtKodeBarangPenjualan = (EditText) findViewById(R.id.edtKodeBarangPenjualan);
+		edtTglTransaksiPenjualan = (EditText) findViewById(R.id.edtTglTransaksi);
+		edtSatuanPenjualan = (EditText) findViewById(R.id.edtSatuanPenjualan);
 		
 		if (menuIntent != null) {
 			if (menuIntent[0].equalsIgnoreCase("edit_pembelian")){
@@ -97,18 +120,21 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 				relativePelanggan.setVisibility(View.GONE);
 				relativeDistributor.setVisibility(View.GONE);
 				relativeInventory.setVisibility(View.GONE);
+				showPenjualanCurrentData(menuIntent);
 			}else if (menuIntent[0].equalsIgnoreCase("edit_pelanggan")) {
 				relativePembelian.setVisibility(View.GONE);
 				relativePenjualan.setVisibility(View.GONE);
 				relativePelanggan.setVisibility(View.VISIBLE);
 				relativeDistributor.setVisibility(View.GONE);
 				relativeInventory.setVisibility(View.GONE);
+				showPelangganCurrentData(menuIntent);
 			}else if (menuIntent[0].equalsIgnoreCase("edit_distributor")) {
 				relativePembelian.setVisibility(View.GONE);
 				relativePenjualan.setVisibility(View.GONE);
 				relativePelanggan.setVisibility(View.GONE);
 				relativeDistributor.setVisibility(View.VISIBLE);
 				relativeInventory.setVisibility(View.GONE);
+				showDistributorCurrentData(menuIntent);
 			}else if (menuIntent[0].equalsIgnoreCase("edit_inventory")) {
 				relativePembelian.setVisibility(View.GONE);
 				relativePenjualan.setVisibility(View.GONE);
@@ -133,8 +159,24 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 	private void showPembelianCurrentData(String[] data) {
 		edtKodeBarangPembelian.setText(data[1]);
 		edtSatuanPembelian.setText(data[2]);
-		edtKodeDistributor.setText(data[3]);
-		edtIdTransaksi.setText(data[4]);
+		edtKodeDistributorPembelian.setText(data[3]);
+	}
+	
+	private void showPelangganCurrentData(String[] data) {
+		edtNamaPelanggan.setText(data[1]);
+		edtAlamatPelanggan.setText(data[2]);
+		edtPhonePelanggan.setText(data[3]);
+	}
+	
+	private void showPenjualanCurrentData(String[] data) {
+		edtKodeBarangPenjualan.setText(data[1]);
+		edtTglTransaksiPenjualan.setText(data[2]);
+		edtSatuanPenjualan.setText(data[3]);
+	}
+	
+	private void showDistributorCurrentData(String[] data) {
+		edtKodeDistributor.setText(data[1]);
+		edtNamaDistributor.setText(data[2]);
 	}
 	
 	public void actionSendData(View v) {
@@ -143,35 +185,30 @@ public class EditInputActivity extends Activity implements IHttpResponseListener
 		if (menuIntent[0].equalsIgnoreCase("edit_pembelian")){
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "edit");
-			hashPost.put(OBJ_ID_TRANS, edtIdTransaksi.getText().toString());
 			hashPost.put(OBJ_KODE_BARANG, edtKodeBarangPembelian.getText().toString());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPembelian.getText().toString());
-			hashPost.put(OBJ_KODE_DISTRIBUTOR, edtKodeDistributor.getText().toString());
+			hashPost.put(OBJ_KODE_DISTRIBUTOR, edtKodeDistributorPembelian.getText().toString());
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_PEMBELIAN);
 		}else if (menuIntent[0].equalsIgnoreCase("edit_penjualan")) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "edit");
-//			hashPost.put("kodebarang", edtKodeBarangPembelian.getText().toString());
-//			hashPost.put("satuan", edtSatuanPembelian.getText().toString());
-//			hashPost.put("kodedistributor", edtKodeDistributor.getText().toString());
-//			hashPost.put("tgl_transaksi", currentDate);
-//			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_ADD_PEMBELIAN);
+			hashPost.put(OBJ_KODE_BARANG, edtKodeBarangPenjualan.getText().toString());
+			hashPost.put(OBJ_TGL_TRANS, edtTglTransaksiPenjualan.getText().toString());
+			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPenjualan.getText().toString());
+			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_PENJUALAN);
 		}else if (menuIntent[0].equalsIgnoreCase("edit_pelanggan")) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "edit");
-//			hashPost.put("kodebarang", edtKodeBarangPembelian.getText().toString());
-//			hashPost.put("satuan", edtSatuanPembelian.getText().toString());
-//			hashPost.put("kodedistributor", edtKodeDistributor.getText().toString());
-//			hashPost.put("tgl_transaksi", currentDate);
-//			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_ADD_PEMBELIAN);
+			hashPost.put(OBJ_NAMA, edtNamaPelanggan.getText().toString());
+			hashPost.put(OBJ_ALAMAT, edtAlamatPelanggan.getText().toString());
+			hashPost.put(OBJ_PHONE, edtPhonePelanggan.getText().toString());
+			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_PELANGGAN);
 		}else if (menuIntent[0].equalsIgnoreCase("edit_distributor")) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "edit");
-//			hashPost.put("kodebarang", edtKodeBarangPembelian.getText().toString());
-//			hashPost.put("satuan", edtSatuanPembelian.getText().toString());
-//			hashPost.put("kodedistributor", edtKodeDistributor.getText().toString());
-//			hashPost.put("tgl_transaksi", currentDate);
-//			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_ADD_PEMBELIAN);
+			hashPost.put(OBJ_KODE_DISTRIBUTOR, edtKodeDistributor.getText().toString());
+			hashPost.put(OBJ_NAMA, edtNamaDistributor.getText().toString());
+			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_DISTRIBUTOR);
 		}else if (menuIntent[0].equalsIgnoreCase("edit_inventory")) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "edit");

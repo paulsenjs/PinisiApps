@@ -16,22 +16,33 @@
         android:visibility="gone" >
 
         <TextView
+            android:id="@+id/txtIdPenjualan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Id" />
+        
+        <TextView
+            android:id="@+id/txtKodeBarangPenjualan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Kode Barang" />
 
         <TextView
+            android:id="@+id/txtTglTransaksiPenjualan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Tgl Transaksi" />
+        
+        <TextView
+            android:id="@+id/txtSatuanPenjualan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Satuan" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Kode Distributor" />
     </LinearLayout>
 
     <LinearLayout
@@ -121,22 +132,32 @@
         android:visibility="gone" >
 
         <TextView
+            android:id="@+id/txtIdPelanggan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Kode Barang" />
+            android:text="Id" />
 
         <TextView
+            android:id="@+id/txtNamaPelanggan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Satuan" />
+            android:text="Nama" />
 
         <TextView
+            android:id="@+id/txtAlamatPelanggan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Kode Distributor" />
+            android:text="Alamat" />
+
+        <TextView
+            android:id="@+id/txtPhonePelanggan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Phone" />
     </LinearLayout>
 
     <LinearLayout
@@ -148,22 +169,18 @@
         android:visibility="gone" >
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Kode Barang" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Satuan" />
-
-        <TextView
+            android:id="@+id/txtKodeDistributor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Kode Distributor" />
+
+        <TextView
+            android:id="@+id/txtNamaDistributor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nama" />
     </LinearLayout>
 
 </LinearLayout>

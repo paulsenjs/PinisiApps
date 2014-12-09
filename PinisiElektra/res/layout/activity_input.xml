@@ -14,47 +14,59 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="14dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
         
         <TextView
-            android:id="@+id/txtIdPembelian"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/edtIdTransPembelian"
-            android:layout_alignBottom="@+id/edtIdTransPembelian"
+            android:layout_alignBottom="@+id/edtKodeDistributorPembelian"
             android:layout_alignParentLeft="true"
-            android:text="Id Transaksi" />
+            android:layout_alignParentTop="true"
+            android:text="Kode Distributor" />
 
-        <EditText
-            android:id="@+id/edtIdTransPembelian"
+        <!-- <EditText
+            android:id="@+id/edtKodeDistributorPembelian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/edtSatuanPembelian"
             android:layout_alignParentRight="true"
-            android:ems="10"
-            android:singleLine="true" >
-        </EditText>
+            android:layout_toRightOf="@+id/textView2"
+            android:ems="10" /> -->
         
-        <TextView
-            android:id="@+id/txtKodeBarang"
+        <Spinner
+            android:id="@+id/edtKodeDistributorPembelian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/edtKodeBarangPembelian"
-            android:layout_alignBottom="@+id/edtKodeBarangPembelian"
-            android:layout_alignParentLeft="true"
-            android:text="Kode Barang" />
+            android:layout_alignLeft="@+id/edtKodeBarangPembelian"
+            android:layout_alignParentRight="true" />
 
-        <EditText
+        <!-- <EditText
             android:id="@+id/edtKodeBarangPembelian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edtSatuanPembelian"
             android:layout_toRightOf="@+id/textView2"
-            android:layout_below="@+id/edtIdTransPembelian"
+            android:layout_below="@+id/edtKodeDistributorPembelian"
             android:layout_alignParentRight="true"
             android:ems="10"
-            android:singleLine="true" >
-        </EditText>
+            android:singleLine="true" /> -->
+
+		<TextView
+            android:id="@+id/txtKodeBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/textView3"
+            android:layout_alignTop="@+id/edtKodeBarangPembelian"
+            android:text="Kode Barang" />
+
+		<Spinner
+		    android:id="@+id/edtKodeBarangPembelian"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/edtSatuanPembelian"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_below="@+id/edtKodeDistributorPembelian"
+            android:layout_alignParentRight="true" />
 
         <TextView
             android:id="@+id/textView1"
@@ -71,28 +83,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/edtKodeBarangPembelian"
-            android:layout_toRightOf="@+id/textView2"
-            android:ems="10" />
+            android:layout_toRightOf="@+id/textView2" />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/edtKodeDistributorPembelian"
-            android:layout_alignBottom="@+id/edtKodeDistributorPembelian"
-            android:layout_alignParentLeft="true"
-            android:text="Kode Distributor" />
-
-        <EditText
-            android:id="@+id/edtKodeDistributorPembelian"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/edtSatuanPembelian"
-            android:layout_toRightOf="@+id/textView2"
-            android:ems="10" />
-
-        <!-- <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,23 +100,78 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edtSatuanPembelian"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/edtKodeDistributorPembelian"
-            android:ems="10" /> -->
+            android:layout_below="@+id/edtSatuanPembelian" />
+
     </RelativeLayout>
 
     <!-- Penjualan -->
+
     <RelativeLayout
         android:id="@+id/relativePenjualan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativePembelian"
         android:layout_marginTop="14dp"
-        android:visibility="gone" >
+        android:visibility="visible" >
+
+        <TextView
+            android:id="@+id/txtKodeBarangPenjualan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="Kode Barang" />
+
+        <!--
+             <EditText
+            android:id="@+id/edtKodeBarangPenjualan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:singleLine="true" >
+
+        </EditText>
+        -->
+
+        <Spinner
+            android:id="@+id/edtKodeBarangPenjualan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtTglTransaksi"
+            android:layout_alignParentRight="true" />
+
+        <EditText
+            android:id="@+id/edtTglTransaksi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtKodeBarangPenjualan"
+            android:ems="10" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
+            android:layout_alignBaseline="@+id/edtTglTransaksi"
+            android:layout_alignBottom="@+id/edtTglTransaksi"
+            android:layout_alignParentLeft="true"
+            android:text="Tanggal Transaksi" />
+
+        <EditText
+            android:id="@+id/edtSatuanPenjualan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtTglTransaksi"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtTglTransaksi"
+            android:ems="10" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtSatuanPenjualan"
+            android:layout_alignBottom="@+id/edtSatuanPenjualan"
+            android:layout_alignParentLeft="true"
+            android:text="Satuan" />
     </RelativeLayout>
 
     <!-- Pelanggan -->
@@ -135,10 +183,79 @@
         android:layout_marginTop="14dp"
         android:visibility="gone" >
 
+        <!-- <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtIdPelanggan"
+            android:layout_alignBottom="@+id/edtIdPelanggan"
+            android:layout_alignParentLeft="true"
+            android:text="Id Pelanggan" />
+
+        <EditText
+            android:id="@+id/edtIdPelanggan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtIdPelanggan"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:singleLine="true" >
+        </EditText> -->
+        
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
+            android:layout_alignBaseline="@+id/edtNamaPelanggan"
+            android:layout_alignBottom="@+id/edtNamaPelanggan"
+            android:layout_alignParentLeft="true"
+            android:text="Nama" />
+
+        <EditText
+            android:id="@+id/edtNamaPelanggan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:singleLine="true" >
+
+        </EditText>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtAlamatPelanggan"
+            android:layout_alignBottom="@+id/edtAlamatPelanggan"
+            android:layout_alignParentLeft="true"
+            android:text="Alamat" />
+
+        <EditText
+            android:id="@+id/edtAlamatPelanggan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtNamaPelanggan"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtNamaPelanggan"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtPhonePelanggan"
+            android:layout_alignBottom="@+id/edtPhonePelanggan"
+            android:layout_alignParentLeft="true"
+            android:text="Phone" />
+
+        <EditText
+            android:id="@+id/edtPhonePelanggan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtAlamatPelanggan"
+            android:layout_alignParentRight="true"
+            android:inputType="phone"
+            android:layout_below="@+id/edtAlamatPelanggan"
+            android:ems="10" />
+
     </RelativeLayout>
 
     <!-- Distributor -->
@@ -150,10 +267,41 @@
         android:layout_marginTop="14dp"
         android:visibility="gone" >
 
+		<TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtKodeDistributor"
+            android:layout_alignBottom="@+id/edtKodeDistributor"
+            android:layout_alignParentLeft="true"
+            android:text="Kode Distributor" />
+
+        <EditText
+            android:id="@+id/edtKodeDistributor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:singleLine="true" >
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/edtNamaDistributor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtKodeDistributor"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtKodeDistributor"
+            android:ems="10" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
+            android:layout_alignBaseline="@+id/edtNamaDistributor"
+            android:layout_alignBottom="@+id/edtNamaDistributor"
+            android:layout_alignParentLeft="true"
+            android:text="Nama" />
+
     </RelativeLayout>
 
     <!-- Inventory -->
@@ -184,7 +332,6 @@
             android:singleLine="true" >
         </EditText>
 
-        
        	<TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
@@ -202,7 +349,6 @@
             android:layout_below="@+id/edtKodeBarangInventory"
             android:ems="10" />
         
-        
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
@@ -219,7 +365,6 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/edtNamaBarangInventory"
             android:ems="10" />
-        
         
         <TextView
             android:id="@+id/textView1"

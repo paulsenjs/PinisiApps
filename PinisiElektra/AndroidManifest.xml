@@ -48,19 +48,23 @@
         </activity>
         <activity
             android:name="com.pinisielektra.apps.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity
             android:name="com.pinisielektra.apps.DashboardActivitySecondDepth"
-            android:label="@string/title_activity_dashboard_activity_second_depth" >
+            android:label="@string/title_activity_dashboard_activity_second_depth"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity
             android:name="com.pinisielektra.apps.InputActivity"
-            android:label="@string/title_activity_input" >
+            android:label="@string/title_activity_input"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity
             android:name="com.pinisielektra.apps.EditInputActivity"
-            android:label="@string/title_activity_input" >
+            android:label="@string/title_activity_input"
+            android:theme="@style/Theme.AppCompat.Light" >
         </activity>
     </application>
 

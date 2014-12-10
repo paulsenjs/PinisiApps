@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativePembelian"
         android:layout_marginTop="14dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/txtKodeBarangPenjualan"
@@ -311,16 +311,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeDistributor"
         android:layout_marginTop="14dp"
-        android:visibility="gone" >
-
-        <TextView
-            android:id="@+id/txtKodeBarang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/edtKodeBarangInventory"
-            android:layout_alignBottom="@+id/edtKodeBarangInventory"
-            android:layout_alignParentLeft="true"
-            android:text="Kode Barang" />
+        android:visibility="visible" >
 
         <EditText
             android:id="@+id/edtKodeBarangInventory"
@@ -329,9 +320,17 @@
             android:layout_alignLeft="@+id/edtSatuanInventory"
             android:layout_alignParentRight="true"
             android:ems="10"
-            android:singleLine="true" >
-        </EditText>
+            android:singleLine="true" />
 
+        <!-- <Spinner
+            android:id="@+id/edtKategoriIdInventory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtKodeBarangInventory"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtKodeBarangInventory"
+            android:ems="10" /> -->
+        
        	<TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
@@ -348,24 +347,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/edtKodeBarangInventory"
             android:ems="10" />
-        
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/edtKategoriIdInventory"
-            android:layout_alignBottom="@+id/edtKategoriIdInventory"
-            android:layout_alignParentLeft="true"
-            android:text="Kategori Id" />
 
-        <EditText
-            android:id="@+id/edtKategoriIdInventory"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/edtNamaBarangInventory"
-            android:ems="10" />
-        
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -380,7 +362,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/edtKategoriIdInventory"
+            android:layout_below="@+id/edtNamaBarangInventory"
             android:ems="10" />
 
         <TextView
@@ -436,6 +418,22 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/edtHargaBeliInventory"
             android:ems="10" />
+
+        <TextView
+            android:id="@+id/txtKodeBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Kode Barang" />
+
+        <!-- <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/edtKodeBarangInventory"
+            android:text="Kategori Id" /> -->
         
     </RelativeLayout>
 

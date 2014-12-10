@@ -381,12 +381,14 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 						strPassingData = new String[]{"edit_penjualan",
 								((PenjualanObj) arrObj.get(position)).getKodeBarang(),
 								((PenjualanObj) arrObj.get(position)).getTglTransaksi(),
-								((PenjualanObj) arrObj.get(position)).getSatuan()};
+								((PenjualanObj) arrObj.get(position)).getSatuan(),
+								((PenjualanObj) arrObj.get(position)).getIdJual()};
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_pelanggan")) {
 						strPassingData = new String[]{"edit_pelanggan",
 								((PelangganObj) arrObj.get(position)).getNama(),
 								((PelangganObj) arrObj.get(position)).getAlamat(),
-								((PelangganObj) arrObj.get(position)).getPhone()};
+								((PelangganObj) arrObj.get(position)).getPhone(),
+								((PelangganObj) arrObj.get(position)).getIdPel()};
 					} else if (getPassMenuIntent().equalsIgnoreCase("menu_distributor")) {
 						strPassingData = new String[]{"edit_distributor",
 								((DistributorObj) arrObj.get(position)).getKodeDistributor(),

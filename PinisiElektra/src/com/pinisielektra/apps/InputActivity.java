@@ -24,11 +24,13 @@ import android.widget.Toast;
 import com.pinisielektra.apps.adapter.SpinnerAdapter;
 import com.pinisielektra.apps.connection.HttpConnectionTask;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
+import com.pinisielektra.apps.object.DistributorObj;
+import com.pinisielektra.apps.object.InventoryObj;
 import com.pinisielektra.apps.object.MenuObj;
 import com.pinisielektra.apps.utils.Constants;
 import com.pinisielektra.apps.utils.JsonObjConstant;
 
-public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResponseListener {
+public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResponseListener, OnItemSelectedListener {
 
 	// pembelian
 	private Spinner spnKodeBarangPembelian;
@@ -39,11 +41,12 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	// inventory
 	private EditText edtKodeBarangInventory;
 	private EditText edtNamaBarangInventory;
-	private EditText edtKategoryIdInventory;
+//	private Spinner edtKategoryIdInventory;
 	private EditText edtSatuanInventory;
 	private EditText edtHargaJualInventory;
 	private EditText edtHargaBeliInventory;
 	private EditText edtExpDateInventory;
+	private InventoryObj inventoryObj;
 
 	// pelanggan
 	private EditText edtIdPelanggan;
@@ -54,20 +57,23 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	// distributor
 	private EditText edtKodeDistributor;
 	private EditText edtNamaDistributor;
-
+	private DistributorObj distributorObj;
+	
 	// penjualan
 	private Spinner spnKodeBarangPenjualan;
 	private EditText edtTglTransaksiPenjualan;
 	private EditText edtSatuanPenjualan;
-	private SpinnerAdapter spinnerAdapter;
+	private SpinnerAdapter spinnerAdapterKodeBarang;
+	private SpinnerAdapter spinnerAdapterKodeDistributor;
 	
 	private ProgressDialog mProgressDialog;
 	private Hashtable<String, String> hashPost;
 	private String currentDate;
 	private String menuIntent;
 	private String savedId;
-	private String selectedSpinnerItem;
-
+	private String selectedKodeDistributor;
+	private String selectedKodeBarang;
+	
 	private RelativeLayout relativePembelian;
 	private RelativeLayout relativePenjualan;
 	private RelativeLayout relativePelanggan;
@@ -78,11 +84,11 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	private int lMonth;
 	private int lDay;
 	
-	Set<String> setKodeDistributor;
-	Set<String> setKodeBarang;
+	private Set<String> setKodeDistributor;
+	private Set<String> setKodeBarang;
 	
-	List<String> lstKodeDistributor;
-	List<String> lstKodeBarang;
+	private List<String> lstKodeDistributor;
+	private List<String> lstKodeBarang;
 	
 	private static final int TGL_DIALOG_ID = 993;
 
@@ -90,11 +96,15 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_input);
-
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		mProgressDialog = new ProgressDialog(this);
 		currentDate = (String) android.text.format.DateFormat.format("yyyy-MM-dd hh:mm:ss", new java.util.Date());
 		menuIntent = getIntent().getExtras().getString("menu");
-
+		
+		inventoryObj = new InventoryObj(this);
+		distributorObj = new DistributorObj(this);
+		
 		SharedPreferences prefs = getSharedPreferences(Constants.MY_PREFS_NAME, MODE_PRIVATE);
 		savedId = prefs.getString("uId", null);
 
@@ -116,7 +126,6 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		setKodeBarang = prefsKodeBarang.getStringSet("kodebrg", null); 
 		lstKodeBarang = new ArrayList<String>(setKodeBarang);
 		initSpinnerKodeBarang();
-		initSpinnerKodeBarangPenjualan();
 		Log.d(">>>", setKodeBarang.toString());
 	}
 
@@ -124,6 +133,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		if (menuIntent != null) {
 			if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
 				setMenuPembelian(true);
+				getActionBar().setTitle("Input Pembelian");
 				relativePembelian.setVisibility(View.VISIBLE);
 				relativePenjualan.setVisibility(View.GONE);
 				relativePelanggan.setVisibility(View.GONE);
@@ -131,6 +141,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 				relativeInventory.setVisibility(View.GONE);
 			} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
 				setMenuPenjualan(true);
+				getActionBar().setTitle("Input Penjualan");
 				relativePembelian.setVisibility(View.GONE);
 				relativePenjualan.setVisibility(View.VISIBLE);
 				relativePelanggan.setVisibility(View.GONE);
@@ -138,6 +149,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 				relativeInventory.setVisibility(View.GONE);
 			} else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
 				setMenuPelanggan(true);
+				getActionBar().setTitle("Input Pelanggan");
 				relativePembelian.setVisibility(View.GONE);
 				relativePenjualan.setVisibility(View.GONE);
 				relativePelanggan.setVisibility(View.VISIBLE);
@@ -145,6 +157,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 				relativeInventory.setVisibility(View.GONE);
 			} else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
 				setMenuDistributor(true);
+				getActionBar().setTitle("Input Distributor");
 				relativePembelian.setVisibility(View.GONE);
 				relativePenjualan.setVisibility(View.GONE);
 				relativePelanggan.setVisibility(View.GONE);
@@ -152,6 +165,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 				relativeInventory.setVisibility(View.GONE);
 			} else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
 				setMenuInventory(true);
+				getActionBar().setTitle("Input Inventory");
 				relativePembelian.setVisibility(View.GONE);
 				relativePenjualan.setVisibility(View.GONE);
 				relativePelanggan.setVisibility(View.GONE);
@@ -173,7 +187,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 
 		edtKodeBarangInventory = (EditText) findViewById(R.id.edtKodeBarangInventory);
 		edtNamaBarangInventory = (EditText) findViewById(R.id.edtNamaBarangInventory);
-		edtKategoryIdInventory = (EditText) findViewById(R.id.edtKategoriIdInventory);
+//		edtKategoryIdInventory = (Spinner) findViewById(R.id.edtKategoriIdInventory);
 		edtSatuanInventory = (EditText) findViewById(R.id.edtSatuanInventory);
 		edtHargaJualInventory = (EditText) findViewById(R.id.edtHargaJualInventory);
 		edtHargaBeliInventory = (EditText) findViewById(R.id.edtHargaBeliInventory);
@@ -210,14 +224,14 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		if (isMenuPembelian()) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "add");
-			hashPost.put(OBJ_KODE_BARANG, getSelectedSpinnerItem());
+			hashPost.put(OBJ_KODE_BARANG, getSelectedKodeBarang());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPembelian.getText().toString());
-			hashPost.put(OBJ_KODE_DISTRIBUTOR, getSelectedSpinnerItem());
+			hashPost.put(OBJ_KODE_DISTRIBUTOR, getSelectedKodeDistributor());
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_PEMBELIAN);
 		} else if (isMenuPenjualan()) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "add");
-			hashPost.put(OBJ_KODE_BARANG, getSelectedSpinnerItem());
+			hashPost.put(OBJ_KODE_BARANG, getSelectedKodeBarang());
 			hashPost.put(OBJ_TGL_TRANS, edtTglTransaksiPenjualan.getText().toString());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPenjualan.getText().toString());
 			hashPost.put(OBJ_CREATOR, savedId);
@@ -235,18 +249,17 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 			hashPost.put(OBJ_KODE_DISTRIBUTOR, edtKodeDistributor.getText().toString());
 			hashPost.put(OBJ_NAMA, edtNamaDistributor.getText().toString());
 			// hashPost.put(OBJ_CREATOR, savedId);
-			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_DISTRIBUTOR);
+			new HttpConnectionTask(hashPost, this, 2).execute(Constants.API_POST_DISTRIBUTOR);
 		} else if (isMenuInventory()) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "add");
 			hashPost.put(OBJ_KODE_BARANG, edtKodeBarangInventory.getText().toString());
 			hashPost.put(OBJ_NAMA_BARANG, edtNamaBarangInventory.getText().toString());
-			hashPost.put(OBJ_CATEGORY_ID, edtKategoryIdInventory.getText().toString());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanInventory.getText().toString());
 			hashPost.put(OBJ_HARGA_JUAL, edtHargaJualInventory.getText().toString());
 			hashPost.put(OBJ_HARGA_BELI, edtHargaBeliInventory.getText().toString());
 			hashPost.put(OBJ_EXP_DATE, edtExpDateInventory.getText().toString());
-			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_INVENTORY);
+			new HttpConnectionTask(hashPost, this, 1).execute(Constants.API_POST_INVENTORY);
 		}
 	}
 
@@ -280,58 +293,52 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	};
 	
 	private void initSpinnerKodeBarang() {
-		spinnerAdapter = new SpinnerAdapter(this, 0, lstKodeBarang);
-		spnKodeBarangPembelian.setAdapter(spinnerAdapter);
-		spnKodeBarangPembelian.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapter) { 
-            	
-            }
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                setSelectedSpinnerItem(spinnerAdapter.getItem(arg2));
-			}
-        });
+		spinnerAdapterKodeBarang = new SpinnerAdapter(this, 0, lstKodeBarang);	
+		if (isMenuPembelian()) {
+			spnKodeBarangPembelian.setAdapter(spinnerAdapterKodeBarang);
+			spnKodeBarangPembelian.setOnItemSelectedListener(this);		
+		}else if (isMenuPenjualan()) {
+			spnKodeBarangPenjualan.setAdapter(spinnerAdapterKodeBarang);
+			spnKodeBarangPenjualan.setOnItemSelectedListener(this);
+		}
 	}
 
-	private void initSpinnerKodeBarangPenjualan() {
-		spinnerAdapter = new SpinnerAdapter(this, 0, lstKodeBarang);
-		spnKodeBarangPenjualan.setAdapter(spinnerAdapter);
-		spnKodeBarangPenjualan.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapter) { 
-            	
-            }
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                setSelectedSpinnerItem(spinnerAdapter.getItem(arg2));
-			}
-        });
-	}
+//	private void initSpinnerKodeBarangPenjualan() {
+//		spinnerAdapter = new SpinnerAdapter(this, 0, lstKodeBarang);
+//		spnKodeBarangPenjualan.setAdapter(spinnerAdapter);
+//		spnKodeBarangPenjualan.setOnItemSelectedListener(new OnItemSelectedListener() {
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapter) { 
+//            	
+//            }
+//			@Override
+//			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+//                setSelectedKodeBarang(spinnerAdapter.getItem(arg2));
+//			}
+//        });
+//	}
 	
 	private void initSpinnerKodeDistributor() {
-		spinnerAdapter = new SpinnerAdapter(this, 0, lstKodeDistributor);
-		spnKodeDistributorPembelian.setAdapter(spinnerAdapter);
-		spnKodeDistributorPembelian.setOnItemSelectedListener(new OnItemSelectedListener() {
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapter) { 
-            	
-            }
-			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                setSelectedSpinnerItem(spinnerAdapter.getItem(arg2));
-			}
-        });
+		spinnerAdapterKodeDistributor = new SpinnerAdapter(this, 0, lstKodeDistributor);
+		spnKodeDistributorPembelian.setAdapter(spinnerAdapterKodeDistributor);
+		spnKodeDistributorPembelian.setOnItemSelectedListener(this);
 	}
 	
 	@Override
 	public void resultSuccess(int type, String result) {
 		if (mProgressDialog != null)
 			mProgressDialog.dismiss();
-
+		switch (type) {
+		case 1:
+			inventoryObj.retrieveKodeBarang();
+			break;
+		case 2:
+			distributorObj.retrieveKodeDistributor();
+			break;
+		default:
+			break;
+		}
 		Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
 	}
 
@@ -343,11 +350,30 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		Toast.makeText(this, strError, Toast.LENGTH_SHORT).show();
 	}
 	
-	private String getSelectedSpinnerItem() {
-		return selectedSpinnerItem;
+	private String getSelectedKodeDistributor() {
+		return selectedKodeDistributor;
 	}
 
-	private void setSelectedSpinnerItem(String selectedSpinnerItem) {
-		this.selectedSpinnerItem = selectedSpinnerItem;
+	private void setSelectedKodeDistributor(String selectedKodeDistributor) {
+		this.selectedKodeDistributor = selectedKodeDistributor;
+	}
+
+	private String getSelectedKodeBarang() {
+		return selectedKodeBarang;
+	}
+
+	private void setSelectedKodeBarang(String selectedKodeBarang) {
+		this.selectedKodeBarang = selectedKodeBarang;
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+		setSelectedKodeBarang(spinnerAdapterKodeBarang.getItem(arg2));
+		setSelectedKodeDistributor(spinnerAdapterKodeDistributor.getItem(arg2));
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		
 	}
 }

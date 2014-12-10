@@ -11,12 +11,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pinisielektra.apps.DashboardActivitySecondDepth;
-import com.pinisielektra.apps.FilteringActivity;
-import com.pinisielektra.apps.InputActivity;
-import com.pinisielektra.apps.PieChartActivity;
 import com.pinisielektra.apps.R;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
 

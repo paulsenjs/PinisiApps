@@ -9,19 +9,26 @@ import com.pinisielektra.apps.utils.JsonObjConstant;
 
 public class DashboardActivitySecondDepth extends MenuObj implements JsonObjConstant{
 
-//	private Button btnInputData;
-//	private Button btnReport;
 	private String menuIntent;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_dashboard_second_depth);
-	
-		menuIntent = getIntent().getExtras().getString("menu"); 
+		menuIntent = getIntent().getExtras().getString("menu");
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
-//		btnInputData = (Button) findViewById(R.id.btnInput);
-//		btnReport = (Button) findViewById(R.id.btnReport);
+		if (menuIntent.equalsIgnoreCase("menu_pembelian")){
+			getActionBar().setTitle("Pembelian");
+		}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+			getActionBar().setTitle("Penjualan");
+		}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+			getActionBar().setTitle("Pelanggan");
+		}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+			getActionBar().setTitle("Distributor");
+		}else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+			getActionBar().setTitle("Inventory");
+		}
 	}
 
 	public void goToFormInput(View v) {

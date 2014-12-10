@@ -122,6 +122,9 @@ public class InventoryObj implements Serializable, IHttpResponseListener, JsonOb
 			}
 			
 			SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_KODE_BARANG, Context.MODE_PRIVATE).edit();
+			if (editor != null) {
+				editor.remove("kodebrg");
+			}
 			editor.putStringSet("kodebrg", data);
 			editor.commit();
 			

@@ -25,6 +25,10 @@ public class SpinnerAdapter extends ArrayAdapter<String> {
 		return objects.size();
 	}
 	
+	public Object getIndexOf(Object obj) {
+		return objects.indexOf(obj);
+	}
+	
 	@Override
 	public String getItem(int position) {
 		return objects.get(position);

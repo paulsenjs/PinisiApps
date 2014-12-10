@@ -44,6 +44,18 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 		btnSearch.setOnClickListener(this);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setTitle("Search");
+//		if (menuIntent.equalsIgnoreCase("menu_pembelian")){
+//			getActionBar().setTitle("FilteringPembelian");
+//		}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+//			getActionBar().setTitle("Penjualan");
+//		}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+//			getActionBar().setTitle("Pelanggan");
+//		}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+//			getActionBar().setTitle("Distributor");
+//		}else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+//			getActionBar().setTitle("Inventory");
+//		}
 	}
 
 	@Override

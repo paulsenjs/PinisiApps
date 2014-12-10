@@ -28,7 +28,6 @@ public class DistributorObj implements Serializable, IHttpResponseListener, Json
 	private String editor;
 	private String dateEdited;
 	private Context context;
-//	private ArrayList<Object> arrObj;
 	private Set<String> data;
 	
 	public DistributorObj(Context ctx) {
@@ -79,17 +78,18 @@ public class DistributorObj implements Serializable, IHttpResponseListener, Json
 	@Override
 	public void resultSuccess(int type, String result) {
 		try {
-//			arrObj = new ArrayList<Object>();
 			data = new HashSet<String>();
 			JSONObject jObj = new JSONObject(result);
 			JSONArray jArray = jObj.getJSONArray("rows");
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject jObjArr = jArray.getJSONObject(i);
 				data.add(jObjArr.optString(OBJ_KODE_DISTRIBUTOR));
-//				arrObj.add(i, jObjArr.optString(OBJ_KODE_DISTRIBUTOR));
 			}
 			
 			SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_KODE_DISTRIBUTOR, Context.MODE_PRIVATE).edit();
+			if (editor != null) {
+				editor.remove("kodedist");
+			}
 			editor.putStringSet("kodedist", data);
 			editor.commit();
 			

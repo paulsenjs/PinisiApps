@@ -227,6 +227,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 			hashPost.put(OBJ_KODE_BARANG, getSelectedKodeBarang());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPembelian.getText().toString());
 			hashPost.put(OBJ_KODE_DISTRIBUTOR, getSelectedKodeDistributor());
+			hashPost.put(OBJ_CREATOR, savedId);
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_PEMBELIAN);
 		} else if (isMenuPenjualan()) {
 			hashPost = new Hashtable<String, String>();
@@ -242,13 +243,14 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 			hashPost.put(OBJ_NAMA, edtNamaPelanggan.getText().toString());
 			hashPost.put(OBJ_ALAMAT, edtAlamatPelanggan.getText().toString());
 			hashPost.put(OBJ_PHONE, edtPhonePelanggan.getText().toString());
+			hashPost.put(OBJ_CREATOR, savedId);
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_PELANGGAN);
 		} else if (isMenuDistributor()) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "add");
 			hashPost.put(OBJ_KODE_DISTRIBUTOR, edtKodeDistributor.getText().toString());
 			hashPost.put(OBJ_NAMA, edtNamaDistributor.getText().toString());
-			// hashPost.put(OBJ_CREATOR, savedId);
+			hashPost.put(OBJ_CREATOR, savedId);
 			new HttpConnectionTask(hashPost, this, 2).execute(Constants.API_POST_DISTRIBUTOR);
 		} else if (isMenuInventory()) {
 			hashPost = new Hashtable<String, String>();
@@ -259,6 +261,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 			hashPost.put(OBJ_HARGA_JUAL, edtHargaJualInventory.getText().toString());
 			hashPost.put(OBJ_HARGA_BELI, edtHargaBeliInventory.getText().toString());
 			hashPost.put(OBJ_EXP_DATE, edtExpDateInventory.getText().toString());
+			hashPost.put(OBJ_CREATOR, savedId);
 			new HttpConnectionTask(hashPost, this, 1).execute(Constants.API_POST_INVENTORY);
 		}
 	}

@@ -12,7 +12,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,9 +27,8 @@ import com.pinisielektra.apps.adapter.ReportAdapter;
 import com.pinisielektra.apps.connection.HttpConnectionTask;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
 import com.pinisielektra.apps.object.DistributorObj;
-import com.pinisielektra.apps.object.MenuObj;
-import com.pinisielektra.apps.object.MerchantObj;
 import com.pinisielektra.apps.object.InventoryObj;
+import com.pinisielektra.apps.object.MenuObj;
 import com.pinisielektra.apps.object.PelangganObj;
 import com.pinisielektra.apps.object.PembelianObj;
 import com.pinisielektra.apps.object.PenjualanObj;
@@ -84,14 +82,19 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		
 		if (menuIntent != null) {
 			if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
+				getActionBar().setTitle("Laporan Pembelian");
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN);
 			} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+				getActionBar().setTitle("Laporan Penjualan");
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN);
 			} else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+				getActionBar().setTitle("Laporan Pelanggan");
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PELANGGAN);
 			} else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+				getActionBar().setTitle("Laporan Distributor");
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_DISTRIBUTOR);
 			} else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+				getActionBar().setTitle("Laporan Inventory");
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_INVENTORY);
 			}
 		}
@@ -122,6 +125,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 			break;
 		}
 		return itemSelected;
+	
 	}
 
 	private void showActionBarPopUpMenu() {
@@ -336,7 +340,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 						processDistributorResult(jArray);
 					} else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
 						processInventoryResult(jArray);
-					}					
+					}				
 				}else {
 					Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
 					finish();
@@ -362,7 +366,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 	}
 
 	private void showChoicePopUp(final int position) {
-		final CharSequence[] items = { "Ubah", "Hapus" };
+		final CharSequence[] items = { "Ubah", "Hapus", "Detail" };
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -403,7 +407,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 								((InventoryObj) arrObj.get(position)).getHargaBeli(),
 								((InventoryObj) arrObj.get(position)).getExpDate()};
 					}
-					startActivity(new Intent().setClass(ReportActivity.this, EditInputActivity.class).putExtra("edit", strPassingData));					
+					startActivity(new Intent().setClass(ReportActivity.this, EditInputActivity.class).putExtra("edit", strPassingData));				
 					break;
 				case 1:
 					if (getPassMenuIntent().equalsIgnoreCase("menu_pembelian")) {
@@ -432,6 +436,60 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 						hashPost.put(OBJ_KODE_BARANG, ((InventoryObj) arrObj.get(position)).getKodeBarang());
 						new HttpConnectionTask(hashPost, ReportActivity.this, 1).execute(Constants.API_POST_INVENTORY);
 					}
+					break;
+				case 2:
+					if (getPassMenuIntent().equalsIgnoreCase("menu_pembelian")) {
+						strPassingData = new String[]{"detail_pembelian",
+								((PembelianObj) arrObj.get(position)).getIdTrans(),
+								((PembelianObj) arrObj.get(position)).getKodeDistributor(),
+								((PembelianObj) arrObj.get(position)).getKodeBarang(),
+								((PembelianObj) arrObj.get(position)).getTglTransaksi(),
+								((PembelianObj) arrObj.get(position)).getSatuan(),
+								((PembelianObj) arrObj.get(position)).getCreator(),
+								((PembelianObj) arrObj.get(position)).getDateCreated(),
+								((PembelianObj) arrObj.get(position)).getEditor(),
+								((PembelianObj) arrObj.get(position)).getDateEdited()};
+					} else if (getPassMenuIntent().equalsIgnoreCase("menu_penjualan")) {
+						strPassingData = new String[]{"detail_penjualan",
+								((PenjualanObj) arrObj.get(position)).getIdJual(),
+								((PenjualanObj) arrObj.get(position)).getKodeBarang(),
+								((PenjualanObj) arrObj.get(position)).getTglTransaksi(),
+								((PenjualanObj) arrObj.get(position)).getSatuan(),
+								((PenjualanObj) arrObj.get(position)).getCreator(),
+								((PenjualanObj) arrObj.get(position)).getDateCreated(),
+								((PenjualanObj) arrObj.get(position)).getEditor(),
+								((PenjualanObj) arrObj.get(position)).getDateEdited()};
+					} else if (getPassMenuIntent().equalsIgnoreCase("menu_pelanggan")) {
+						strPassingData = new String[]{"detail_pelanggan",
+								((PelangganObj) arrObj.get(position)).getIdPel(),
+								((PelangganObj) arrObj.get(position)).getNama(),
+								((PelangganObj) arrObj.get(position)).getAlamat(),
+								((PelangganObj) arrObj.get(position)).getPhone(),
+								((PelangganObj) arrObj.get(position)).getCreator(),
+								((PelangganObj) arrObj.get(position)).getDateCreated()};
+					} else if (getPassMenuIntent().equalsIgnoreCase("menu_distributor")) {
+						strPassingData = new String[]{"detail_distributor",
+								((DistributorObj) arrObj.get(position)).getKodeDistributor(),
+								((DistributorObj) arrObj.get(position)).getNama(),
+								((DistributorObj) arrObj.get(position)).getCreator(),
+								((DistributorObj) arrObj.get(position)).getDateCreated(),
+								((DistributorObj) arrObj.get(position)).getEditor(),
+								((DistributorObj) arrObj.get(position)).getDateEdited()};
+					} else if (getPassMenuIntent().equalsIgnoreCase("menu_inventory")) {
+						strPassingData = new String[]{"detail_inventory",
+								((InventoryObj) arrObj.get(position)).getKodeBarang(),
+								((InventoryObj) arrObj.get(position)).getCatId(),
+								((InventoryObj) arrObj.get(position)).getNamaBarang(),
+								((InventoryObj) arrObj.get(position)).getSatuan(),
+								((InventoryObj) arrObj.get(position)).getHargaJual(),
+								((InventoryObj) arrObj.get(position)).getHargaBeli(),
+								((InventoryObj) arrObj.get(position)).getExpDate(),
+								((InventoryObj) arrObj.get(position)).getCreator(),
+								((InventoryObj) arrObj.get(position)).getDateCreated(),
+								((InventoryObj) arrObj.get(position)).getEditor(),
+								((InventoryObj) arrObj.get(position)).getDateEdited()};
+					}
+					startActivity(new Intent().setClass(ReportActivity.this, DetailActivity.class).putExtra("detail", strPassingData));
 					break;
 				default:
 					break;

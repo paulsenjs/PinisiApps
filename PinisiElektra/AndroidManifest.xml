@@ -66,6 +66,11 @@
             android:label="@string/title_activity_input"
             android:theme="@style/Theme.AppCompat.Light" >
         </activity>
+        <activity
+            android:name="com.pinisielektra.apps.DetailActivity"
+            android:label="@string/title_activity_detail"
+            android:theme="@style/Theme.AppCompat.Light" >
+        </activity>
     </application>
 
 </manifest>

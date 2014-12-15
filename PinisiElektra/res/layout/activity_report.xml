@@ -31,6 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center"
             android:text="Id"
             android:textStyle="bold" />
 
@@ -39,7 +40,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Kode Barang"
+            android:text="Nama Barang"
+            android:gravity="center"
             android:textStyle="bold" />
 
         <TextView
@@ -48,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Tgl Transaksi"
+            android:gravity="center"
             android:textStyle="bold" />
 
         <TextView
@@ -56,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Satuan"
+            android:gravity="center"
             android:textStyle="bold" />
     </LinearLayout>
 

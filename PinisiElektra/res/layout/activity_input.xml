@@ -100,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edtSatuanPembelian"
             android:layout_alignParentRight="true"
+            android:focusableInTouchMode="false"
             android:layout_below="@+id/edtSatuanPembelian" />
 
     </RelativeLayout>
@@ -145,6 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:focusableInTouchMode="false"
             android:layout_below="@+id/edtKodeBarangPenjualan"
             android:ems="10" />
 
@@ -416,6 +418,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edtSatuanInventory"
             android:layout_alignParentRight="true"
+            android:focusableInTouchMode="false"
             android:layout_below="@+id/edtHargaBeliInventory"
             android:ems="10" />
 

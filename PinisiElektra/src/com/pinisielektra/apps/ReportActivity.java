@@ -83,6 +83,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		if (menuIntent != null) {
 			if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
 				getActionBar().setTitle("Laporan Pembelian");
+				Toast.makeText(this, getIntent().getExtras().getString("range"), Toast.LENGTH_SHORT).show();
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN);
 			} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
 				getActionBar().setTitle("Laporan Penjualan");

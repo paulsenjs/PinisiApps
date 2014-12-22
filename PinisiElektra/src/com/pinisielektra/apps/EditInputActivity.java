@@ -1,6 +1,7 @@
 package com.pinisielektra.apps;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
@@ -101,6 +102,11 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		SharedPreferences prefs = getSharedPreferences(Constants.MY_PREFS_NAME, MODE_PRIVATE);
 		savedId = prefs.getString("uId", null);
 
+		Calendar c = Calendar.getInstance();
+		lYear = c.get(Calendar.YEAR);
+		lMonth = c.get(Calendar.MONTH);
+		lDay = c.get(Calendar.DAY_OF_MONTH);
+		
 		relativePembelian = (RelativeLayout) findViewById(R.id.relativePembelian);
 		relativePenjualan = (RelativeLayout) findViewById(R.id.relativePenjualan);
 		relativePelanggan = (RelativeLayout) findViewById(R.id.relativePelanggan);

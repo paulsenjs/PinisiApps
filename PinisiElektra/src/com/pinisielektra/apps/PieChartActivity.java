@@ -64,7 +64,13 @@ public class PieChartActivity extends ActionBarActivity {
         arrItemName = new ArrayList<String>();
         arrItemSatuan = new ArrayList<String>();
         
-        for (int i=0; i<mIntentItemId.size(); i++) {
+        int range;
+        if (mIntentItemId.size() > 10) 
+        	range = 10;
+        else
+        	range = mIntentItemId.size();
+        
+        for (int i=0; i< range; i++) {
         	switch (mIntentMenuId) {
 			case 1:
 	        	arrItemName.add(((PenjualanObj)mIntentItemId.get(i)).getKodeBarang());

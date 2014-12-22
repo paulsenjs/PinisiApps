@@ -1,6 +1,7 @@
 package com.pinisielektra.apps;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
@@ -108,6 +109,11 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		SharedPreferences prefs = getSharedPreferences(Constants.MY_PREFS_NAME, MODE_PRIVATE);
 		savedId = prefs.getString("uId", null);
 
+		Calendar c = Calendar.getInstance();
+		lYear = c.get(Calendar.YEAR);
+		lMonth = c.get(Calendar.MONTH);
+		lDay = c.get(Calendar.DAY_OF_MONTH);
+		
 		relativePembelian = (RelativeLayout) findViewById(R.id.relativePembelian);
 		relativePenjualan = (RelativeLayout) findViewById(R.id.relativePenjualan);
 		relativePelanggan = (RelativeLayout) findViewById(R.id.relativePelanggan);
@@ -299,7 +305,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		spinnerAdapterKodeBarang = new SpinnerAdapter(this, 0, lstKodeBarang);	
 		if (isMenuPembelian()) {
 			spnKodeBarangPembelian.setAdapter(spinnerAdapterKodeBarang);
-			spnKodeBarangPembelian.setOnItemSelectedListener(this);		
+			spnKodeBarangPembelian.setOnItemSelectedListener(this);
 		}else if (isMenuPenjualan()) {
 			spnKodeBarangPenjualan.setAdapter(spinnerAdapterKodeBarang);
 			spnKodeBarangPenjualan.setOnItemSelectedListener(this);
@@ -371,8 +377,17 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		setSelectedKodeBarang(spinnerAdapterKodeBarang.getItem(arg2));
-		setSelectedKodeDistributor(spinnerAdapterKodeDistributor.getItem(arg2));
+		switch (arg0.getId()) {
+		case R.id.edtKodeBarangPembelian:
+		case R.id.edtKodeBarangPenjualan:
+			setSelectedKodeBarang(spinnerAdapterKodeBarang.getItem(arg2));			
+			break;
+		case R.id.edtKodeDistributorPembelian:
+			setSelectedKodeDistributor(spinnerAdapterKodeDistributor.getItem(arg2));
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

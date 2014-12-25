@@ -10,11 +10,11 @@ public class Constants {
 	
 	//penjualan
 	public static final String API_POST_PENJUALAN = "http://cpos.pinisi-elektra.com/api/penjualan.php";
-	public static final String API_LIST_PENJUALAN = "http://cpos.pinisi-elektra.com/api/penjualan.php?cmd=list";
+	public static final String API_LIST_PENJUALAN = "http://cpos.pinisi-elektra.com/api/penjualan.php?cmd=list&orderby=satuan%20desc";
 	
 	//pembelian
 	public static final String API_POST_PEMBELIAN = "http://cpos.pinisi-elektra.com/api/pembelian.php";
-	public static final String API_LIST_PEMBELIAN = "http://cpos.pinisi-elektra.com/api/pembelian.php?cmd=list";
+	public static final String API_LIST_PEMBELIAN = "http://cpos.pinisi-elektra.com/api/pembelian.php?cmd=list&orderby=satuan%20desc";
 	
 	//inventory
 	public static final String API_POST_INVENTORY = "http://cpos.pinisi-elektra.com/api/barang.php";

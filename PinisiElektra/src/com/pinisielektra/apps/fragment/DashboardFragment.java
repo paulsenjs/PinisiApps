@@ -23,6 +23,7 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 	private ImageView btnInventory;
 	private ImageView btnPelanggan;
 	private ImageView btnDistributor;
+	private ImageView btnMerchant;
 	private TextView txtName;
 	
 	@Override
@@ -40,6 +41,7 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 		btnInventory = (ImageView) view.findViewById(R.id.imgInventory);
 		btnPelanggan = (ImageView) view.findViewById(R.id.imgPelanggan);
 		btnDistributor = (ImageView) view.findViewById(R.id.imgDistributor);
+		btnMerchant = (ImageView) view.findViewById(R.id.imgMerchant);
 		txtName = (TextView) view.findViewById(R.id.txt_username);
 		
 		btnPembelian.setOnClickListener(this);
@@ -47,6 +49,7 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 		btnInventory.setOnClickListener(this);
 		btnPelanggan.setOnClickListener(this);
 		btnDistributor.setOnClickListener(this);
+		btnMerchant.setOnClickListener(this);
 		
 		txtName.setText("Hi " + getActivity().getIntent().getExtras().getString("uName"));
 		
@@ -76,6 +79,9 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 			break;
 		case R.id.imgDistributor:
 			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_distributor"));
+			break;
+		case R.id.imgMerchant:
+			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_merchant"));
 			break;
 		default:
 			break;

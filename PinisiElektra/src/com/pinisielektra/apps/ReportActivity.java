@@ -29,6 +29,7 @@ import com.pinisielektra.apps.connection.IHttpResponseListener;
 import com.pinisielektra.apps.object.DistributorObj;
 import com.pinisielektra.apps.object.InventoryObj;
 import com.pinisielektra.apps.object.MenuObj;
+import com.pinisielektra.apps.object.MerchantObj;
 import com.pinisielektra.apps.object.PelangganObj;
 import com.pinisielektra.apps.object.PembelianObj;
 import com.pinisielektra.apps.object.PenjualanObj;
@@ -46,6 +47,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 	private LinearLayout linearHeaderInventory;
 	private LinearLayout linearHeaderPelanggan;
 	private LinearLayout linearHeaderDistributor;
+	private LinearLayout linearHeaderMerchant;
 	
 	private ProgressDialog mProgress;
 	private ListView lstDataReport;
@@ -55,7 +57,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 	private PembelianObj pembelianObj;
 	private InventoryObj inventoryObj;
 	private PelangganObj pelangganObj;
-//	private MerchantObj merchantObj;
+	private MerchantObj merchantObj;
 	private DistributorObj distributorObj;
 
 	private ArrayList<Object> arrObj;
@@ -76,6 +78,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		linearHeaderInventory = (LinearLayout) findViewById(R.id.linearInventoryHeader);
 		linearHeaderPelanggan = (LinearLayout) findViewById(R.id.linearPelangganHeader);
 		linearHeaderDistributor = (LinearLayout) findViewById(R.id.linearDistributorHeader);
+		linearHeaderMerchant = (LinearLayout) findViewById(R.id.linearMerchantHeader); 
 		
 		mProgress = new ProgressDialog(this);
 		mProgress.show();
@@ -83,19 +86,28 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		if (menuIntent != null) {
 			if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
 				getActionBar().setTitle("Laporan Pembelian");
+				setMenuPembelian(true);
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN);
 			} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
 				getActionBar().setTitle("Laporan Penjualan");
+				setMenuPenjualan(true);
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN);
 			} else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
 				getActionBar().setTitle("Laporan Pelanggan");
+				setMenuPelanggan(true);
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PELANGGAN);
 			} else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
 				getActionBar().setTitle("Laporan Distributor");
+				setMenuDistributor(true);
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_DISTRIBUTOR);
 			} else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
 				getActionBar().setTitle("Laporan Inventory");
+				setMenuInventory(true);
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_INVENTORY);
+			} else if (menuIntent.equalsIgnoreCase("menu_merchant")) {
+				getActionBar().setTitle("Laporan Merchant");
+				setMenuMerchant(true);
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_MERCHANT);
 			}
 		}
 
@@ -182,6 +194,30 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		popupMenu.show();
 	}
 
+	private void processMerchantResult(JSONArray jArray) {
+		linearHeaderMerchant.setVisibility(View.VISIBLE);
+		try {
+			arrObj = new ArrayList<Object>();
+			for (int i = 0; i < jArray.length(); i++) {
+				JSONObject jObjArr = jArray.getJSONObject(i);
+				merchantObj = new MerchantObj();
+				merchantObj.setAddress(jObjArr.optString(OBJ_ADDRESS));
+				merchantObj.setCreator(jObjArr.optString(OBJ_CREATOR));
+				merchantObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
+				merchantObj.setMerchantId(jObjArr.optString(OBJ_MERCHANT_ID));
+				merchantObj.setMerchantName(jObjArr.optString(OBJ_MERCHANT_NAME));
+				arrObj.add(merchantObj);
+			}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		setArrObj(arrObj);
+		reportAdapter = new ReportAdapter(ID_MERCHANT, this, arrObj);
+		lstDataReport.setAdapter(reportAdapter);
+		lstDataReport.setOnItemClickListener(this);
+	}
+	
 	private void processPembelianResult(JSONArray jArray) {
 		linearHeaderPembelian.setVisibility(View.VISIBLE);
 		try {
@@ -330,17 +366,19 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 					JSONArray jArray = jObj.getJSONArray("rows");
 					setTotalSatuan(jObj.optString(OBJ_TOTAL_SATUAN));
 					
-					if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
+					if (isMenuPembelian()) {
 						processPembelianResult(jArray);
-					} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+					} else if (isMenuPenjualan()) {
 						processPenjualanResult(jArray);
-					} else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+					} else if (isMenuPelanggan()) {
 						processPelangganResult(jArray);
-					} else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+					} else if (isMenuDistributor()) {
 						processDistributorResult(jArray);
-					} else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+					} else if (isMenuInventory()) {
 						processInventoryResult(jArray);
-					}				
+					} else if (isMenuMerchant()) {
+						processMerchantResult(jArray);
+					}
 				}else {
 					Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
 					finish();
@@ -406,6 +444,12 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 								((InventoryObj) arrObj.get(position)).getHargaJual(),
 								((InventoryObj) arrObj.get(position)).getHargaBeli(),
 								((InventoryObj) arrObj.get(position)).getExpDate()};
+					} else if (getPassMenuIntent().equalsIgnoreCase("menu_merchant")) {
+						strPassingData = new String[]{"edit_merchant",
+								((MerchantObj) arrObj.get(position)).getMerchantId(),
+								((MerchantObj) arrObj.get(position)).getMerchantName(),
+								((MerchantObj) arrObj.get(position)).getAddress(),
+								((MerchantObj) arrObj.get(position)).getMerchantUserId()};
 					}
 					startActivity(new Intent().setClass(ReportActivity.this, EditInputActivity.class).putExtra("edit", strPassingData));				
 					break;
@@ -435,6 +479,11 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 						hashPost.put("cmd", "del");
 						hashPost.put(OBJ_KODE_BARANG, ((InventoryObj) arrObj.get(position)).getKodeBarang());
 						new HttpConnectionTask(hashPost, ReportActivity.this, 1).execute(Constants.API_POST_INVENTORY);
+					} else if (getPassMenuIntent().equalsIgnoreCase("menu_merchant")) {
+						hashPost = new Hashtable<String, String>();
+						hashPost.put("cmd", "del");
+						hashPost.put(OBJ_MERCHANT_ID, ((MerchantObj) arrObj.get(position)).getMerchantId());
+						new HttpConnectionTask(hashPost, ReportActivity.this, 1).execute(Constants.API_POST_MERCHANT);
 					}
 					break;
 				case 2:
@@ -488,6 +537,14 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 								((InventoryObj) arrObj.get(position)).getDateCreated(),
 								((InventoryObj) arrObj.get(position)).getEditor(),
 								((InventoryObj) arrObj.get(position)).getDateEdited()};
+					} else if (getPassMenuIntent().equalsIgnoreCase("menu_merchant")) {
+						strPassingData = new String[]{"detail_merchant",
+								((MerchantObj) arrObj.get(position)).getMerchantId(),
+								((MerchantObj) arrObj.get(position)).getMerchantName(),
+								((MerchantObj) arrObj.get(position)).getAddress(),
+								((MerchantObj) arrObj.get(position)).getMerchantUserId(),
+								((MerchantObj) arrObj.get(position)).getCreator(),
+								((MerchantObj) arrObj.get(position)).getDateCreated()};
 					}
 					startActivity(new Intent().setClass(ReportActivity.this, DetailActivity.class).putExtra("detail", strPassingData));
 					break;

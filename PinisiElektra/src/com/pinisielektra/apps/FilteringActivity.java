@@ -1,5 +1,7 @@
 package com.pinisielektra.apps;
 
+import java.util.Calendar;
+
 import com.pinisielektra.apps.connection.HttpConnectionTask;
 import com.pinisielektra.apps.utils.Constants;
 
@@ -33,6 +35,11 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_filtering);
 		
+		Calendar c = Calendar.getInstance();
+		lYear = c.get(Calendar.YEAR);
+		lMonth = c.get(Calendar.MONTH);
+		lDay = c.get(Calendar.DAY_OF_MONTH);
+		
 		menuIntent = getIntent().getExtras().getString("menu");
 		btnSearch = (Button) findViewById(R.id.btnSearch);
 		
@@ -44,7 +51,7 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 		btnSearch.setOnClickListener(this);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setTitle("Search");
+		getActionBar().setTitle("Filter Search");
 //		if (menuIntent.equalsIgnoreCase("menu_pembelian")){
 //			getActionBar().setTitle("FilteringPembelian");
 //		}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
@@ -90,7 +97,7 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 		case R.id.btnSearch:
 			if (menuIntent != null) {
 				if (menuIntent.equalsIgnoreCase("menu_pembelian")){
-					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_pembelian"));
+					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_pembelian").putExtra("range", "test date range"));
 				}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
 					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_penjualan"));
 				}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
@@ -99,6 +106,8 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_distributor"));
 				}else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
 					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_inventory"));
+				}else if (menuIntent.equalsIgnoreCase("menu_merchant")) {
+					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_merchant"));
 				}
 			}
 

@@ -76,6 +76,15 @@ public class DetailActivity extends MenuObj {
 						"\nDate Created : " + menuIntent[9] +
 						"\nEditor : " + menuIntent[10] +
 						"\nDate Edited : " + menuIntent[11]);
+			} else if (menuIntent[0].equalsIgnoreCase("detail_merchant")) {
+				setMenuMerchant(true);
+				strBuffer = new StringBuffer();
+				strBuffer.append("Id : "+ menuIntent[1] +
+						"\nUser Id : " + menuIntent[4] +
+						"\nNama : " + menuIntent[2] +
+						"\nAlamat : " + menuIntent[3] +
+						"\nCreator : " + menuIntent[5] + 
+						"\nDate Created : " + menuIntent[6]);
 			}
 		}
 		

@@ -1,6 +1,7 @@
 package com.pinisielektra.apps;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
@@ -66,6 +67,12 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	private SpinnerAdapter spinnerAdapterKodeBarang;
 	private SpinnerAdapter spinnerAdapterKodeDistributor;
 	
+	// merchant
+	private EditText edtMerchantId;
+	private EditText edtMerchantUserId;
+	private EditText edtMerchantName;
+	private EditText edtMerchantAddr;
+	
 	private ProgressDialog mProgressDialog;
 	private Hashtable<String, String> hashPost;
 	private String currentDate;
@@ -79,6 +86,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	private RelativeLayout relativePelanggan;
 	private RelativeLayout relativeDistributor;
 	private RelativeLayout relativeInventory;
+	private RelativeLayout relativeMerchant;
 	
 	private int lYear;
 	private int lMonth;
@@ -108,11 +116,17 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		SharedPreferences prefs = getSharedPreferences(Constants.MY_PREFS_NAME, MODE_PRIVATE);
 		savedId = prefs.getString("uId", null);
 
+		Calendar c = Calendar.getInstance();
+		lYear = c.get(Calendar.YEAR);
+		lMonth = c.get(Calendar.MONTH);
+		lDay = c.get(Calendar.DAY_OF_MONTH);
+		
 		relativePembelian = (RelativeLayout) findViewById(R.id.relativePembelian);
 		relativePenjualan = (RelativeLayout) findViewById(R.id.relativePenjualan);
 		relativePelanggan = (RelativeLayout) findViewById(R.id.relativePelanggan);
 		relativeDistributor = (RelativeLayout) findViewById(R.id.relativeDistributor);
 		relativeInventory = (RelativeLayout) findViewById(R.id.relativeInventory);
+		relativeMerchant = (RelativeLayout) findViewById(R.id.relativeMerchant);
 		
 		initLayout();
 	
@@ -171,6 +185,10 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 				relativePelanggan.setVisibility(View.GONE);
 				relativeDistributor.setVisibility(View.GONE);
 				relativeInventory.setVisibility(View.VISIBLE);
+			}else if (menuIntent.equalsIgnoreCase("menu_merchant")) {
+				setMenuMerchant(true);
+				getActionBar().setTitle("Input Merchant");
+				relativeMerchant.setVisibility(View.VISIBLE);
 			}
 		}
 
@@ -178,6 +196,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		edtSatuanPembelian = (EditText) findViewById(R.id.edtSatuanPembelian);
 		spnKodeDistributorPembelian = (Spinner) findViewById(R.id.edtKodeDistributorPembelian);
 		edtTglTransaksiPembelian = (EditText) findViewById(R.id.edtTglTrxPembelian);
+		edtSatuanPembelian = (EditText) findViewById(R.id.edtSatuanPembelian);
 		edtTglTransaksiPembelian.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -216,6 +235,11 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 			}
 		});
 		edtSatuanPenjualan = (EditText) findViewById(R.id.edtSatuanPenjualan);
+		
+		edtMerchantId = (EditText) findViewById(R.id.edtMerchantId);
+		edtMerchantUserId = (EditText) findViewById(R.id.edtTUserUserId);
+		edtMerchantAddr  = (EditText) findViewById(R.id.edtMerchantAddress);
+		edtMerchantName  = (EditText) findViewById(R.id.edtMerchantName);
 	}
 	
 	public void actionSendData(View v) {
@@ -263,6 +287,15 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 			hashPost.put(OBJ_EXP_DATE, edtExpDateInventory.getText().toString());
 			hashPost.put(OBJ_CREATOR, savedId);
 			new HttpConnectionTask(hashPost, this, 1).execute(Constants.API_POST_INVENTORY);
+		} else if (isMenuMerchant()) {
+			hashPost = new Hashtable<String, String>();
+			hashPost.put("cmd", "add");
+			hashPost.put(OBJ_MERCHANT_ID, edtMerchantId.getText().toString());
+			hashPost.put(OBJ_USER_ID, edtMerchantUserId.getText().toString());
+			hashPost.put(OBJ_MERCHANT_NAME, edtMerchantName.getText().toString());
+			hashPost.put(OBJ_ADDRESS, edtMerchantAddr.getText().toString());
+			hashPost.put(OBJ_CREATOR, savedId);
+			new HttpConnectionTask(hashPost, this, 1).execute(Constants.API_POST_MERCHANT);
 		}
 	}
 
@@ -299,7 +332,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		spinnerAdapterKodeBarang = new SpinnerAdapter(this, 0, lstKodeBarang);	
 		if (isMenuPembelian()) {
 			spnKodeBarangPembelian.setAdapter(spinnerAdapterKodeBarang);
-			spnKodeBarangPembelian.setOnItemSelectedListener(this);		
+			spnKodeBarangPembelian.setOnItemSelectedListener(this);
 		}else if (isMenuPenjualan()) {
 			spnKodeBarangPenjualan.setAdapter(spinnerAdapterKodeBarang);
 			spnKodeBarangPenjualan.setOnItemSelectedListener(this);
@@ -371,8 +404,17 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		setSelectedKodeBarang(spinnerAdapterKodeBarang.getItem(arg2));
-		setSelectedKodeDistributor(spinnerAdapterKodeDistributor.getItem(arg2));
+		switch (arg0.getId()) {
+		case R.id.edtKodeBarangPembelian:
+		case R.id.edtKodeBarangPenjualan:
+			setSelectedKodeBarang(spinnerAdapterKodeBarang.getItem(arg2));			
+			break;
+		case R.id.edtKodeDistributorPembelian:
+			setSelectedKodeDistributor(spinnerAdapterKodeDistributor.getItem(arg2));
+			break;
+		default:
+			break;
+		}
 	}
 
 	@Override

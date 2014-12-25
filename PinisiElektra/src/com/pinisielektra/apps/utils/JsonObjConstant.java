@@ -25,4 +25,5 @@ public interface JsonObjConstant {
 	public static final String OBJ_PHONE = "phone";
 	public static final String OBJ_ALAMAT = "alamat";
 	public static final String OBJ_ID_PENJUALAN = "idjual";
+	public static final String OBJ_MERCHANT_TUSER_ID = "t_user_userid";
 }

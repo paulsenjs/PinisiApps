@@ -9,8 +9,15 @@ public class MerchantObj implements Serializable {
 	private String address;
 	private String creator;
 	private String dateCreated;
+	private String merchantUserId;
 	
 	
+	public String getMerchantUserId() {
+		return merchantUserId;
+	}
+	public void setMerchantUserId(String merchantUserId) {
+		this.merchantUserId = merchantUserId;
+	}
 	public String getMerchantId() {
 		return merchantId;
 	}

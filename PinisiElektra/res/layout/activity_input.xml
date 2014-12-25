@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".InputActivity" >
 
-    <!-- Pembelian -->
+	<!-- Pembelian -->
     <RelativeLayout
         android:id="@+id/relativePembelian"
         android:layout_width="wrap_content"
@@ -100,6 +100,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edtSatuanPembelian"
             android:layout_alignParentRight="true"
+            android:focusableInTouchMode="false"
             android:layout_below="@+id/edtSatuanPembelian" />
 
     </RelativeLayout>
@@ -145,6 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:focusableInTouchMode="false"
             android:layout_below="@+id/edtKodeBarangPenjualan"
             android:ems="10" />
 
@@ -311,7 +313,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativeDistributor"
         android:layout_marginTop="14dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <EditText
             android:id="@+id/edtKodeBarangInventory"
@@ -416,6 +418,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edtSatuanInventory"
             android:layout_alignParentRight="true"
+            android:focusableInTouchMode="false"
             android:layout_below="@+id/edtHargaBeliInventory"
             android:ems="10" />
 
@@ -435,14 +438,93 @@
             android:layout_below="@+id/edtKodeBarangInventory"
             android:text="Kategori Id" /> -->
         
-    </RelativeLayout>
+    </RelativeLayout>    
 
+    <!-- Merchant -->
+    <RelativeLayout
+        android:id="@+id/relativeMerchant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeInventory"
+        android:layout_marginTop="14dp"
+        android:visibility="gone" >
+
+        <EditText
+            android:id="@+id/edtMerchantId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/edtTUserUserId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtMerchantId"
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/edtMerchantName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtTUserUserId"
+            android:ems="10" />
+
+        <EditText
+            android:id="@+id/edtMerchantAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtMerchantName"
+            android:ems="10" />
+
+        <TextView
+            android:id="@+id/txtMerchantAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtMerchantAddress"
+            android:layout_alignBottom="@+id/edtMerchantAddress"
+            android:layout_alignParentLeft="true"
+            android:text="Address" />
+
+        <TextView
+            android:id="@+id/txtMerchantUserId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtTUserUserId"
+            android:layout_alignBottom="@+id/edtTUserUserId"
+            android:layout_alignParentLeft="true"
+            android:text="User Id" />
+
+        <TextView
+            android:id="@+id/txtMerchantName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtMerchantName"
+            android:layout_alignBottom="@+id/edtMerchantName"
+            android:layout_alignParentLeft="true"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/txtMerchantId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/edtMerchantId"
+            android:layout_alignBottom="@+id/edtMerchantId"
+            android:layout_alignParentLeft="true"
+            android:text="Merchant Id" />
+        
+    </RelativeLayout>
+    
     <!-- Button -->
     <RelativeLayout
         android:id="@+id/relativeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeInventory"
+        android:layout_below="@+id/relativeMerchant"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:visibility="visible" >

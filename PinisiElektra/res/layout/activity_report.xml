@@ -224,11 +224,47 @@
 
     </LinearLayout>
     
+    <LinearLayout
+        android:id="@+id/linearMerchantHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearDistributorHeader"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/column_header1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Id"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/column_header2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nama"
+            android:textStyle="bold" />
+
+       	<TextView
+            android:id="@+id/column_header3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Address"
+            android:textStyle="bold" />
+        
+    </LinearLayout>
+    
     <ListView
         android:id="@+id/lstListData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearDistributorHeader" >
+        android:layout_below="@+id/linearMerchantHeader" >
     </ListView>
 
 </RelativeLayout>

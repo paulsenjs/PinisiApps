@@ -186,5 +186,35 @@
             android:layout_weight="1"
             android:text="Nama" />
     </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/linearMerchant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:visibility="gone" >
+
+        <TextView
+            android:id="@+id/txtMerchantId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Merchant Id" />
+
+        <TextView
+            android:id="@+id/txtMerchantName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nama" />
+        
+        <TextView
+            android:id="@+id/txtMerchantAddr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Alamat" />
+    </LinearLayout>    
 
 </LinearLayout>

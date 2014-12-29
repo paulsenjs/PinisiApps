@@ -46,6 +46,12 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		private EditText edtHargaBeliInventory;
 		private EditText edtExpDateInventory;
 
+		// merchant
+		private EditText edtMerchantId;
+		private EditText edtMerchantUserId;
+		private EditText edtMerchantName;
+		private EditText edtMerchantAddr;
+		
 		// pelanggan
 		private EditText edtIdPelanggan;
 		private EditText edtNamaPelanggan;
@@ -77,6 +83,7 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		private RelativeLayout relativePelanggan;
 		private RelativeLayout relativeDistributor;
 		private RelativeLayout relativeInventory;
+		private RelativeLayout relativeMerchant;
 		
 		private int lYear;
 		private int lMonth;
@@ -112,6 +119,7 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		relativePelanggan = (RelativeLayout) findViewById(R.id.relativePelanggan);
 		relativeDistributor = (RelativeLayout) findViewById(R.id.relativeDistributor);
 		relativeInventory = (RelativeLayout) findViewById(R.id.relativeInventory);
+		relativeMerchant = (RelativeLayout)findViewById(R.id.relativeMerchant);
 		
 		initLayout();
 	
@@ -138,6 +146,8 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 			showIventoryCurrentData(menuIntent);
 		}else if (isMenuDistributor()) {
 			showDistributorCurrentData(menuIntent);
+		}else if (isMenuMerchant()) {
+			showMerchantCurrentData(menuIntent);
 		}
 	}
 
@@ -178,6 +188,14 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 				relativePelanggan.setVisibility(View.GONE);
 				relativeDistributor.setVisibility(View.GONE);
 				relativeInventory.setVisibility(View.VISIBLE);
+			}else if (menuIntent[0].equalsIgnoreCase("edit_merchant")) {
+				setMenuMerchant(true);
+				relativePembelian.setVisibility(View.GONE);
+				relativePenjualan.setVisibility(View.GONE);
+				relativePelanggan.setVisibility(View.GONE);
+				relativeDistributor.setVisibility(View.GONE);
+				relativeInventory.setVisibility(View.GONE);
+				relativeMerchant.setVisibility(View.VISIBLE);
 			}
 		}
 
@@ -223,6 +241,11 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 			}
 		});
 		edtSatuanPenjualan = (EditText) findViewById(R.id.edtSatuanPenjualan);
+		
+		edtMerchantId = (EditText) findViewById(R.id.edtMerchantId);
+		edtMerchantUserId = (EditText) findViewById(R.id.edtTUserUserId);
+		edtMerchantAddr  = (EditText) findViewById(R.id.edtMerchantAddress);
+		edtMerchantName  = (EditText) findViewById(R.id.edtMerchantName);
 	}
 
 	private void initSpinnerKodeBarang() {
@@ -308,6 +331,13 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		edtNamaDistributor.setText(data[2]);
 	}
 	
+	private void showMerchantCurrentData(String[] data) {
+		edtMerchantId.setText(data[1]);
+		edtMerchantName.setText(data[2]);
+		edtMerchantAddr.setText(data[3]);
+		edtMerchantUserId.setText(data[4]);
+	}
+	
 	public void actionSendData(View v) {
 		mProgressDialog.show();
 		
@@ -352,6 +382,15 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 			hashPost.put(OBJ_HARGA_BELI, edtHargaBeliInventory.getText().toString());
 			hashPost.put(OBJ_EXP_DATE, edtExpDateInventory.getText().toString());
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_INVENTORY);
+		}else if (menuIntent[0].equalsIgnoreCase("edit_merchant")) {
+			hashPost = new Hashtable<String, String>();
+			hashPost.put("cmd", "edit");
+			hashPost.put(OBJ_MERCHANT_ID, edtMerchantId.getText().toString());
+			hashPost.put(OBJ_MERCHANT_NAME, edtMerchantName.getText().toString());
+			hashPost.put(OBJ_ADDRESS, edtMerchantAddr.getText().toString());
+			hashPost.put(OBJ_MERCHANT_TUSER_ID, edtMerchantUserId.getText().toString());
+			
+			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_MERCHANT);
 		}
 	}
 

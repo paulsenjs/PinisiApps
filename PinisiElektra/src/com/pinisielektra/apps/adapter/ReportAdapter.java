@@ -8,11 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.pinisielektra.apps.R;
 import com.pinisielektra.apps.object.DistributorObj;
 import com.pinisielektra.apps.object.InventoryObj;
+import com.pinisielektra.apps.object.MerchantObj;
 import com.pinisielektra.apps.object.PelangganObj;
 import com.pinisielektra.apps.object.PembelianObj;
 import com.pinisielektra.apps.object.PenjualanObj;
@@ -61,6 +63,7 @@ public class ReportAdapter extends BaseAdapter {
 			viewHolder.linearInventory = (LinearLayout) convertView.findViewById(R.id.linearInventory);
 			viewHolder.linearPelanggan = (LinearLayout) convertView.findViewById(R.id.linearPelanggan);
 			viewHolder.linearDistributor = (LinearLayout) convertView.findViewById(R.id.linearDistributor);
+			viewHolder.linearMerchant = (LinearLayout) convertView.findViewById(R.id.linearMerchant);
 			
 			switch (idMenu) {
 			case 1:
@@ -96,6 +99,11 @@ public class ReportAdapter extends BaseAdapter {
 				viewHolder.txtNamaDistributor = (TextView) convertView.findViewById(R.id.txtNamaDistributor);
 				viewHolder.txtKodeDistributor = (TextView) convertView.findViewById(R.id.txtKodeDistributor);
 				break;
+			case 8:
+				viewHolder.linearMerchant.setVisibility(View.VISIBLE);
+				viewHolder.txtMerchantId = (TextView) convertView.findViewById(R.id.txtMerchantId);
+				viewHolder.txtMerchantName = (TextView) convertView.findViewById(R.id.txtMerchantName);
+				viewHolder.txtMerchantAddr = (TextView) convertView.findViewById(R.id.txtMerchantAddr);
 			default:
 				break;
 			}
@@ -134,6 +142,10 @@ public class ReportAdapter extends BaseAdapter {
 			viewHolder.txtKodeDistributor.setText(((DistributorObj) arrObjs.get(position)).getKodeDistributor());
 			viewHolder.txtNamaDistributor.setText(((DistributorObj) arrObjs.get(position)).getNama());
 			break;
+		case 8:
+			viewHolder.txtMerchantId.setText(((MerchantObj) arrObjs.get(position)).getMerchantId());
+			viewHolder.txtMerchantName.setText(((MerchantObj) arrObjs.get(position)).getMerchantName());
+			viewHolder.txtMerchantAddr.setText(((MerchantObj) arrObjs.get(position)).getAddress());
 		default:
 			break;
 		}
@@ -160,6 +172,7 @@ public class ReportAdapter extends BaseAdapter {
 		private LinearLayout linearInventory;
 		private LinearLayout linearPelanggan;
 		private LinearLayout linearDistributor;
+		private LinearLayout linearMerchant;
 		
 		//pelanggan
 		private TextView txtIdPelanggan;
@@ -176,7 +189,11 @@ public class ReportAdapter extends BaseAdapter {
 		private TextView txtKodeBarangPenjualan;
 		private TextView txtTglTransaksiPenjualan;
 		private TextView txtSatuanPenjualan;
-		
+	
+		//merchant
+		private TextView txtMerchantId;
+		private TextView txtMerchantName;
+		private TextView txtMerchantAddr;
 	}
 
 }

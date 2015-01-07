@@ -58,7 +58,7 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <TextView
+    <!-- <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,7 +74,7 @@
         android:layout_alignTop="@+id/textView3"
         android:layout_marginLeft="20dp"
         android:layout_toRightOf="@+id/textView3"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true" /> -->
 
     <Button
         android:id="@+id/btnSearch"

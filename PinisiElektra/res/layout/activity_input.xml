@@ -51,14 +51,6 @@
             android:ems="10"
             android:singleLine="true" /> -->
 
-		<TextView
-            android:id="@+id/txtKodeBarang"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/textView3"
-            android:layout_alignTop="@+id/edtKodeBarangPembelian"
-            android:text="Kode Barang" />
-
 		<Spinner
 		    android:id="@+id/edtKodeBarangPembelian"
 		    android:layout_width="wrap_content"
@@ -68,6 +60,15 @@
             android:layout_below="@+id/edtKodeDistributorPembelian"
             android:layout_alignParentRight="true" />
 
+		<Spinner
+		    android:id="@+id/edtKodeMerchant"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+			android:layout_alignLeft="@+id/edtSatuanPembelian"
+            android:layout_toRightOf="@+id/textView2"
+            android:layout_below="@+id/edtKodeBarangPembelian"
+            android:layout_alignParentRight="true" />
+		
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
@@ -82,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/edtKodeBarangPembelian"
+            android:layout_below="@+id/edtKodeMerchant"
             android:layout_toRightOf="@+id/textView2" />
 
         <TextView
@@ -103,6 +104,22 @@
             android:focusableInTouchMode="false"
             android:layout_below="@+id/edtSatuanPembelian" />
 
+        <TextView
+            android:id="@+id/txtKodeMerchant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/edtKodeMerchant"
+            android:text="Kode Merchant" />
+
+        <TextView
+            android:id="@+id/txtKodeBarang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/edtKodeBarangPembelian"
+            android:text="Kode Barang" />
+
     </RelativeLayout>
 
     <!-- Penjualan -->
@@ -113,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativePembelian"
         android:layout_marginTop="14dp"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
         <TextView
             android:id="@+id/txtKodeBarangPenjualan"
@@ -138,17 +155,26 @@
             android:id="@+id/edtKodeBarangPenjualan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/edtTglTransaksi"
+            android:layout_alignLeft="@+id/edtKodeMerchantPenjualan"
             android:layout_alignParentRight="true" />
 
+        <Spinner
+            android:id="@+id/edtKodeMerchantPenjualan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/edtKodeBarangPenjualan"
+            android:layout_toRightOf="@+id/txtKodeMerchantPenjualan" />
+        
         <EditText
             android:id="@+id/edtTglTransaksi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/edtKodeMerchantPenjualan"
             android:layout_alignParentRight="true"
-            android:focusableInTouchMode="false"
-            android:layout_below="@+id/edtKodeBarangPenjualan"
-            android:ems="10" />
+            android:layout_below="@+id/edtKodeMerchantPenjualan"
+            android:ems="10"
+            android:focusableInTouchMode="false" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -156,7 +182,7 @@
             android:layout_alignBaseline="@+id/edtTglTransaksi"
             android:layout_alignBottom="@+id/edtTglTransaksi"
             android:layout_alignParentLeft="true"
-            android:text="Tanggal Transaksi" />
+            android:text="Tgl Transaksi" />
 
         <EditText
             android:id="@+id/edtSatuanPenjualan"
@@ -174,6 +200,15 @@
             android:layout_alignBottom="@+id/edtSatuanPenjualan"
             android:layout_alignParentLeft="true"
             android:text="Satuan" />
+
+        <TextView
+            android:id="@+id/txtKodeMerchantPenjualan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/edtKodeMerchantPenjualan"
+            android:text="Kode Merchant" />
+
     </RelativeLayout>
 
     <!-- Pelanggan -->

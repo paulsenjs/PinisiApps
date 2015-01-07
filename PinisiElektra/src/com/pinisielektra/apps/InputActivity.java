@@ -28,6 +28,7 @@ import com.pinisielektra.apps.connection.IHttpResponseListener;
 import com.pinisielektra.apps.object.DistributorObj;
 import com.pinisielektra.apps.object.InventoryObj;
 import com.pinisielektra.apps.object.MenuObj;
+import com.pinisielektra.apps.object.MerchantObj;
 import com.pinisielektra.apps.utils.Constants;
 import com.pinisielektra.apps.utils.JsonObjConstant;
 
@@ -35,6 +36,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 
 	// pembelian
 	private Spinner spnKodeBarangPembelian;
+	private Spinner spnKodeMerchantPembelian;
 	private EditText edtSatuanPembelian;
 	private Spinner spnKodeDistributorPembelian;
 	private EditText edtTglTransaksiPembelian;
@@ -62,16 +64,19 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	
 	// penjualan
 	private Spinner spnKodeBarangPenjualan;
+	private Spinner spnKodeMerchantPenjualan;
 	private EditText edtTglTransaksiPenjualan;
 	private EditText edtSatuanPenjualan;
 	private SpinnerAdapter spinnerAdapterKodeBarang;
 	private SpinnerAdapter spinnerAdapterKodeDistributor;
+	private SpinnerAdapter spinnerAdapterKodeMerchant;
 	
 	// merchant
 	private EditText edtMerchantId;
 	private EditText edtMerchantUserId;
 	private EditText edtMerchantName;
 	private EditText edtMerchantAddr;
+	private MerchantObj merchantObj;
 	
 	private ProgressDialog mProgressDialog;
 	private Hashtable<String, String> hashPost;
@@ -80,6 +85,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	private String savedId;
 	private String selectedKodeDistributor;
 	private String selectedKodeBarang;
+	private String selectedKodeMerchant;
 	
 	private RelativeLayout relativePembelian;
 	private RelativeLayout relativePenjualan;
@@ -94,9 +100,11 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	
 	private Set<String> setKodeDistributor;
 	private Set<String> setKodeBarang;
+	private Set<String> setKodeMerchant;
 	
 	private List<String> lstKodeDistributor;
 	private List<String> lstKodeBarang;
+	private List<String> lstKodeMerchant;
 	
 	private static final int TGL_DIALOG_ID = 993;
 
@@ -112,6 +120,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		
 		inventoryObj = new InventoryObj(this);
 		distributorObj = new DistributorObj(this);
+		merchantObj = new MerchantObj(this);
 		
 		SharedPreferences prefs = getSharedPreferences(Constants.MY_PREFS_NAME, MODE_PRIVATE);
 		savedId = prefs.getString("uId", null);
@@ -141,6 +150,12 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		lstKodeBarang = new ArrayList<String>(setKodeBarang);
 		initSpinnerKodeBarang();
 		Log.d(">>>", setKodeBarang.toString());
+		
+		SharedPreferences prefsKodeMerchant = getSharedPreferences(Constants.PREF_KODE_MERCHANT, MODE_PRIVATE);
+		setKodeMerchant = prefsKodeMerchant.getStringSet("kodemerch", null); 
+		lstKodeMerchant = new ArrayList<String>(setKodeMerchant);
+		initSpinnerKodeMerchant();
+		Log.d(">>>", setKodeMerchant.toString());
 	}
 
 	private void initLayout() {
@@ -193,6 +208,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		}
 
 		spnKodeBarangPembelian = (Spinner) findViewById(R.id.edtKodeBarangPembelian);
+		spnKodeMerchantPembelian = (Spinner) findViewById(R.id.edtKodeMerchant);
 		edtSatuanPembelian = (EditText) findViewById(R.id.edtSatuanPembelian);
 		spnKodeDistributorPembelian = (Spinner) findViewById(R.id.edtKodeDistributorPembelian);
 		edtTglTransaksiPembelian = (EditText) findViewById(R.id.edtTglTrxPembelian);
@@ -227,6 +243,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		edtNamaDistributor = (EditText) findViewById(R.id.edtNamaDistributor);
 
 		spnKodeBarangPenjualan = (Spinner) findViewById(R.id.edtKodeBarangPenjualan);
+		spnKodeMerchantPenjualan = (Spinner) findViewById(R.id.edtKodeMerchantPenjualan);
 		edtTglTransaksiPenjualan = (EditText) findViewById(R.id.edtTglTransaksi);
 		edtTglTransaksiPenjualan.setOnClickListener(new OnClickListener() {
 			@Override
@@ -249,6 +266,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "add");
 			hashPost.put(OBJ_KODE_BARANG, getSelectedKodeBarang());
+			hashPost.put(OBJ_MERCHANT_ID, getSelectedKodeMerchant());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPembelian.getText().toString());
 			hashPost.put(OBJ_KODE_DISTRIBUTOR, getSelectedKodeDistributor());
 			hashPost.put(OBJ_CREATOR, savedId);
@@ -257,6 +275,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "add");
 			hashPost.put(OBJ_KODE_BARANG, getSelectedKodeBarang());
+			hashPost.put(OBJ_MERCHANT_ID, getSelectedKodeMerchant());
 			hashPost.put(OBJ_TGL_TRANS, edtTglTransaksiPenjualan.getText().toString());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPenjualan.getText().toString());
 			hashPost.put(OBJ_CREATOR, savedId);
@@ -295,7 +314,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 			hashPost.put(OBJ_MERCHANT_NAME, edtMerchantName.getText().toString());
 			hashPost.put(OBJ_ADDRESS, edtMerchantAddr.getText().toString());
 			hashPost.put(OBJ_CREATOR, savedId);
-			new HttpConnectionTask(hashPost, this, 1).execute(Constants.API_POST_MERCHANT);
+			new HttpConnectionTask(hashPost, this, 3).execute(Constants.API_POST_MERCHANT);
 		}
 	}
 
@@ -339,6 +358,17 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		}
 	}
 
+	private void initSpinnerKodeMerchant() {
+		spinnerAdapterKodeMerchant = new SpinnerAdapter(this, 0, lstKodeMerchant);	
+		if (isMenuPembelian()) {
+			spnKodeMerchantPembelian.setAdapter(spinnerAdapterKodeMerchant);
+			spnKodeMerchantPembelian.setOnItemSelectedListener(this);
+		}else if (isMenuPenjualan()) {
+			spnKodeMerchantPenjualan.setAdapter(spinnerAdapterKodeMerchant);
+			spnKodeMerchantPenjualan.setOnItemSelectedListener(this);
+		}
+	}
+	
 //	private void initSpinnerKodeBarangPenjualan() {
 //		spinnerAdapter = new SpinnerAdapter(this, 0, lstKodeBarang);
 //		spnKodeBarangPenjualan.setAdapter(spinnerAdapter);
@@ -372,6 +402,9 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		case 2:
 			distributorObj.retrieveKodeDistributor();
 			break;
+		case 3:
+			merchantObj.retrieveKodeMerchant();
+			break;
 		default:
 			break;
 		}
@@ -402,12 +435,24 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		this.selectedKodeBarang = selectedKodeBarang;
 	}
 
+	private String getSelectedKodeMerchant() {
+		return selectedKodeMerchant;
+	}
+
+	private void setSelectedKodeMerchant(String selectedKodeMerchant) {
+		this.selectedKodeMerchant = selectedKodeMerchant;
+	}
+
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		switch (arg0.getId()) {
 		case R.id.edtKodeBarangPembelian:
 		case R.id.edtKodeBarangPenjualan:
-			setSelectedKodeBarang(spinnerAdapterKodeBarang.getItem(arg2));			
+			setSelectedKodeBarang(spinnerAdapterKodeBarang.getItem(arg2));
+			break;
+		case R.id.edtKodeMerchant:
+		case R.id.edtKodeMerchantPenjualan:
+			setSelectedKodeMerchant(spinnerAdapterKodeMerchant.getItem(arg2));
 			break;
 		case R.id.edtKodeDistributorPembelian:
 			setSelectedKodeDistributor(spinnerAdapterKodeDistributor.getItem(arg2));

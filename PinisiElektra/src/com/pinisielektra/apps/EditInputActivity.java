@@ -123,18 +123,18 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		
 		initLayout();
 	
-		SharedPreferences prefsKodeDistributor = getSharedPreferences(Constants.PREF_KODE_DISTRIBUTOR, MODE_PRIVATE);
-		setKodeDistributor = prefsKodeDistributor.getStringSet("kodedist", null);
-		lstKodeDistributor = new ArrayList<String>(setKodeDistributor);
-		initSpinnerKodeDistributor();
-		Log.d(">>>", setKodeDistributor.toString());
-		
-		SharedPreferences prefsKodeBarang = getSharedPreferences(Constants.PREF_KODE_BARANG, MODE_PRIVATE);
-		setKodeBarang = prefsKodeBarang.getStringSet("kodebrg", null); 
-		lstKodeBarang = new ArrayList<String>(setKodeBarang);
-		initSpinnerKodeBarang();
-		initSpinnerKodeBarangPenjualan();
-		Log.d(">>>", setKodeBarang.toString());
+//		SharedPreferences prefsKodeDistributor = getSharedPreferences(Constants.PREF_KODE_DISTRIBUTOR, MODE_PRIVATE);
+//		setKodeDistributor = prefsKodeDistributor.getStringSet("kodedist", null);
+//		lstKodeDistributor = new ArrayList<String>(setKodeDistributor);
+//		initSpinnerKodeDistributor();
+//		Log.d(">>>", setKodeDistributor.toString());
+//		
+//		SharedPreferences prefsKodeBarang = getSharedPreferences(Constants.PREF_KODE_BARANG, MODE_PRIVATE);
+//		setKodeBarang = prefsKodeBarang.getStringSet("kodebrg", null); 
+//		lstKodeBarang = new ArrayList<String>(setKodeBarang);
+//		initSpinnerKodeBarang();
+//		initSpinnerKodeBarangPenjualan();
+//		Log.d(">>>", setKodeBarang.toString());
 		
 		if (isMenuPenjualan()) {
 			showPenjualanCurrentData(menuIntent);

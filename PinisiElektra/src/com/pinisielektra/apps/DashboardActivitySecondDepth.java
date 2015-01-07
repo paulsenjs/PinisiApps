@@ -58,13 +58,13 @@ public class DashboardActivitySecondDepth extends MenuObj implements JsonObjCons
 			}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
 				startActivity(new Intent().setClass(DashboardActivitySecondDepth.this, FilteringActivity.class).putExtra("menu", "menu_penjualan"));
 			}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
-				startActivity(new Intent().setClass(DashboardActivitySecondDepth.this, FilteringActivity.class).putExtra("menu", "menu_pelanggan"));
+				startActivity(new Intent().setClass(DashboardActivitySecondDepth.this, ReportActivity.class).putExtra("menu", "menu_pelanggan"));
 			}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
-				startActivity(new Intent().setClass(DashboardActivitySecondDepth.this, FilteringActivity.class).putExtra("menu", "menu_distributor"));
+				startActivity(new Intent().setClass(DashboardActivitySecondDepth.this, ReportActivity.class).putExtra("menu", "menu_distributor"));
 			}else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
-				startActivity(new Intent().setClass(DashboardActivitySecondDepth.this, FilteringActivity.class).putExtra("menu", "menu_inventory"));
+				startActivity(new Intent().setClass(DashboardActivitySecondDepth.this, ReportActivity.class).putExtra("menu", "menu_inventory"));
 			}else if (menuIntent.equalsIgnoreCase("menu_merchant")) {
-				startActivity(new Intent().setClass(DashboardActivitySecondDepth.this, FilteringActivity.class).putExtra("menu", "menu_merchant"));
+				startActivity(new Intent().setClass(DashboardActivitySecondDepth.this, ReportActivity.class).putExtra("menu", "menu_merchant"));
 			}
 		}
 	}

@@ -97,9 +97,9 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 		case R.id.btnSearch:
 			if (menuIntent != null) {
 				if (menuIntent.equalsIgnoreCase("menu_pembelian")){
-					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_pembelian").putExtra("range", "test date range"));
+					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_pembelian").putExtra("startdate", edtFromDate.getText().toString()).putExtra("enddate", edtToDate.getText().toString()));
 				}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
-					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_penjualan"));
+					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_penjualan").putExtra("startdate", edtFromDate.getText().toString()).putExtra("enddate", edtToDate.getText().toString()));
 				}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
 					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_pelanggan"));
 				}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
@@ -137,9 +137,12 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 			lMonth = monthOfYear;
 			lDay = dayOfMonth;
 			
-			edtFromDate.setText(new StringBuilder().append(lMonth + 1)
-					   .append("-").append(lDay).append("-").append(lYear)
-					   .append(" "));
+			edtFromDate.setText(new StringBuilder()
+					.append(lYear)
+					.append("-")
+					.append(lMonth+1)
+					.append("-")
+					.append(lDay));
 		}
 	};
 
@@ -151,9 +154,12 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 			lMonth = monthOfYear;
 			lDay = dayOfMonth;
 			
-			edtToDate.setText(new StringBuilder().append(lMonth + 1)
-					   .append("-").append(lDay).append("-").append(lYear)
-					   .append(" "));
+			edtToDate.setText(new StringBuilder()
+					.append(lYear)
+					.append("-")
+					.append(lMonth+1)
+					.append("-")
+					.append(lDay));
 		}
 	};
 }

@@ -59,7 +59,8 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 	private PelangganObj pelangganObj;
 	private MerchantObj merchantObj;
 	private DistributorObj distributorObj;
-
+	private String startDate;
+	private String endDate;
 	private ArrayList<Object> arrObj;
 
 	private Hashtable<String, String> hashPost;
@@ -87,11 +88,15 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 			if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
 				getActionBar().setTitle("Laporan Pembelian");
 				setMenuPembelian(true);
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN);
+				startDate = getIntent().getExtras().getString("startdate").trim();
+				endDate = getIntent().getExtras().getString("enddate").trim();
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN+"&startdate="+startDate+"&enddate="+endDate);
 			} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
 				getActionBar().setTitle("Laporan Penjualan");
 				setMenuPenjualan(true);
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN);
+				startDate = getIntent().getExtras().getString("startdate").trim();
+				endDate = getIntent().getExtras().getString("enddate").trim();
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&startdate="+startDate+"&enddate="+endDate);
 			} else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
 				getActionBar().setTitle("Laporan Pelanggan");
 				setMenuPelanggan(true);
@@ -200,7 +205,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 			arrObj = new ArrayList<Object>();
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject jObjArr = jArray.getJSONObject(i);
-				merchantObj = new MerchantObj();
+				merchantObj = new MerchantObj(this);
 				merchantObj.setAddress(jObjArr.optString(OBJ_ADDRESS));
 				merchantObj.setCreator(jObjArr.optString(OBJ_CREATOR));
 				merchantObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
@@ -383,7 +388,10 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 					Toast.makeText(this, "Deleted", Toast.LENGTH_SHORT).show();
 					finish();
 				}
-			} else {
+			}else if (jObj.optString("result").equalsIgnoreCase("0")) {
+				Toast.makeText(this, "No Records", Toast.LENGTH_SHORT).show();
+				finish();				
+			}else {
 				Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
 			}
 

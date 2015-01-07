@@ -23,6 +23,7 @@ import com.pinisielektra.apps.connection.HttpConnectionTask;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
 import com.pinisielektra.apps.object.DistributorObj;
 import com.pinisielektra.apps.object.InventoryObj;
+import com.pinisielektra.apps.object.MerchantObj;
 import com.pinisielektra.apps.utils.Constants;
 
 public class MainActivity extends Activity implements IHttpResponseListener {
@@ -39,6 +40,7 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 	
 	private DistributorObj distributorObj;
 	private InventoryObj inventoryObj;
+	private MerchantObj merchantObj;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,9 @@ public class MainActivity extends Activity implements IHttpResponseListener {
         
         inventoryObj = new InventoryObj(this);
         inventoryObj.retrieveKodeBarang();
+        
+        merchantObj = new MerchantObj(this);
+        merchantObj.retrieveKodeMerchant();
         
         mProgressDialog = new ProgressDialog(this);
         

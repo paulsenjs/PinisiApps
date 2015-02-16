@@ -11,7 +11,8 @@ public class Constants {
 	
 	//penjualan
 	public static final String API_POST_PENJUALAN = "http://cpos.pinisi-elektra.com/api/penjualan.php";
-	public static final String API_LIST_PENJUALAN = "http://cpos.pinisi-elektra.com/api/penjualan.php?cmd=list&orderby=satuan%20desc";
+//	public static final String API_LIST_PENJUALAN = "http://cpos.pinisi-elektra.com/api/penjualan.php?cmd=list&orderby=satuan%20desc";
+	public static final String API_LIST_PENJUALAN = "http://cpos.pinisi-elektra.com/api/penjualan.php?cmd=list";
 	
 	//pembelian
 	public static final String API_POST_PEMBELIAN = "http://cpos.pinisi-elektra.com/api/pembelian.php";

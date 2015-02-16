@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R.color;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -59,8 +60,8 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 	private PelangganObj pelangganObj;
 	private MerchantObj merchantObj;
 	private DistributorObj distributorObj;
-	private String startDate;
-	private String endDate;
+//	private String startDate;
+//	private String endDate;
 	private ArrayList<Object> arrObj;
 
 	private Hashtable<String, String> hashPost;
@@ -84,42 +85,56 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		mProgress = new ProgressDialog(this);
 		mProgress.show();
 		
-		if (menuIntent != null) {
-			if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
+		init(menuIntent);
+		
+		setPassMenuIntent(menuIntent);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+	}
+
+	private void init(String strPassingIntent) {
+		if (strPassingIntent != null) {
+			if (strPassingIntent.equalsIgnoreCase("menu_pembelian")) {
 				getActionBar().setTitle("Laporan Pembelian");
 				setMenuPembelian(true);
-				startDate = getIntent().getExtras().getString("startdate").trim();
+				/*startDate = getIntent().getExtras().getString("startdate").trim();
 				endDate = getIntent().getExtras().getString("enddate").trim();
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN+"&startdate="+startDate+"&enddate="+endDate);
-			} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+				if ((startDate.length()==0) || (endDate.length()==0)) {
+					new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN+"&orderby=satuan%20desc");
+				}else {
+					new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN+"&startdate="+startDate+"&enddate="+endDate);					
+				}*/
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN+"&orderby=satuan%20desc");
+			} else if (strPassingIntent.equalsIgnoreCase("menu_penjualan")) {
 				getActionBar().setTitle("Laporan Penjualan");
 				setMenuPenjualan(true);
-				startDate = getIntent().getExtras().getString("startdate").trim();
+				/*startDate = getIntent().getExtras().getString("startdate").trim();
 				endDate = getIntent().getExtras().getString("enddate").trim();
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&startdate="+startDate+"&enddate="+endDate);
-			} else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+				if ((startDate.length()==0) || (endDate.length()==0)) {
+					new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&orderby=satuan%20desc");
+				}else {
+					new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&startdate="+startDate+"&enddate="+endDate);
+				}*/
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&orderby=satuan%20desc");
+			} else if (strPassingIntent.equalsIgnoreCase("menu_pelanggan")) {
 				getActionBar().setTitle("Laporan Pelanggan");
 				setMenuPelanggan(true);
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PELANGGAN);
-			} else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+			} else if (strPassingIntent.equalsIgnoreCase("menu_distributor")) {
 				getActionBar().setTitle("Laporan Distributor");
 				setMenuDistributor(true);
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_DISTRIBUTOR);
-			} else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+			} else if (strPassingIntent.equalsIgnoreCase("menu_inventory")) {
 				getActionBar().setTitle("Laporan Inventory");
 				setMenuInventory(true);
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_INVENTORY);
-			} else if (menuIntent.equalsIgnoreCase("menu_merchant")) {
+			} else if (strPassingIntent.equalsIgnoreCase("menu_merchant")) {
 				getActionBar().setTitle("Laporan Merchant");
 				setMenuMerchant(true);
 				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_MERCHANT);
 			}
 		}
-
-		setPassMenuIntent(menuIntent);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.dashboard, menu);
@@ -220,6 +235,11 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		setArrObj(arrObj);
 		reportAdapter = new ReportAdapter(ID_MERCHANT, this, arrObj);
 		lstDataReport.setAdapter(reportAdapter);
+		for (int i = 0; i < reportAdapter.getCount(); i++) {
+			if (i%2 != 0) {
+				lstDataReport.setBackgroundColor(color.holo_blue_light);
+			}
+		}
 		lstDataReport.setOnItemClickListener(this);
 	}
 	
@@ -567,6 +587,31 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		AlertDialog alert = builder.create();
 
 		alert.show();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		init(getPassMenuIntent());
+		Toast.makeText(getApplicationContext(), "resuming.. "+ getIntent().getExtras().getString("menu"), Toast.LENGTH_SHORT).show();
+	}
+	
+	public void goToFormInput(View v) {
+		if (menuIntent != null) {
+			if (menuIntent.equalsIgnoreCase("menu_pembelian")){
+				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_pembelian"));		
+			}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_penjualan"));
+			}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_pelanggan"));
+			}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_distributor"));
+			}else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_inventory"));
+			}else if (menuIntent.equalsIgnoreCase("menu_merchant")) {
+				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_merchant"));
+			}
+		}
 	}
 
 	private String getPassMenuIntent() {

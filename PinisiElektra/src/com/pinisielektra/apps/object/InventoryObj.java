@@ -118,7 +118,8 @@ public class InventoryObj implements Serializable, IHttpResponseListener, JsonOb
 			JSONArray jArray = jObj.getJSONArray("rows");
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject jObjArr = jArray.getJSONObject(i);
-				data.add(jObjArr.optString(OBJ_KODE_BARANG));
+//				data.add(jObjArr.optString(OBJ_KODE_BARANG));
+				data.add(jObjArr.optString(OBJ_NAMA_BARANG));
 			}
 			
 			SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_KODE_BARANG, Context.MODE_PRIVATE).edit();

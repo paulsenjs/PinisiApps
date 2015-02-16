@@ -2,6 +2,7 @@ package com.pinisielektra.apps;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.pinisielektra.apps.object.MenuObj;
@@ -33,6 +34,20 @@ public class DashboardActivitySecondDepth extends MenuObj implements JsonObjCons
 		}
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		boolean itemSelected = false;
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			itemSelected = true;
+			break;
+		default:
+			break;
+		}
+		return itemSelected;
+	}
+	
 	public void goToFormInput(View v) {
 		if (menuIntent != null) {
 			if (menuIntent.equalsIgnoreCase("menu_pembelian")){

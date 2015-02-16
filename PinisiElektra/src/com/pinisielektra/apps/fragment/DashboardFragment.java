@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.pinisielektra.apps.DashboardActivitySecondDepth;
 import com.pinisielektra.apps.R;
+import com.pinisielektra.apps.ReportActivity;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
 
 public class DashboardFragment extends Fragment implements OnClickListener, IHttpResponseListener{
@@ -66,22 +67,22 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.imgPembelian:
-			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_pembelian"));
+			startActivity(new Intent().setClass(getActivity(), ReportActivity.class).putExtra("menu", "menu_pembelian"));
 			break;
 		case R.id.imgPenjualan:
-			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_penjualan"));
+			startActivity(new Intent().setClass(getActivity(), ReportActivity.class).putExtra("menu", "menu_penjualan"));
 			break;
 		case R.id.imgInventory:
-			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_inventory"));
+			startActivity(new Intent().setClass(getActivity(), ReportActivity.class).putExtra("menu", "menu_inventory"));
 			break;
 		case R.id.imgPelanggan:
-			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_pelanggan"));
+			startActivity(new Intent().setClass(getActivity(), ReportActivity.class).putExtra("menu", "menu_pelanggan"));
 			break;
 		case R.id.imgDistributor:
-			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_distributor"));
+			startActivity(new Intent().setClass(getActivity(), ReportActivity.class).putExtra("menu", "menu_distributor"));
 			break;
 		case R.id.imgMerchant:
-			startActivity(new Intent().setClass(getActivity(), DashboardActivitySecondDepth.class).putExtra("menu", "menu_merchant"));
+			startActivity(new Intent().setClass(getActivity(), ReportActivity.class).putExtra("menu", "menu_merchant"));
 			break;
 		default:
 			break;

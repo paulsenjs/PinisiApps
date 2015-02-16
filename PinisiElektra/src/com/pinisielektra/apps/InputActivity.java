@@ -36,7 +36,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 
 	// pembelian
 	private Spinner spnKodeBarangPembelian;
-	private Spinner spnKodeMerchantPembelian;
+//	private Spinner spnKodeMerchantPembelian;
 	private EditText edtSatuanPembelian;
 	private Spinner spnKodeDistributorPembelian;
 	private EditText edtTglTransaksiPembelian;
@@ -208,7 +208,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		}
 
 		spnKodeBarangPembelian = (Spinner) findViewById(R.id.edtKodeBarangPembelian);
-		spnKodeMerchantPembelian = (Spinner) findViewById(R.id.edtKodeMerchant);
+//		spnKodeMerchantPembelian = (Spinner) findViewById(R.id.edtKodeMerchant);
 		edtSatuanPembelian = (EditText) findViewById(R.id.edtSatuanPembelian);
 		spnKodeDistributorPembelian = (Spinner) findViewById(R.id.edtKodeDistributorPembelian);
 		edtTglTransaksiPembelian = (EditText) findViewById(R.id.edtTglTrxPembelian);
@@ -265,8 +265,8 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		if (isMenuPembelian()) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "add");
-			hashPost.put(OBJ_KODE_BARANG, getSelectedKodeBarang());
-			hashPost.put(OBJ_MERCHANT_ID, getSelectedKodeMerchant());
+			hashPost.put(OBJ_NAMA_BARANG, getSelectedNamaBarang());
+			hashPost.put(OBJ_MERCHANT_NAME, getSelectedNameMerchant());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPembelian.getText().toString());
 			hashPost.put(OBJ_KODE_DISTRIBUTOR, getSelectedKodeDistributor());
 			hashPost.put(OBJ_CREATOR, savedId);
@@ -274,8 +274,8 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		} else if (isMenuPenjualan()) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "add");
-			hashPost.put(OBJ_KODE_BARANG, getSelectedKodeBarang());
-			hashPost.put(OBJ_MERCHANT_ID, getSelectedKodeMerchant());
+			hashPost.put(OBJ_NAMA_BARANG, getSelectedNamaBarang());
+			hashPost.put(OBJ_MERCHANT_NAME, getSelectedNameMerchant());
 			hashPost.put(OBJ_TGL_TRANS, edtTglTransaksiPenjualan.getText().toString());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPenjualan.getText().toString());
 			hashPost.put(OBJ_CREATOR, savedId);
@@ -348,7 +348,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 	};
 	
 	private void initSpinnerKodeBarang() {
-		spinnerAdapterKodeBarang = new SpinnerAdapter(this, 0, lstKodeBarang);	
+		spinnerAdapterKodeBarang = new SpinnerAdapter(this, 0, lstKodeBarang);
 		if (isMenuPembelian()) {
 			spnKodeBarangPembelian.setAdapter(spinnerAdapterKodeBarang);
 			spnKodeBarangPembelian.setOnItemSelectedListener(this);
@@ -360,10 +360,11 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 
 	private void initSpinnerKodeMerchant() {
 		spinnerAdapterKodeMerchant = new SpinnerAdapter(this, 0, lstKodeMerchant);	
-		if (isMenuPembelian()) {
-			spnKodeMerchantPembelian.setAdapter(spinnerAdapterKodeMerchant);
-			spnKodeMerchantPembelian.setOnItemSelectedListener(this);
-		}else if (isMenuPenjualan()) {
+//		if (isMenuPembelian()) {
+//			spnKodeMerchantPembelian.setAdapter(spinnerAdapterKodeMerchant);
+//			spnKodeMerchantPembelian.setOnItemSelectedListener(this);
+//		}else 
+		if (isMenuPenjualan()) {
 			spnKodeMerchantPenjualan.setAdapter(spinnerAdapterKodeMerchant);
 			spnKodeMerchantPenjualan.setOnItemSelectedListener(this);
 		}
@@ -427,19 +428,19 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		this.selectedKodeDistributor = selectedKodeDistributor;
 	}
 
-	private String getSelectedKodeBarang() {
+	private String getSelectedNamaBarang() {
 		return selectedKodeBarang;
 	}
 
-	private void setSelectedKodeBarang(String selectedKodeBarang) {
+	private void setSelectedNamaBarang(String selectedKodeBarang) {
 		this.selectedKodeBarang = selectedKodeBarang;
 	}
 
-	private String getSelectedKodeMerchant() {
+	private String getSelectedNameMerchant() {
 		return selectedKodeMerchant;
 	}
 
-	private void setSelectedKodeMerchant(String selectedKodeMerchant) {
+	private void setSelectedNameMerchant(String selectedKodeMerchant) {
 		this.selectedKodeMerchant = selectedKodeMerchant;
 	}
 
@@ -448,11 +449,11 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		switch (arg0.getId()) {
 		case R.id.edtKodeBarangPembelian:
 		case R.id.edtKodeBarangPenjualan:
-			setSelectedKodeBarang(spinnerAdapterKodeBarang.getItem(arg2));
+			setSelectedNamaBarang(spinnerAdapterKodeBarang.getItem(arg2));
 			break;
-		case R.id.edtKodeMerchant:
+//		case R.id.edtKodeMerchant:
 		case R.id.edtKodeMerchantPenjualan:
-			setSelectedKodeMerchant(spinnerAdapterKodeMerchant.getItem(arg2));
+			setSelectedNameMerchant(spinnerAdapterKodeMerchant.getItem(arg2));
 			break;
 		case R.id.edtKodeDistributorPembelian:
 			setSelectedKodeDistributor(spinnerAdapterKodeDistributor.getItem(arg2));

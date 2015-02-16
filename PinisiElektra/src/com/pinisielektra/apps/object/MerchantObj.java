@@ -87,7 +87,8 @@ public class MerchantObj implements Serializable, IHttpResponseListener, JsonObj
 			JSONArray jArray = jObj.getJSONArray("rows");
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject jObjArr = jArray.getJSONObject(i);
-				data.add(jObjArr.optString(OBJ_MERCHANT_ID));
+//				data.add(jObjArr.optString(OBJ_MERCHANT_ID));
+				data.add(jObjArr.optString(OBJ_MERCHANT_NAME));
 			}
 			
 			SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_KODE_MERCHANT, Context.MODE_PRIVATE).edit();

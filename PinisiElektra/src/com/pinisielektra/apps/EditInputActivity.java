@@ -9,6 +9,7 @@ import java.util.Set;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +52,7 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		private EditText edtMerchantUserId;
 		private EditText edtMerchantName;
 		private EditText edtMerchantAddr;
+		private String selectedKodeMerchant;
 		
 		// pelanggan
 		private EditText edtIdPelanggan;
@@ -69,6 +71,8 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		private SpinnerAdapter spinnerAdapterKodeBarangPembelian;
 		private SpinnerAdapter spinnerAdapterKodeBarangPenjualan;
 		private SpinnerAdapter spinnerAdapterKodeDistributor;
+		private SpinnerAdapter spinnerAdapterKodeMerchant;
+		private Spinner spnKodeMerchantPenjualan;
 		
 		private ProgressDialog mProgressDialog;
 		private Hashtable<String, String> hashPost;
@@ -91,9 +95,11 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		
 		private Set<String> setKodeDistributor;
 		private Set<String> setKodeBarang;
+		private Set<String> setKodeMerchant;
 		
 		private List<String> lstKodeDistributor;
 		private List<String> lstKodeBarang;
+		private List<String> lstKodeMerchant;
 		
 		private static final int TGL_DIALOG_ID = 993;
 	
@@ -123,18 +129,24 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		
 		initLayout();
 	
-//		SharedPreferences prefsKodeDistributor = getSharedPreferences(Constants.PREF_KODE_DISTRIBUTOR, MODE_PRIVATE);
-//		setKodeDistributor = prefsKodeDistributor.getStringSet("kodedist", null);
-//		lstKodeDistributor = new ArrayList<String>(setKodeDistributor);
-//		initSpinnerKodeDistributor();
-//		Log.d(">>>", setKodeDistributor.toString());
-//		
-//		SharedPreferences prefsKodeBarang = getSharedPreferences(Constants.PREF_KODE_BARANG, MODE_PRIVATE);
-//		setKodeBarang = prefsKodeBarang.getStringSet("kodebrg", null); 
-//		lstKodeBarang = new ArrayList<String>(setKodeBarang);
-//		initSpinnerKodeBarang();
-//		initSpinnerKodeBarangPenjualan();
-//		Log.d(">>>", setKodeBarang.toString());
+		SharedPreferences prefsKodeDistributor = getSharedPreferences(Constants.PREF_KODE_DISTRIBUTOR, MODE_PRIVATE);
+		setKodeDistributor = prefsKodeDistributor.getStringSet("kodedist", null);
+		lstKodeDistributor = new ArrayList<String>(setKodeDistributor);
+		initSpinnerKodeDistributor();
+		Log.d(">>>", setKodeDistributor.toString());
+		
+		SharedPreferences prefsKodeBarang = getSharedPreferences(Constants.PREF_KODE_BARANG, MODE_PRIVATE);
+		setKodeBarang = prefsKodeBarang.getStringSet("kodebrg", null); 
+		lstKodeBarang = new ArrayList<String>(setKodeBarang);
+		initSpinnerKodeBarang();
+		initSpinnerKodeBarangPenjualan();
+		Log.d(">>>", setKodeBarang.toString());
+		
+		SharedPreferences prefsKodeMerchant = getSharedPreferences(Constants.PREF_KODE_MERCHANT, MODE_PRIVATE);
+		setKodeMerchant = prefsKodeMerchant.getStringSet("kodemerch", null); 
+		lstKodeMerchant = new ArrayList<String>(setKodeMerchant);
+		initSpinnerKodeMerchant();
+		Log.d(">>>", setKodeMerchant.toString());
 		
 		if (isMenuPenjualan()) {
 			showPenjualanCurrentData(menuIntent);
@@ -233,6 +245,7 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		edtNamaDistributor = (EditText) findViewById(R.id.edtNamaDistributor);
 
 		spnKodeBarangPenjualan = (Spinner) findViewById(R.id.edtKodeBarangPenjualan);
+		spnKodeMerchantPenjualan = (Spinner) findViewById(R.id.edtKodeMerchantPenjualan);
 		edtTglTransaksiPenjualan = (EditText) findViewById(R.id.edtTglTransaksi);
 		edtTglTransaksiPenjualan.setOnClickListener(new OnClickListener() {
 			@Override
@@ -278,6 +291,30 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
                 setSelectedKodeBarang(spinnerAdapterKodeBarangPenjualan.getItem(arg2));
 			}
         });
+	}
+	
+	private void initSpinnerKodeMerchant() {
+		spinnerAdapterKodeMerchant = new SpinnerAdapter(this, 0, lstKodeMerchant);	
+//		if (isMenuPembelian()) {
+//			spnKodeMerchantPembelian.setAdapter(spinnerAdapterKodeMerchant);
+//			spnKodeMerchantPembelian.setOnItemSelectedListener(this);
+//		}else 
+		if (isMenuPenjualan()) {
+			spnKodeMerchantPenjualan.setAdapter(spinnerAdapterKodeMerchant);
+			spnKodeMerchantPenjualan.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+				@Override
+				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+					setSelectedKodeMerchant(spinnerAdapterKodeMerchant.getItem(arg2));
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+		}
 	}
 	
 	private void initSpinnerKodeDistributor() {
@@ -354,6 +391,7 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 			hashPost.put("cmd", "edit");
 			hashPost.put(OBJ_ID_PENJUALAN, menuIntent[4]);
 			hashPost.put(OBJ_KODE_BARANG, getSelectedKodeBarang());
+			hashPost.put(OBJ_MERCHANT_ID, getSelectedKodeMerchant());	
 			hashPost.put(OBJ_TGL_TRANS, edtTglTransaksiPenjualan.getText().toString());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPenjualan.getText().toString());
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_PENJUALAN);
@@ -426,7 +464,12 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 	public void resultSuccess(int type, String result) {
 		if (mProgressDialog != null)
 			mProgressDialog.dismiss();
-		Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
+		
+//		finish();
+//		Intent intBack = new Intent(this, ReportActivity.class);
+//		startActivityForResult(intBack, 1001);
+		
+		Toast.makeText(this, "Edit Success", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
@@ -451,5 +494,13 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 
 	private void setSelectedKodeBarang(String selectedKodeBarang) {
 		this.selectedKodeBarang = selectedKodeBarang;
+	}
+	
+	private String getSelectedKodeMerchant() {
+		return selectedKodeMerchant;
+	}
+
+	private void setSelectedKodeMerchant(String selectedKodeMerchant) {
+		this.selectedKodeMerchant = selectedKodeMerchant;
 	}
 }

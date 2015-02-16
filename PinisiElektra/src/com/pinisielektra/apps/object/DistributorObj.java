@@ -83,7 +83,8 @@ public class DistributorObj implements Serializable, IHttpResponseListener, Json
 			JSONArray jArray = jObj.getJSONArray("rows");
 			for (int i = 0; i < jArray.length(); i++) {
 				JSONObject jObjArr = jArray.getJSONObject(i);
-				data.add(jObjArr.optString(OBJ_KODE_DISTRIBUTOR));
+//				data.add(jObjArr.optString(OBJ_KODE_DISTRIBUTOR));
+				data.add(jObjArr.optString(OBJ_NAMA));
 			}
 			
 			SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_KODE_DISTRIBUTOR, Context.MODE_PRIVATE).edit();

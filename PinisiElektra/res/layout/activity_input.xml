@@ -23,7 +23,7 @@
             android:layout_alignBottom="@+id/edtKodeDistributorPembelian"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Kode Distributor" />
+            android:text="Nama Distributor" />
 
         <!-- <EditText
             android:id="@+id/edtKodeDistributorPembelian"
@@ -60,14 +60,14 @@
             android:layout_below="@+id/edtKodeDistributorPembelian"
             android:layout_alignParentRight="true" />
 
-		<Spinner
+		<!-- <Spinner
 		    android:id="@+id/edtKodeMerchant"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 			android:layout_alignLeft="@+id/edtSatuanPembelian"
             android:layout_toRightOf="@+id/textView2"
             android:layout_below="@+id/edtKodeBarangPembelian"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true" /> -->
 		
         <TextView
             android:id="@+id/textView1"
@@ -76,14 +76,15 @@
             android:layout_alignBaseline="@+id/edtSatuanPembelian"
             android:layout_alignBottom="@+id/edtSatuanPembelian"
             android:layout_alignParentLeft="true"
-            android:text="Satuan" />
+            android:text="Qty" />
 
         <EditText
             android:id="@+id/edtSatuanPembelian"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/edtKodeMerchant"
+            android:inputType="number"
+            android:layout_below="@+id/edtKodeBarangPembelian"
             android:layout_toRightOf="@+id/textView2" />
 
         <TextView
@@ -104,13 +105,13 @@
             android:focusableInTouchMode="false"
             android:layout_below="@+id/edtSatuanPembelian" />
 
-        <TextView
+        <!-- <TextView
             android:id="@+id/txtKodeMerchant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/edtKodeMerchant"
-            android:text="Kode Merchant" />
+            android:text="Kode Merchant" /> -->
 
         <TextView
             android:id="@+id/txtKodeBarang"
@@ -118,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/edtKodeBarangPembelian"
-            android:text="Kode Barang" />
+            android:text="Nama Barang" />
 
     </RelativeLayout>
 
@@ -130,14 +131,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativePembelian"
         android:layout_marginTop="14dp"
-        android:visibility="visible" >
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/txtKodeBarangPenjualan"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:text="Kode Barang" />
+            android:text="Nama Barang" />
 
         <!--
              <EditText
@@ -190,6 +191,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edtTglTransaksi"
             android:layout_alignParentRight="true"
+            android:inputType="number"
             android:layout_below="@+id/edtTglTransaksi"
             android:ems="10" />
 
@@ -199,7 +201,7 @@
             android:layout_alignBaseline="@+id/edtSatuanPenjualan"
             android:layout_alignBottom="@+id/edtSatuanPenjualan"
             android:layout_alignParentLeft="true"
-            android:text="Satuan" />
+            android:text="Qty" />
 
         <TextView
             android:id="@+id/txtKodeMerchantPenjualan"
@@ -207,7 +209,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/edtKodeMerchantPenjualan"
-            android:text="Kode Merchant" />
+            android:text="Nama Merchant" />
 
     </RelativeLayout>
 
@@ -251,6 +253,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
             android:ems="10"
             android:singleLine="true" >
 
@@ -328,6 +331,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edtKodeDistributor"
             android:layout_alignParentRight="true"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
             android:layout_below="@+id/edtKodeDistributor"
             android:ems="10" />
 
@@ -382,6 +386,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+			android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
             android:layout_below="@+id/edtKodeBarangInventory"
             android:ems="10" />
 
@@ -392,13 +397,14 @@
             android:layout_alignBaseline="@+id/edtSatuanInventory"
             android:layout_alignBottom="@+id/edtSatuanInventory"
             android:layout_alignParentLeft="true"
-            android:text="Satuan" />
+            android:text="Qty" />
 
         <EditText
             android:id="@+id/edtSatuanInventory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:inputType="number"
             android:layout_below="@+id/edtNamaBarangInventory"
             android:ems="10" />
 
@@ -505,6 +511,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
             android:layout_below="@+id/edtTUserUserId"
             android:ems="10" />
 
@@ -513,6 +520,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
             android:layout_below="@+id/edtMerchantName"
             android:ems="10" />
 

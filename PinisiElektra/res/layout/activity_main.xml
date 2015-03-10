@@ -101,13 +101,13 @@
             android:text="REGISTER"
             android:textSize="16sp" />
 
-        <TextView
+<!--         <TextView
             android:id="@+id/text_forgot_pasword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            android:text="FORGOT PASSWORD" />
+            android:text="FORGOT PASSWORD" /> -->
     </LinearLayout>
 
 </RelativeLayout>

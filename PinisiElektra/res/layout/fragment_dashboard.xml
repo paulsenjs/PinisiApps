@@ -24,6 +24,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
 				android:textStyle="bold"
+				android:typeface="serif"
                 android:textSize="22dp" />
 
             <LinearLayout
@@ -56,6 +57,7 @@
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="Penjualan"
+                            android:typeface="serif"
                             android:textColor="#484848" />
                     </LinearLayout>
 
@@ -78,6 +80,7 @@
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="Pembelian"
+                            android:typeface="serif"
                             android:textColor="#484848" />
                     </LinearLayout>
                 </LinearLayout>
@@ -107,6 +110,7 @@
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="Inventory"
+                            android:typeface="serif"
                             android:textColor="#484848" />
                     </LinearLayout>
 
@@ -129,6 +133,7 @@
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="Pelanggan"
+                            android:typeface="serif"
                             android:textColor="#484848" />
                     </LinearLayout>
                 </LinearLayout>
@@ -158,6 +163,7 @@
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="Distributor"
+                            android:typeface="serif"
                             android:textColor="#484848" />
                     </LinearLayout>
 
@@ -180,6 +186,7 @@
                             android:gravity="center_horizontal"
                             android:layout_marginTop="5dp"
                             android:text="Merchant"
+                            android:typeface="serif"
                             android:textColor="#484848" />
                         
                     </LinearLayout>

@@ -15,19 +15,20 @@
         android:orientation="horizontal"
         android:visibility="gone" >
 
-        <TextView
+        <!-- <TextView
             android:id="@+id/txtIdPenjualan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_weight="1"
-            android:text="Id" />
+            android:text="Id" /> -->
         
         <TextView
             android:id="@+id/txtKodeBarangPenjualan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Kode Barang" />
 
@@ -36,6 +37,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Tgl Transaksi" />
         
@@ -61,6 +63,7 @@
             android:id="@+id/txtKodeBarangPembelian"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="Kode Barang" />
@@ -69,6 +72,7 @@
             android:id="@+id/txtSatuanPembelian"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="Satuan" />
@@ -77,6 +81,7 @@
             android:id="@+id/txtKodeDistributorPembelian"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="Kode Distributor" />
@@ -85,6 +90,7 @@
             android:id="@+id/txtTglTrxPembelian"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:gravity="center_horizontal"
             android:text="Tanggal Transaksi" />
@@ -102,6 +108,7 @@
             android:id="@+id/txtNamaBarangInventory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Inventory" />
 
@@ -109,6 +116,7 @@
             android:id="@+id/txtSatuanInventory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Satuan" />
 
@@ -116,6 +124,7 @@
             android:id="@+id/txtHargaBeliInvetory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Harga Beli" />
 
@@ -123,6 +132,7 @@
             android:id="@+id/txtHargaJualInvetory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Harga Jual" />
     </LinearLayout>
@@ -135,17 +145,19 @@
         android:orientation="horizontal"
         android:visibility="gone" >
 
-        <TextView
+        <!-- <TextView
             android:id="@+id/txtIdPelanggan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
-            android:text="Id" />
+            android:text="Id" /> -->
 
         <TextView
             android:id="@+id/txtNamaPelanggan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Nama" />
 
@@ -153,6 +165,7 @@
             android:id="@+id/txtAlamatPelanggan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Alamat" />
 
@@ -160,6 +173,7 @@
             android:id="@+id/txtPhonePelanggan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Phone" />
     </LinearLayout>
@@ -176,6 +190,7 @@
             android:id="@+id/txtKodeDistributor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Kode Distributor" />
 
@@ -183,6 +198,7 @@
             android:id="@+id/txtNamaDistributor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Nama" />
     </LinearLayout>
@@ -195,17 +211,19 @@
         android:orientation="horizontal"
         android:visibility="gone" >
 
-        <TextView
+        <!-- <TextView
             android:id="@+id/txtMerchantId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
-            android:text="Merchant Id" />
+            android:text="Merchant Id" /> -->
 
         <TextView
             android:id="@+id/txtMerchantName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Nama" />
         
@@ -213,6 +231,7 @@
             android:id="@+id/txtMerchantAddr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:typeface="serif"
             android:layout_weight="1"
             android:text="Alamat" />
     </LinearLayout>    

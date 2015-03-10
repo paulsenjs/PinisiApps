@@ -23,6 +23,7 @@
             android:layout_alignBottom="@+id/edtKodeDistributorPembelian"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
+            android:typeface="serif"
             android:text="Nama Distributor" />
 
         <!-- <EditText
@@ -76,6 +77,7 @@
             android:layout_alignBaseline="@+id/edtSatuanPembelian"
             android:layout_alignBottom="@+id/edtSatuanPembelian"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Qty" />
 
         <EditText
@@ -94,6 +96,7 @@
             android:layout_alignBaseline="@+id/edtTglTrxPembelian"
             android:layout_alignBottom="@+id/edtTglTrxPembelian"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Tgl Transaksi" />
 
         <EditText
@@ -118,6 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:layout_alignTop="@+id/edtKodeBarangPembelian"
             android:text="Nama Barang" />
 
@@ -138,6 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Nama Barang" />
 
         <!--
@@ -183,6 +188,7 @@
             android:layout_alignBaseline="@+id/edtTglTransaksi"
             android:layout_alignBottom="@+id/edtTglTransaksi"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Tgl Transaksi" />
 
         <EditText
@@ -201,6 +207,7 @@
             android:layout_alignBaseline="@+id/edtSatuanPenjualan"
             android:layout_alignBottom="@+id/edtSatuanPenjualan"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Qty" />
 
         <TextView
@@ -209,6 +216,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignTop="@+id/edtKodeMerchantPenjualan"
+            android:typeface="serif"
             android:text="Nama Merchant" />
 
     </RelativeLayout>
@@ -246,6 +254,7 @@
             android:layout_alignBaseline="@+id/edtNamaPelanggan"
             android:layout_alignBottom="@+id/edtNamaPelanggan"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Nama" />
 
         <EditText
@@ -266,6 +275,7 @@
             android:layout_alignBaseline="@+id/edtAlamatPelanggan"
             android:layout_alignBottom="@+id/edtAlamatPelanggan"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Alamat" />
 
         <EditText
@@ -284,6 +294,7 @@
             android:layout_alignBaseline="@+id/edtPhonePelanggan"
             android:layout_alignBottom="@+id/edtPhonePelanggan"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Phone" />
 
         <EditText
@@ -292,6 +303,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/edtAlamatPelanggan"
             android:layout_alignParentRight="true"
+            android:typeface="serif"
             android:inputType="phone"
             android:layout_below="@+id/edtAlamatPelanggan"
             android:ems="10" />
@@ -313,6 +325,7 @@
             android:layout_alignBaseline="@+id/edtKodeDistributor"
             android:layout_alignBottom="@+id/edtKodeDistributor"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Kode Distributor" />
 
         <EditText
@@ -341,6 +354,7 @@
             android:layout_alignBaseline="@+id/edtNamaDistributor"
             android:layout_alignBottom="@+id/edtNamaDistributor"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Nama" />
 
     </RelativeLayout>
@@ -379,6 +393,7 @@
             android:layout_alignBaseline="@+id/edtNamaBarangInventory"
             android:layout_alignBottom="@+id/edtNamaBarangInventory"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Nama Barang" />
 
         <EditText
@@ -397,6 +412,7 @@
             android:layout_alignBaseline="@+id/edtSatuanInventory"
             android:layout_alignBottom="@+id/edtSatuanInventory"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Qty" />
 
         <EditText
@@ -415,6 +431,7 @@
             android:layout_alignBaseline="@+id/edtHargaJualInventory"
             android:layout_alignBottom="@+id/edtHargaJualInventory"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Harga Jual" />
 
         <EditText
@@ -433,6 +450,7 @@
             android:layout_alignBaseline="@+id/edtHargaBeliInventory"
             android:layout_alignBottom="@+id/edtHargaBeliInventory"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Harga Beli" />
 
         <EditText
@@ -451,6 +469,7 @@
             android:layout_alignBaseline="@+id/edtExpDateInventory"
             android:layout_alignBottom="@+id/edtExpDateInventory"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Expired Date" />
 
         <EditText
@@ -468,6 +487,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:layout_alignParentTop="true"
             android:text="Kode Barang" />
 
@@ -531,6 +551,7 @@
             android:layout_alignBaseline="@+id/edtMerchantAddress"
             android:layout_alignBottom="@+id/edtMerchantAddress"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Address" />
 
         <TextView
@@ -540,6 +561,7 @@
             android:layout_alignBaseline="@+id/edtTUserUserId"
             android:layout_alignBottom="@+id/edtTUserUserId"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="User Id" />
 
         <TextView
@@ -549,6 +571,7 @@
             android:layout_alignBaseline="@+id/edtMerchantName"
             android:layout_alignBottom="@+id/edtMerchantName"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Name" />
 
         <TextView
@@ -558,6 +581,7 @@
             android:layout_alignBaseline="@+id/edtMerchantId"
             android:layout_alignBottom="@+id/edtMerchantId"
             android:layout_alignParentLeft="true"
+            android:typeface="serif"
             android:text="Merchant Id" />
         
     </RelativeLayout>

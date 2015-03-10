@@ -8,6 +8,7 @@
 
     <!-- action menu -->
     <string name="action_view_pie_chart">View in PieChart</string>
+    <string name="action_filtering">Custom Search</string>
     <string name="action_custom_search">Custom Search Report</string>
     <string name="action_about">About</string>
     <string name="action_logout">Logout</string>

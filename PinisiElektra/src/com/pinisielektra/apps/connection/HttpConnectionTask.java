@@ -97,6 +97,8 @@ public class HttpConnectionTask extends AsyncTask<String, Void, String> {
 			}
 		}
 		
+		Log.d(this.getClass().getName(), "Processing "+sUrls[0]+" parameter "+mParams);
+		
 		Log.d(this.getClass().getName(), "returning "+result);
 		return result;
 	}

@@ -68,7 +68,7 @@ public class ReportAdapter extends BaseAdapter {
 			switch (idMenu) {
 			case 1:
 				viewHolder.linearPenjualan.setVisibility(View.VISIBLE);
-				viewHolder.txtIdPenjualan = (TextView) convertView.findViewById(R.id.txtIdPenjualan);
+//				viewHolder.txtIdPenjualan = (TextView) convertView.findViewById(R.id.txtIdPenjualan);
 				viewHolder.txtKodeBarangPenjualan = (TextView) convertView.findViewById(R.id.txtKodeBarangPenjualan);
 				viewHolder.txtTglTransaksiPenjualan = (TextView) convertView.findViewById(R.id.txtTglTransaksiPenjualan);
 				viewHolder.txtSatuanPenjualan = (TextView) convertView.findViewById(R.id.txtSatuanPenjualan);
@@ -89,7 +89,7 @@ public class ReportAdapter extends BaseAdapter {
 				break;
 			case 4:
 				viewHolder.linearPelanggan.setVisibility(View.VISIBLE);
-				viewHolder.txtIdPelanggan = (TextView) convertView.findViewById(R.id.txtIdPelanggan);
+//				viewHolder.txtIdPelanggan = (TextView) convertView.findViewById(R.id.txtIdPelanggan);
 				viewHolder.txtNamaPelanggan = (TextView) convertView.findViewById(R.id.txtNamaPelanggan);
 				viewHolder.txtAlamatPelanggan = (TextView) convertView.findViewById(R.id.txtAlamatPelanggan);
 				viewHolder.txtPhonePelanggan = (TextView) convertView.findViewById(R.id.txtPhonePelanggan);
@@ -101,7 +101,7 @@ public class ReportAdapter extends BaseAdapter {
 				break;
 			case 8:
 				viewHolder.linearMerchant.setVisibility(View.VISIBLE);
-				viewHolder.txtMerchantId = (TextView) convertView.findViewById(R.id.txtMerchantId);
+//				viewHolder.txtMerchantId = (TextView) convertView.findViewById(R.id.txtMerchantId);
 				viewHolder.txtMerchantName = (TextView) convertView.findViewById(R.id.txtMerchantName);
 				viewHolder.txtMerchantAddr = (TextView) convertView.findViewById(R.id.txtMerchantAddr);
 			default:
@@ -115,13 +115,13 @@ public class ReportAdapter extends BaseAdapter {
 		
 		switch (idMenu) {
 		case 1:
-			viewHolder.txtIdPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getIdJual());
-			viewHolder.txtKodeBarangPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getKodeBarang());
+//			viewHolder.txtIdPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getKodeBarang());
+			viewHolder.txtKodeBarangPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getNamaBarang());
 			viewHolder.txtTglTransaksiPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getTglTransaksi());
 			viewHolder.txtSatuanPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getSatuan());
 			break;
 		case 2:
-			viewHolder.txtKodeBarangPembelian.setText(((PembelianObj) arrObjs.get(position)).getKodeBarang());
+			viewHolder.txtKodeBarangPembelian.setText(((PembelianObj) arrObjs.get(position)).getNamaBarang());
 			viewHolder.txtSatuanPembelian.setText(((PembelianObj) arrObjs.get(position)).getSatuan());
 			viewHolder.txtKodeDistributorPembelian.setText(((PembelianObj) arrObjs.get(position)).getKodeDistributor());
 			viewHolder.txtTanggalTransaksi.setText(((PembelianObj) arrObjs.get(position)).getTglTransaksi());
@@ -133,7 +133,7 @@ public class ReportAdapter extends BaseAdapter {
 			viewHolder.txtHargaJual.setText(((InventoryObj) arrObjs.get(position)).getHargaJual());
 			break;
 		case 4:
-			viewHolder.txtIdPelanggan.setText(((PelangganObj) arrObjs.get(position)).getIdPel());
+//			viewHolder.txtIdPelanggan.setText(((PelangganObj) arrObjs.get(position)).getIdPel());
 			viewHolder.txtNamaPelanggan.setText(((PelangganObj) arrObjs.get(position)).getNama());
 			viewHolder.txtAlamatPelanggan.setText(((PelangganObj) arrObjs.get(position)).getAlamat());
 			viewHolder.txtPhonePelanggan.setText(((PelangganObj) arrObjs.get(position)).getPhone());
@@ -143,7 +143,7 @@ public class ReportAdapter extends BaseAdapter {
 			viewHolder.txtNamaDistributor.setText(((DistributorObj) arrObjs.get(position)).getNama());
 			break;
 		case 8:
-			viewHolder.txtMerchantId.setText(((MerchantObj) arrObjs.get(position)).getMerchantId());
+//			viewHolder.txtMerchantId.setText(((MerchantObj) arrObjs.get(position)).getMerchantId());
 			viewHolder.txtMerchantName.setText(((MerchantObj) arrObjs.get(position)).getMerchantName());
 			viewHolder.txtMerchantAddr.setText(((MerchantObj) arrObjs.get(position)).getAddress());
 		default:
@@ -175,7 +175,7 @@ public class ReportAdapter extends BaseAdapter {
 		private LinearLayout linearMerchant;
 		
 		//pelanggan
-		private TextView txtIdPelanggan;
+//		private TextView txtIdPelanggan;
 		private TextView txtNamaPelanggan;
 		private TextView txtAlamatPelanggan;
 		private TextView txtPhonePelanggan;
@@ -185,13 +185,13 @@ public class ReportAdapter extends BaseAdapter {
 		private TextView txtKodeDistributor;
 		
 		//penjualan
-		private TextView txtIdPenjualan;
+//		private TextView txtIdPenjualan;
 		private TextView txtKodeBarangPenjualan;
 		private TextView txtTglTransaksiPenjualan;
 		private TextView txtSatuanPenjualan;
 	
 		//merchant
-		private TextView txtMerchantId;
+//		private TextView txtMerchantId;
 		private TextView txtMerchantName;
 		private TextView txtMerchantAddr;
 	}

@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.pinisielektra.apps.connection.HttpConnectionTask;
@@ -27,11 +28,14 @@ public class MerchantObj implements Serializable, IHttpResponseListener, JsonObj
 	private String creator;
 	private String dateCreated;
 	private String merchantUserId;
-	
+	private String savedId;
 	private Context context;
 	private Set<String> data;
 	
+	
 	public MerchantObj(Context ctx) {
+		SharedPreferences prefs = ctx.getSharedPreferences(Constants.MY_PREFS_NAME, Context.MODE_PRIVATE);
+		savedId = prefs.getString("uId", null);
 		this.context = ctx;
 	}
 	
@@ -76,7 +80,7 @@ public class MerchantObj implements Serializable, IHttpResponseListener, JsonObj
 	}
 	
 	public void retrieveKodeMerchant() {
-		new HttpConnectionTask((Activity)context, this, 0, "GET").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Constants.API_LIST_MERCHANT);
+		new HttpConnectionTask((Activity)context, this, 0, "GET").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Constants.API_LIST_MERCHANT+"&creator="+savedId+"");
 	}
 	
 	@Override
@@ -84,18 +88,30 @@ public class MerchantObj implements Serializable, IHttpResponseListener, JsonObj
 		try {
 			data = new HashSet<String>();
 			JSONObject jObj = new JSONObject(result);
-			JSONArray jArray = jObj.getJSONArray("rows");
-			for (int i = 0; i < jArray.length(); i++) {
-				JSONObject jObjArr = jArray.getJSONObject(i);
-//				data.add(jObjArr.optString(OBJ_MERCHANT_ID));
-				data.add(jObjArr.optString(OBJ_MERCHANT_NAME));
+			SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_KODE_MERCHANT, Context.MODE_PRIVATE).edit();
+			if (jObj.optString("result").equalsIgnoreCase("1")) {
+				JSONArray jArray = jObj.getJSONArray("rows");
+				for (int i = 0; i < jArray.length(); i++) {
+					JSONObject jObjArr = jArray.getJSONObject(i);
+//					data.add(jObjArr.optString(OBJ_MERCHANT_ID));
+					data.add(jObjArr.optString(OBJ_MERCHANT_NAME));
+				}
+				
+				if (editor != null) {
+					editor.remove("kodemerch");
+				}
+				editor.putStringSet("kodemerch", data);
+				Constants.KODE_MERCHANT_NULL = false;
+			}else if (jObj.optString("result").equalsIgnoreCase("0")) {
+				if (editor != null) {
+					editor.remove("kodemerch");
+				}
+				editor.putString("kodemerch", "no-records");
+				Constants.KODE_MERCHANT_NULL = true;
 			}
 			
-			SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_KODE_MERCHANT, Context.MODE_PRIVATE).edit();
-			if (editor != null) {
-				editor.remove("kodemerch");
-			}
-			editor.putStringSet("kodemerch", data);
+			Log.d("***init ", "merchantObj "+Constants.KODE_MERCHANT_NULL);
+			
 			editor.commit();
 			
 		} catch (JSONException e) {

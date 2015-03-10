@@ -1,8 +1,11 @@
 package com.pinisielektra.apps.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,10 +15,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pinisielektra.apps.DashboardActivitySecondDepth;
 import com.pinisielektra.apps.R;
 import com.pinisielektra.apps.ReportActivity;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
+import com.pinisielektra.apps.object.DistributorObj;
+import com.pinisielektra.apps.object.InventoryObj;
+import com.pinisielektra.apps.object.MerchantObj;
+import com.pinisielektra.apps.utils.Constants;
 
 public class DashboardFragment extends Fragment implements OnClickListener, IHttpResponseListener{
 	
@@ -26,6 +32,14 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 	private ImageView btnDistributor;
 	private ImageView btnMerchant;
 	private TextView txtName;
+	
+	private MerchantObj merchantObj;
+	private InventoryObj inventoryObj;
+	private DistributorObj distributorObj;
+	
+	String savedKodeDistributor;
+	String savedKodeBarang;
+	String savedKodeMerchant;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -51,10 +65,102 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 		btnPelanggan.setOnClickListener(this);
 		btnDistributor.setOnClickListener(this);
 		btnMerchant.setOnClickListener(this);
-		
+
 		txtName.setText("Hi " + getActivity().getIntent().getExtras().getString("uName"));
 		
 		return view;
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		
+		merchantObj = new MerchantObj(getActivity());
+		merchantObj.retrieveKodeMerchant();
+		
+		inventoryObj = new InventoryObj(getActivity());
+		inventoryObj.retrieveKodeBarang();
+		
+		distributorObj = new DistributorObj(getActivity());
+		distributorObj.retrieveKodeDistributor();
+		
+		try {
+			SharedPreferences prefsKodeDistributor = getActivity().getSharedPreferences(Constants.PREF_KODE_DISTRIBUTOR, Context.MODE_PRIVATE);
+			savedKodeDistributor = prefsKodeDistributor.getString("kodedist", null);
+					
+		} catch (ClassCastException e) {
+			Log.d("error ", e.getMessage());
+		}
+		
+		try {
+			SharedPreferences prefsKodeBarang = getActivity().getSharedPreferences(Constants.PREF_KODE_BARANG, Context.MODE_PRIVATE);
+			savedKodeBarang = prefsKodeBarang.getString("kodebrg", null);
+				
+		} catch (ClassCastException e) {
+			Log.d("error ", e.getMessage());
+		}
+		
+		try {
+			SharedPreferences prefsKodeMerchant = getActivity().getSharedPreferences(Constants.PREF_KODE_MERCHANT, Context.MODE_PRIVATE);
+			savedKodeMerchant = prefsKodeMerchant.getString("kodemerch", null);
+			
+		} catch (ClassCastException e) {
+			Log.d("error ", e.getMessage());
+		}
+		
+		
+		Log.d(">>dashboard ", ""+Constants.KODE_BARANG_NULL);
+		Log.d(">>dashboard ", ""+Constants.KODE_DIST_NULL);
+		Log.d(">>dashboard ", ""+Constants.KODE_MERCHANT_NULL);
+		
+		try {
+//			SharedPreferences prefsKodeBarang = getActivity().getSharedPreferences(Constants.PREF_KODE_BARANG, Context.MODE_PRIVATE);
+//			savedKodeBarang = prefsKodeBarang.getString("kodebrg", null);
+//			
+//			SharedPreferences prefsKodeDistributor = getActivity().getSharedPreferences(Constants.PREF_KODE_DISTRIBUTOR, Context.MODE_PRIVATE);
+//			savedKodeDistributor = prefsKodeDistributor.getString("kodedist", null);
+//			
+//			SharedPreferences prefsKodeMerchant = getActivity().getSharedPreferences(Constants.PREF_KODE_MERCHANT, Context.MODE_PRIVATE);
+//			savedKodeMerchant = prefsKodeMerchant.getString("kodemerch", null);
+
+			if (savedKodeBarang == null &&
+					(savedKodeDistributor == null &&
+							savedKodeMerchant == null)){
+				
+				btnPembelian.setEnabled(true);
+				btnPembelian.setAlpha(1.0f);
+				btnPenjualan.setEnabled(true);
+				btnPenjualan.setAlpha(1.0f);
+			}else{
+				btnPembelian.setEnabled(false);
+				btnPembelian.setAlpha(0.5f);
+				btnPenjualan.setEnabled(false);
+				btnPenjualan.setAlpha(0.5f);
+			}
+			
+			/*if (savedKodeBarang.equalsIgnoreCase("no-records") ||
+					(savedKodeDistributor.equalsIgnoreCase("no-records") ||
+							savedKodeMerchant.equalsIgnoreCase("no-records"))){
+				
+				btnPembelian.setEnabled(false);
+				btnPembelian.setAlpha(0.5f);
+				btnPenjualan.setEnabled(false);
+				btnPenjualan.setAlpha(0.5f);
+				btnPelanggan.setEnabled(false);
+				btnPelanggan.setAlpha(0.5f);
+			}else {
+				btnPembelian.setEnabled(true);
+				btnPembelian.setAlpha(1.0f);
+				btnPenjualan.setEnabled(true);
+				btnPenjualan.setAlpha(1.0f);
+				btnPelanggan.setEnabled(true);
+				btnPelanggan.setAlpha(1.0f);
+			}*/
+		} catch (ClassCastException e) {
+			Log.d("error ", e.getMessage());
+		}
+		
+		
 	}
 	
 	@Override

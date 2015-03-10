@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.pinisielektra.apps.connection.HttpConnectionTask;
 import com.pinisielektra.apps.connection.IHttpResponseListener;
@@ -33,8 +34,11 @@ public class InventoryObj implements Serializable, IHttpResponseListener, JsonOb
 	private String dateEdited;
 	private Context context;
 	private Set<String> data;
+	private String savedId;
 	
 	public InventoryObj(Context ctx) {
+		SharedPreferences prefs = ctx.getSharedPreferences(Constants.MY_PREFS_NAME, Context.MODE_PRIVATE);
+		savedId = prefs.getString("uId", null);
 		this.context = ctx;
 	}
 	
@@ -106,7 +110,7 @@ public class InventoryObj implements Serializable, IHttpResponseListener, JsonOb
 	}
 	
 	public void retrieveKodeBarang() {
-		new HttpConnectionTask((Activity)context, this, 1, "GET").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Constants.API_LIST_INVENTORY);
+		new HttpConnectionTask((Activity)context, this, 1, "GET").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, Constants.API_LIST_INVENTORY+"&creator="+savedId+"");
 	}
 	
 	
@@ -115,18 +119,32 @@ public class InventoryObj implements Serializable, IHttpResponseListener, JsonOb
 		try {
 			data = new HashSet<String>();
 			JSONObject jObj = new JSONObject(result);
-			JSONArray jArray = jObj.getJSONArray("rows");
-			for (int i = 0; i < jArray.length(); i++) {
-				JSONObject jObjArr = jArray.getJSONObject(i);
-//				data.add(jObjArr.optString(OBJ_KODE_BARANG));
-				data.add(jObjArr.optString(OBJ_NAMA_BARANG));
+			SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_KODE_BARANG, Context.MODE_PRIVATE).edit();
+			if (jObj.optString("result").equalsIgnoreCase("1")) {
+				JSONArray jArray = jObj.getJSONArray("rows");
+				for (int i = 0; i < jArray.length(); i++) {
+					JSONObject jObjArr = jArray.getJSONObject(i);
+//					data.add(jObjArr.optString(OBJ_KODE_BARANG));
+					data.add(jObjArr.optString(OBJ_NAMA_BARANG));
+				}				
+				
+				if (editor != null) {
+					editor.remove("kodebrg");
+				}
+				editor.putStringSet("kodebrg", data);
+				
+				Constants.KODE_BARANG_NULL = false;
+				
+			}else if (jObj.optString("result").equalsIgnoreCase("0")) {
+				if (editor != null) {
+					editor.remove("kodebrg");
+				}
+				editor.putString("kodebrg", "no-records");
+				Constants.KODE_BARANG_NULL = true;
 			}
 			
-			SharedPreferences.Editor editor = context.getSharedPreferences(Constants.PREF_KODE_BARANG, Context.MODE_PRIVATE).edit();
-			if (editor != null) {
-				editor.remove("kodebrg");
-			}
-			editor.putStringSet("kodebrg", data);
+			Log.d("***init ", "inventoryObj "+Constants.KODE_BARANG_NULL);
+			
 			editor.commit();
 			
 		} catch (JSONException e) {

@@ -139,23 +139,33 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		
 		initLayout();
 	
-		SharedPreferences prefsKodeDistributor = getSharedPreferences(Constants.PREF_KODE_DISTRIBUTOR, MODE_PRIVATE);
-		setKodeDistributor = prefsKodeDistributor.getStringSet("kodedist", null);
-		lstKodeDistributor = new ArrayList<String>(setKodeDistributor);
-		initSpinnerKodeDistributor();
-		Log.d(">>>", setKodeDistributor.toString());
+		Log.d(">>input activity ", ""+Constants.KODE_BARANG_NULL);
+		Log.d(">>input activity ", ""+Constants.KODE_DIST_NULL);
+		Log.d(">>input activity ", ""+Constants.KODE_MERCHANT_NULL);
 		
-		SharedPreferences prefsKodeBarang = getSharedPreferences(Constants.PREF_KODE_BARANG, MODE_PRIVATE);
-		setKodeBarang = prefsKodeBarang.getStringSet("kodebrg", null); 
-		lstKodeBarang = new ArrayList<String>(setKodeBarang);
-		initSpinnerKodeBarang();
-		Log.d(">>>", setKodeBarang.toString());
+		if (!Constants.KODE_BARANG_NULL && 
+				!Constants.KODE_DIST_NULL &&
+				!Constants.KODE_MERCHANT_NULL ) {
+
+			SharedPreferences prefsKodeDistributor = getSharedPreferences(Constants.PREF_KODE_DISTRIBUTOR, MODE_PRIVATE);
+			setKodeDistributor = prefsKodeDistributor.getStringSet("kodedist", null);
+			lstKodeDistributor = new ArrayList<String>(setKodeDistributor);
+			initSpinnerKodeDistributor();
+			Log.d(">>>", setKodeDistributor.toString());
+			
+			SharedPreferences prefsKodeBarang = getSharedPreferences(Constants.PREF_KODE_BARANG, MODE_PRIVATE);
+			setKodeBarang = prefsKodeBarang.getStringSet("kodebrg", null); 
+			lstKodeBarang = new ArrayList<String>(setKodeBarang);
+			initSpinnerKodeBarang();
+			Log.d(">>>", setKodeBarang.toString());
+			
+			SharedPreferences prefsKodeMerchant = getSharedPreferences(Constants.PREF_KODE_MERCHANT, MODE_PRIVATE);
+			setKodeMerchant = prefsKodeMerchant.getStringSet("kodemerch", null); 
+			lstKodeMerchant = new ArrayList<String>(setKodeMerchant);
+			initSpinnerKodeMerchant();
+			Log.d(">>>", setKodeMerchant.toString());
+		}
 		
-		SharedPreferences prefsKodeMerchant = getSharedPreferences(Constants.PREF_KODE_MERCHANT, MODE_PRIVATE);
-		setKodeMerchant = prefsKodeMerchant.getStringSet("kodemerch", null); 
-		lstKodeMerchant = new ArrayList<String>(setKodeMerchant);
-		initSpinnerKodeMerchant();
-		Log.d(">>>", setKodeMerchant.toString());
 	}
 
 	private void initLayout() {
@@ -266,9 +276,9 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "add");
 			hashPost.put(OBJ_NAMA_BARANG, getSelectedNamaBarang());
-			hashPost.put(OBJ_MERCHANT_NAME, getSelectedNameMerchant());
 			hashPost.put(OBJ_SATUAN_BARANG, edtSatuanPembelian.getText().toString());
-			hashPost.put(OBJ_KODE_DISTRIBUTOR, getSelectedKodeDistributor());
+			hashPost.put(OBJ_NAMA, getSelectedKodeDistributor());
+			hashPost.put(OBJ_TGL_TRANS, edtTglTransaksiPembelian.getText().toString());
 			hashPost.put(OBJ_CREATOR, savedId);
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_PEMBELIAN);
 		} else if (isMenuPenjualan()) {

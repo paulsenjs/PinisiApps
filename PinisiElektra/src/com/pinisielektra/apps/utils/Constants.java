@@ -34,4 +34,8 @@ public class Constants {
 	//merchant
 	public static final String API_POST_MERCHANT = "http://cpos.pinisi-elektra.com/api/merchant.php";
 	public static final String API_LIST_MERCHANT = "http://cpos.pinisi-elektra.com/api/merchant.php?cmd=list";
+	
+	public static boolean KODE_DIST_NULL = false;
+	public static boolean KODE_BARANG_NULL = false;
+	public static boolean KODE_MERCHANT_NULL = false;
 }

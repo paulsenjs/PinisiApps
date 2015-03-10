@@ -12,7 +12,9 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,6 +64,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 	private DistributorObj distributorObj;
 //	private String startDate;
 //	private String endDate;
+	private String savedId;
 	private ArrayList<Object> arrObj;
 
 	private Hashtable<String, String> hashPost;
@@ -75,6 +78,11 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		menuIntent = getIntent().getExtras().getString("menu");
 		lstDataReport = (ListView) findViewById(R.id.lstListData);
 
+		DisplayMetrics metrics = new DisplayMetrics();
+		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		
+		lstDataReport.getLayoutParams().height=2*metrics.heightPixels/3;
+		
 		linearHeaderPenjualan = (LinearLayout) findViewById(R.id.linearPenjualanHeader);
 		linearHeaderPembelian = (LinearLayout) findViewById(R.id.linearPembelianHeader);
 		linearHeaderInventory = (LinearLayout) findViewById(R.id.linearInventoryHeader);
@@ -83,7 +91,12 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		linearHeaderMerchant = (LinearLayout) findViewById(R.id.linearMerchantHeader); 
 		
 		mProgress = new ProgressDialog(this);
+		mProgress.setMessage("Load data ...");
+		mProgress.setTitle("Loading");
 		mProgress.show();
+		
+		SharedPreferences prefs = getSharedPreferences(Constants.MY_PREFS_NAME, MODE_PRIVATE);
+		savedId = prefs.getString("uId", null);
 		
 		init(menuIntent);
 		
@@ -103,7 +116,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 				}else {
 					new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN+"&startdate="+startDate+"&enddate="+endDate);					
 				}*/
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN+"&orderby=satuan%20desc");
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PEMBELIAN+"&creator="+savedId+"&orderby=satuan%20desc");
 			} else if (strPassingIntent.equalsIgnoreCase("menu_penjualan")) {
 				getActionBar().setTitle("Laporan Penjualan");
 				setMenuPenjualan(true);
@@ -114,23 +127,23 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 				}else {
 					new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&startdate="+startDate+"&enddate="+endDate);
 				}*/
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&orderby=satuan%20desc");
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&creator="+savedId+"&orderby=satuan%20desc");
 			} else if (strPassingIntent.equalsIgnoreCase("menu_pelanggan")) {
 				getActionBar().setTitle("Laporan Pelanggan");
 				setMenuPelanggan(true);
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PELANGGAN);
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PELANGGAN+"&creator="+savedId);
 			} else if (strPassingIntent.equalsIgnoreCase("menu_distributor")) {
 				getActionBar().setTitle("Laporan Distributor");
 				setMenuDistributor(true);
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_DISTRIBUTOR);
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_DISTRIBUTOR+"&creator="+savedId);
 			} else if (strPassingIntent.equalsIgnoreCase("menu_inventory")) {
 				getActionBar().setTitle("Laporan Inventory");
 				setMenuInventory(true);
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_INVENTORY);
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_INVENTORY+"&creator="+savedId);
 			} else if (strPassingIntent.equalsIgnoreCase("menu_merchant")) {
 				getActionBar().setTitle("Laporan Merchant");
 				setMenuMerchant(true);
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_MERCHANT);
+				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_MERCHANT+"&creator="+savedId);
 			}
 		}
 	}
@@ -166,6 +179,14 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		PopupMenu popupMenu = new PopupMenu(this, menuItemView);
 		popupMenu.getMenuInflater().inflate(R.menu.dropdown, popupMenu.getMenu());
 
+		if (menuIntent.equalsIgnoreCase("menu_pembelian") || (menuIntent.equalsIgnoreCase("menu_penjualan"))) {
+			popupMenu.getMenu().findItem(R.id.action_filtering).setVisible(true);
+			popupMenu.getMenu().findItem(R.id.action_pie_chart).setVisible(true);
+		}else{
+			popupMenu.getMenu().findItem(R.id.action_filtering).setVisible(false);
+			popupMenu.getMenu().findItem(R.id.action_pie_chart).setVisible(false);
+		}
+		
 		popupMenu.setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			boolean itemSelected = false;
 
@@ -173,6 +194,30 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 			public boolean onMenuItemClick(MenuItem item) {
 
 				switch (item.getItemId()) {
+				
+				case R.id.action_filtering:
+					Intent filterIntent = new Intent(ReportActivity.this, FilteringActivity.class);					
+					
+//					if (menuIntent.equalsIgnoreCase("menu_pembelian")) {
+//						filterIntent.putExtra("id_menu", ID_PEMBELIAN);
+//					} else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+//						filterIntent.putExtra("id_menu", ID_PENJUALAN);
+//					} else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+//						filterIntent.putExtra("id_menu", ID_PELANGGAN);
+//					} else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+//						filterIntent.putExtra("id_menu", ID_DISTRIBUTOR);
+//					} else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+//						filterIntent.putExtra("id_menu", ID_INVENTORY);
+//					}
+//					
+//					filterIntent.putExtra("pie_chart_data", getArrObj());
+					filterIntent.putExtra("menu", menuIntent);
+					startActivity(filterIntent);
+					ReportActivity.this.finish();
+					
+					itemSelected = true;
+					break;
+				
 				case R.id.action_pie_chart:
 					Intent intent = new Intent(ReportActivity.this, PieChartActivity.class);					
 					
@@ -199,9 +244,9 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 					itemSelected = true;
 					break;
 
-				case R.id.action_logout:
-					itemSelected = true;
-					break;
+//				case R.id.action_logout:
+//					itemSelected = true;
+//					break;
 
 				default:
 					break;
@@ -252,6 +297,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 				pembelianObj = new PembelianObj();
 				pembelianObj.setIdTrans(jObjArr.optString(OBJ_ID_TRANS));
 				pembelianObj.setKodeBarang(jObjArr.optString(OBJ_KODE_BARANG));
+				pembelianObj.setNamaBarang(jObjArr.optString(OBJ_NAMA_BARANG));
 				pembelianObj.setTglTransaksi(jObjArr.optString(OBJ_TGL_TRANS));
 				pembelianObj.setSatuan(jObjArr.optString(OBJ_SATUAN_BARANG));
 				pembelianObj.setKodeDistributor(jObjArr.optString(OBJ_KODE_DISTRIBUTOR));
@@ -311,6 +357,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 				penjualanObj = new PenjualanObj();
 				penjualanObj.setIdJual(jObjArr.optString(OBJ_ID_PENJUALAN));
 				penjualanObj.setKodeBarang(jObjArr.optString(OBJ_KODE_BARANG));
+				penjualanObj.setNamaBarang(jObjArr.optString(OBJ_NAMA_BARANG));
 				penjualanObj.setSatuan(jObjArr.optString(OBJ_SATUAN_BARANG));
 				penjualanObj.setCreator(jObjArr.optString(OBJ_CREATOR));
 				penjualanObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
@@ -410,7 +457,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 				}
 			}else if (jObj.optString("result").equalsIgnoreCase("0")) {
 				Toast.makeText(this, "No Records", Toast.LENGTH_SHORT).show();
-				finish();				
+//				finish();		
 			}else {
 				Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
 			}
@@ -593,7 +640,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 	protected void onResume() {
 		super.onResume();
 		init(getPassMenuIntent());
-		Toast.makeText(getApplicationContext(), "resuming.. "+ getIntent().getExtras().getString("menu"), Toast.LENGTH_SHORT).show();
+//		Toast.makeText(getApplicationContext(), "resuming.. "+ getIntent().getExtras().getString("menu"), Toast.LENGTH_SHORT).show();
 	}
 	
 	public void goToFormInput(View v) {

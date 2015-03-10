@@ -6,6 +6,7 @@ public class PenjualanObj implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String idJual;
 	private String kodeBarang;
+	private String namaBarang;
 	private String tglTransaksi;
 	private String satuan;
 	private String creator;
@@ -25,6 +26,12 @@ public class PenjualanObj implements Serializable {
 	}
 	public void setKodeBarang(String kodeBarang) {
 		this.kodeBarang = kodeBarang;
+	}
+	public String getNamaBarang() {
+		return namaBarang;
+	}
+	public void setNamaBarang(String namaBarang) {
+		this.namaBarang = namaBarang;
 	}
 	public String getTglTransaksi() {
 		return tglTransaksi;

@@ -2,9 +2,6 @@ package com.pinisielektra.apps;
 
 import java.util.Calendar;
 
-import com.pinisielektra.apps.connection.HttpConnectionTask;
-import com.pinisielektra.apps.utils.Constants;
-
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;

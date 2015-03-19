@@ -40,6 +40,8 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 	String savedKodeDistributor;
 	String savedKodeBarang;
 	String savedKodeMerchant;
+	String roleId;
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 		btnMerchant.setOnClickListener(this);
 
 		txtName.setText("Hi " + getActivity().getIntent().getExtras().getString("uName"));
-		
+		roleId = getActivity().getIntent().getExtras().getString("uRoleId");
 		return view;
 	}
 	
@@ -123,19 +125,32 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 //			SharedPreferences prefsKodeMerchant = getActivity().getSharedPreferences(Constants.PREF_KODE_MERCHANT, Context.MODE_PRIVATE);
 //			savedKodeMerchant = prefsKodeMerchant.getString("kodemerch", null);
 
-			if (savedKodeBarang == null &&
-					(savedKodeDistributor == null &&
-							savedKodeMerchant == null)){
-				
-				btnPembelian.setEnabled(true);
-				btnPembelian.setAlpha(1.0f);
-				btnPenjualan.setEnabled(true);
-				btnPenjualan.setAlpha(1.0f);
-			}else{
+			if (roleId.equals("0")) {
 				btnPembelian.setEnabled(false);
 				btnPembelian.setAlpha(0.5f);
-				btnPenjualan.setEnabled(false);
-				btnPenjualan.setAlpha(0.5f);
+				btnInventory.setEnabled(false);
+				btnInventory.setAlpha(0.5f);
+				btnPelanggan.setEnabled(false);
+				btnPelanggan.setAlpha(0.5f);
+				btnDistributor.setEnabled(false);
+				btnDistributor.setAlpha(0.5f);
+				btnMerchant.setEnabled(false);
+				btnMerchant.setAlpha(0.5f);
+			}else {
+				if (savedKodeBarang == null &&
+						(savedKodeDistributor == null &&
+								savedKodeMerchant == null)){
+					
+					btnPembelian.setEnabled(true);
+					btnPembelian.setAlpha(1.0f);
+					btnPenjualan.setEnabled(true);
+					btnPenjualan.setAlpha(1.0f);
+				}else{
+					btnPembelian.setEnabled(false);
+					btnPembelian.setAlpha(0.5f);
+					btnPenjualan.setEnabled(false);
+					btnPenjualan.setAlpha(0.5f);
+				}				
 			}
 			
 			/*if (savedKodeBarang.equalsIgnoreCase("no-records") ||

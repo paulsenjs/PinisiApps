@@ -32,6 +32,7 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 	private LinearLayout linearButtonLogin, linearImageLogo;
 	private String userName = "Jhon Doe";
 	private String userId;
+	private String userRoleId;
 	private EditText edtUserName;
 	private EditText edtPassword;
 	private TextView txtLogin;
@@ -108,7 +109,7 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 
     private void goToDashboardScreen() {
     	finish();
-		startActivity(new Intent().setClass(this, DashboardActivity.class).putExtra("uName", userName));
+		startActivity(new Intent().setClass(this, DashboardActivity.class).putExtra("uName", userName).putExtra("uRoleId", userRoleId));
     }
 
     private void runLoginChecker() {
@@ -141,11 +142,13 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 					JSONObject jObjArr = jArray.getJSONObject(i);
 					userId = jObjArr.optString("userid");
 					userName = jObjArr.optString("name");
+					userRoleId = jObjArr.optString("roleid");
 				}
 				
 				SharedPreferences.Editor editor = getSharedPreferences(Constants.MY_PREFS_NAME, MODE_PRIVATE).edit();
 				editor.putString("uId", userId);
 				editor.putString("uName", userName);
+				editor.putString("uRole", userRoleId);
 				editor.commit();
 				
 				new SplashLauncher().start();

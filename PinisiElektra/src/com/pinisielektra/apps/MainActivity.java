@@ -109,7 +109,7 @@ public class MainActivity extends Activity implements IHttpResponseListener {
 
     private void goToDashboardScreen() {
     	finish();
-		startActivity(new Intent().setClass(this, DashboardActivity.class).putExtra("uName", userName).putExtra("uRoleId", userRoleId));
+		startActivity(new Intent().setClass(this, DashboardActivity.class).putExtra("uName", userName).putExtra("uRoleId", userRoleId).putExtra("menu", "dashboard"));
     }
 
     private void runLoginChecker() {

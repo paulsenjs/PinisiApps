@@ -69,7 +69,12 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 		btnMerchant.setOnClickListener(this);
 
 		txtName.setText("Hi " + getActivity().getIntent().getExtras().getString("uName"));
-		roleId = getActivity().getIntent().getExtras().getString("uRoleId");
+		if (roleId != null) {
+			roleId = getActivity().getIntent().getExtras().getString("uRoleId");			
+		}else {
+			SharedPreferences prefs = getActivity().getSharedPreferences(Constants.MY_PREFS_NAME, Context.MODE_PRIVATE);
+			roleId = prefs.getString("uRole", null);
+		}
 		return view;
 	}
 	
@@ -125,18 +130,11 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 //			SharedPreferences prefsKodeMerchant = getActivity().getSharedPreferences(Constants.PREF_KODE_MERCHANT, Context.MODE_PRIVATE);
 //			savedKodeMerchant = prefsKodeMerchant.getString("kodemerch", null);
 
-			if (roleId.equals("0")) {
-				btnPembelian.setEnabled(false);
-				btnPembelian.setAlpha(0.5f);
-				btnInventory.setEnabled(false);
-				btnInventory.setAlpha(0.5f);
-				btnPelanggan.setEnabled(false);
-				btnPelanggan.setAlpha(0.5f);
-				btnDistributor.setEnabled(false);
-				btnDistributor.setAlpha(0.5f);
-				btnMerchant.setEnabled(false);
-				btnMerchant.setAlpha(0.5f);
-			}else {
+			
+			//roleId 1 : admin
+			//roleId 2 : staff
+			
+			if (roleId.equals("1")) {
 				if (savedKodeBarang == null &&
 						(savedKodeDistributor == null &&
 								savedKodeMerchant == null)){
@@ -150,7 +148,18 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 					btnPembelian.setAlpha(0.5f);
 					btnPenjualan.setEnabled(false);
 					btnPenjualan.setAlpha(0.5f);
-				}				
+				}
+			}else if (roleId.equals("2")){
+				btnPembelian.setEnabled(false);
+				btnPembelian.setAlpha(0.5f);
+				btnInventory.setEnabled(false);
+				btnInventory.setAlpha(0.5f);
+				btnPelanggan.setEnabled(false);
+				btnPelanggan.setAlpha(0.5f);
+				btnDistributor.setEnabled(false);
+				btnDistributor.setAlpha(0.5f);
+				btnMerchant.setEnabled(false);
+				btnMerchant.setAlpha(0.5f);
 			}
 			
 			/*if (savedKodeBarang.equalsIgnoreCase("no-records") ||

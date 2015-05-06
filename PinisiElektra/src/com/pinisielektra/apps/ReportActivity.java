@@ -10,11 +10,13 @@ import org.json.JSONObject;
 import android.R.color;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupMenu.OnMenuItemClickListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pinisielektra.apps.adapter.ReportAdapter;
@@ -66,7 +69,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 //	private String endDate;
 	private String savedId;
 	private ArrayList<Object> arrObj;
-
+	private View footerView;
 	private Hashtable<String, String> hashPost;
 	private String[] strPassingData;
 
@@ -99,6 +102,8 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		savedId = prefs.getString("uId", null);
 		
 		init(menuIntent);
+		
+		footerView =  ((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.list_footer, null, false);
 		
 		setPassMenuIntent(menuIntent);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -348,7 +353,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		lstDataReport.setOnItemClickListener(this);
 	}
 
-	private void processPenjualanResult(JSONArray jArray) {
+	private void processPenjualanResult(String total, JSONArray jArray) {
 		linearHeaderPenjualan.setVisibility(View.VISIBLE);
 		try {
 			arrObj = new ArrayList<Object>();
@@ -375,6 +380,9 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		reportAdapter = new ReportAdapter(ID_PENJUALAN, this, arrObj);
 		lstDataReport.setAdapter(reportAdapter);
 		lstDataReport.setOnItemClickListener(this);
+		TextView txtTotal = (TextView) footerView.findViewById(R.id.txtTotal);
+		txtTotal.setText(total);
+		lstDataReport.addFooterView(footerView);
 	}
 	
 	private void processDistributorResult(JSONArray jArray) {
@@ -441,7 +449,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 					if (isMenuPembelian()) {
 						processPembelianResult(jArray);
 					} else if (isMenuPenjualan()) {
-						processPenjualanResult(jArray);
+						processPenjualanResult(jObj.optString("total_satuan"), jArray);
 					} else if (isMenuPelanggan()) {
 						processPelangganResult(jArray);
 					} else if (isMenuDistributor()) {

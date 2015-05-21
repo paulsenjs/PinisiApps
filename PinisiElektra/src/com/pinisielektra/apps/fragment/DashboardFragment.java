@@ -131,10 +131,10 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 //			savedKodeMerchant = prefsKodeMerchant.getString("kodemerch", null);
 
 			
-			//roleId 1 : admin
-			//roleId 2 : staff
+			//roleId 0 : admin
+			//roleId 1 : staff
 			
-			if (roleId.equals("1")) {
+			if (roleId.equals("0")) {
 				if (savedKodeBarang == null &&
 						(savedKodeDistributor == null &&
 								savedKodeMerchant == null)){
@@ -149,7 +149,7 @@ public class DashboardFragment extends Fragment implements OnClickListener, IHtt
 					btnPenjualan.setEnabled(false);
 					btnPenjualan.setAlpha(0.5f);
 				}
-			}else if (roleId.equals("2")){
+			}else if (roleId.equals("1")){
 				btnPembelian.setEnabled(false);
 				btnPembelian.setAlpha(0.5f);
 				btnInventory.setEnabled(false);

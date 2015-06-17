@@ -310,6 +310,8 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 				pembelianObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
 				pembelianObj.setEditor(jObjArr.optString(OBJ_EDITOR));
 				pembelianObj.setDateEdited(jObjArr.optString(OBJ_DATE_EDITED));
+				pembelianObj.setHargaPembelian(jObjArr.optString(OBJ_REPORT_HARGA));
+				
 				
 				arrObj.add(pembelianObj);
 			}
@@ -369,6 +371,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 				penjualanObj.setEditor(jObjArr.optString(OBJ_EDITOR));
 				penjualanObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
 				penjualanObj.setTglTransaksi(jObjArr.optString(OBJ_TGL_TRANS));
+				penjualanObj.setHargaBarang(jObjArr.optString(OBJ_REPORT_HARGA));
 				
 				arrObj.add(i, penjualanObj);
 			}

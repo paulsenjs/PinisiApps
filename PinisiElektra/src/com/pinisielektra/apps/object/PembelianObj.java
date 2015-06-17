@@ -14,7 +14,7 @@ public class PembelianObj implements Serializable{
 	private String dateCreated;
 	private String editor;
 	private String dateEdited;
-	
+	private String hargaPembelian;
 	
 	public String getIdTrans() {
 		return idTrans;
@@ -75,6 +75,12 @@ public class PembelianObj implements Serializable{
 	}
 	public void setDateEdited(String dateEdited) {
 		this.dateEdited = dateEdited;
+	}
+	public String getHargaPembelian() {
+		return hargaPembelian;
+	}
+	public void setHargaPembelian(String hargaPembelian) {
+		this.hargaPembelian = hargaPembelian;
 	}
 	
 	

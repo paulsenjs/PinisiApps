@@ -7,6 +7,7 @@ public interface JsonObjConstant {
 	public static final String OBJ_SATUAN_BARANG = "satuan";
 	public static final String OBJ_HARGA_JUAL = "harga_jual";
 	public static final String OBJ_HARGA_BELI = "harga_beli";
+	public static final String OBJ_REPORT_HARGA = "harga";
 	public static final String OBJ_EXP_DATE = "exp_date";
 	public static final String OBJ_CREATOR = "creator";
 	public static final String OBJ_DATE_CREATED = "date_created";

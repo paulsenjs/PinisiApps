@@ -72,6 +72,7 @@ public class ReportAdapter extends BaseAdapter {
 				viewHolder.txtKodeBarangPenjualan = (TextView) convertView.findViewById(R.id.txtKodeBarangPenjualan);
 				viewHolder.txtTglTransaksiPenjualan = (TextView) convertView.findViewById(R.id.txtTglTransaksiPenjualan);
 				viewHolder.txtSatuanPenjualan = (TextView) convertView.findViewById(R.id.txtSatuanPenjualan);
+				viewHolder.txtHargaPenjualan = (TextView) convertView.findViewById(R.id.txtHargaPenjualan);
 				break;
 			case 2:
 				viewHolder.linearPembelian.setVisibility(View.VISIBLE);
@@ -79,6 +80,7 @@ public class ReportAdapter extends BaseAdapter {
 				viewHolder.txtSatuanPembelian = (TextView) convertView.findViewById(R.id.txtSatuanPembelian);
 				viewHolder.txtKodeDistributorPembelian = (TextView) convertView.findViewById(R.id.txtKodeDistributorPembelian);
 				viewHolder.txtTanggalTransaksi = (TextView) convertView.findViewById(R.id.txtTglTrxPembelian);
+				viewHolder.txtHargaPembelian = (TextView) convertView.findViewById(R.id.txtHargaPembelian);
 				break;
 			case 3:
 				viewHolder.linearInventory.setVisibility(View.VISIBLE);
@@ -119,12 +121,15 @@ public class ReportAdapter extends BaseAdapter {
 			viewHolder.txtKodeBarangPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getNamaBarang());
 			viewHolder.txtTglTransaksiPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getTglTransaksi());
 			viewHolder.txtSatuanPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getSatuan());
+			viewHolder.txtHargaPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getHargaBarang());
 			break;
 		case 2:
 			viewHolder.txtKodeBarangPembelian.setText(((PembelianObj) arrObjs.get(position)).getNamaBarang());
 			viewHolder.txtSatuanPembelian.setText(((PembelianObj) arrObjs.get(position)).getSatuan());
 			viewHolder.txtKodeDistributorPembelian.setText(((PembelianObj) arrObjs.get(position)).getKodeDistributor());
+			viewHolder.txtHargaPembelian.setText("-");
 			viewHolder.txtTanggalTransaksi.setText(((PembelianObj) arrObjs.get(position)).getTglTransaksi());
+//			viewHolder.txtHargaPembelian.setText(((PembelianObj) arrObjs.get(position)).getHargaPembelian());
 			break;
 		case 3:
 			viewHolder.txtNamaBarang.setText(((InventoryObj) arrObjs.get(position)).getNamaBarang());
@@ -160,6 +165,7 @@ public class ReportAdapter extends BaseAdapter {
 		private TextView txtSatuanPembelian;
 		private TextView txtKodeDistributorPembelian;
 		private TextView txtTanggalTransaksi;
+		private TextView txtHargaPembelian;
 		
 		//inventory
 		private TextView txtNamaBarang;
@@ -189,6 +195,7 @@ public class ReportAdapter extends BaseAdapter {
 		private TextView txtKodeBarangPenjualan;
 		private TextView txtTglTransaksiPenjualan;
 		private TextView txtSatuanPenjualan;
+		private TextView txtHargaPenjualan;
 	
 		//merchant
 //		private TextView txtMerchantId;

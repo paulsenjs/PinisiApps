@@ -13,7 +13,7 @@ public class PenjualanObj implements Serializable {
 	private String dateCreated;
 	private String editor;
 	private String dateEdited;
-	
+	private String hargaBarang;
 	
 	public String getIdJual() {
 		return idJual;
@@ -72,6 +72,10 @@ public class PenjualanObj implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
+	public String getHargaBarang() {
+		return hargaBarang;
+	}
+	public void setHargaBarang(String hargaBarang) {
+		this.hargaBarang = hargaBarang;
+	}
 }

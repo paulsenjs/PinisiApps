@@ -1,5 +1,6 @@
 package com.pinisielektra.apps;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -72,6 +73,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 	private View footerView;
 	private Hashtable<String, String> hashPost;
 	private String[] strPassingData;
+	private String roleId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +102,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		
 		SharedPreferences prefs = getSharedPreferences(Constants.MY_PREFS_NAME, MODE_PRIVATE);
 		savedId = prefs.getString("uId", null);
+		roleId = prefs.getString("uRole", null);
 		
 		init(menuIntent);
 		
@@ -384,6 +387,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		lstDataReport.setAdapter(reportAdapter);
 		lstDataReport.setOnItemClickListener(this);
 		TextView txtTotal = (TextView) footerView.findViewById(R.id.txtTotal);
+//		DecimalFormat df = new DecimalFormat("#.##");
 		txtTotal.setText(total);
 		lstDataReport.addFooterView(footerView);
 	}
@@ -655,20 +659,24 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 	}
 	
 	public void goToFormInput(View v) {
-		if (menuIntent != null) {
-			if (menuIntent.equalsIgnoreCase("menu_pembelian")){
-				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_pembelian"));		
-			}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
-				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_penjualan"));
-			}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
-				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_pelanggan"));
-			}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
-				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_distributor"));
-			}else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
-				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_inventory"));
-			}else if (menuIntent.equalsIgnoreCase("menu_merchant")) {
-				startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_merchant"));
-			}
+		if (roleId.equals("0")) {
+			if (menuIntent != null) {
+				if (menuIntent.equalsIgnoreCase("menu_pembelian")){
+					startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_pembelian"));		
+				}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
+					startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_penjualan"));
+				}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
+					startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_pelanggan"));
+				}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
+					startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_distributor"));
+				}else if (menuIntent.equalsIgnoreCase("menu_inventory")) {
+					startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_inventory"));
+				}else if (menuIntent.equalsIgnoreCase("menu_merchant")) {
+					startActivity(new Intent().setClass(ReportActivity.this, InputActivity.class).putExtra("menu", "menu_merchant"));
+				}
+			}	
+		}else {
+			Toast.makeText(this, "Anda login sebagai Staff", Toast.LENGTH_SHORT).show();
 		}
 	}
 

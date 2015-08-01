@@ -319,8 +319,8 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		} else if (isMenuMerchant()) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "add");
-			hashPost.put(OBJ_MERCHANT_ID, edtMerchantId.getText().toString());
-			hashPost.put(OBJ_USER_ID, edtMerchantUserId.getText().toString());
+//			hashPost.put(OBJ_MERCHANT_ID, edtMerchantId.getText().toString());
+//			hashPost.put(OBJ_USER_ID, edtMerchantUserId.getText().toString());
 			hashPost.put(OBJ_MERCHANT_NAME, edtMerchantName.getText().toString());
 			hashPost.put(OBJ_ADDRESS, edtMerchantAddr.getText().toString());
 			hashPost.put(OBJ_CREATOR, savedId);

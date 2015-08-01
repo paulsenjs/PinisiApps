@@ -12,42 +12,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone" >
 
-        <!-- <TextView
-            android:id="@+id/txtIdPenjualan"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:layout_weight="1"
-            android:text="Id" /> -->
-        
         <TextView
             android:id="@+id/txtKodeBarangPenjualan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:typeface="serif"
             android:layout_weight="1"
-            android:text="Kode Barang" />
+            android:gravity="center_horizontal"
+            android:text="Kode Barang"
+            android:typeface="serif" />
 
         <TextView
             android:id="@+id/txtTglTransaksiPenjualan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:typeface="serif"
             android:layout_weight="1"
-            android:text="Tgl Transaksi" />
+            android:gravity="center_horizontal"
+            android:text="Tgl Transaksi"
+            android:typeface="serif" />
         
         <TextView
             android:id="@+id/txtSatuanPenjualan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
             android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:text="Satuan" />
+        
+        <TextView
+            android:id="@+id/txtHargaPenjualan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Harga" />
 
     </LinearLayout>
 
@@ -56,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:visibility="gone" >
 
@@ -72,10 +74,10 @@
             android:id="@+id/txtSatuanPembelian"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:typeface="serif"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="Satuan" />
+            android:text="Satuan"
+            android:typeface="serif" />
 
         <TextView
             android:id="@+id/txtKodeDistributorPembelian"
@@ -86,6 +88,14 @@
             android:gravity="center_horizontal"
             android:text="Kode Distributor" />
 
+        <TextView
+            android:id="@+id/txtHargaPembelian"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            android:text="Harga" />
+        
         <TextView
             android:id="@+id/txtTglTrxPembelian"
             android:layout_width="0dp"

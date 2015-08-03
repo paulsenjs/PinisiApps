@@ -44,6 +44,7 @@
         <activity
             android:name="com.pinisielektra.apps.ReportActivity"
             android:label="@string/title_activity_report"
+            android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light" >
         </activity>
         <activity

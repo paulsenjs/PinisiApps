@@ -190,6 +190,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		if (menuIntent.equalsIgnoreCase("menu_pembelian") || (menuIntent.equalsIgnoreCase("menu_penjualan"))) {
 			popupMenu.getMenu().findItem(R.id.action_filtering).setVisible(true);
 			popupMenu.getMenu().findItem(R.id.action_pie_chart).setVisible(true);
+			popupMenu.getMenu().findItem(R.id.action_logout).setVisible(false);
 		}else{
 			popupMenu.getMenu().findItem(R.id.action_filtering).setVisible(false);
 			popupMenu.getMenu().findItem(R.id.action_pie_chart).setVisible(false);
@@ -375,6 +376,7 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 				penjualanObj.setDateCreated(jObjArr.optString(OBJ_DATE_CREATED));
 				penjualanObj.setTglTransaksi(jObjArr.optString(OBJ_TGL_TRANS));
 				penjualanObj.setHargaBarang(jObjArr.optString(OBJ_REPORT_HARGA));
+				penjualanObj.setMerchantName(jObjArr.optString(OBJ_MERCHANT_NAME));
 				
 				arrObj.add(i, penjualanObj);
 			}
@@ -387,8 +389,8 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 		lstDataReport.setAdapter(reportAdapter);
 		lstDataReport.setOnItemClickListener(this);
 		TextView txtTotal = (TextView) footerView.findViewById(R.id.txtTotal);
-//		DecimalFormat df = new DecimalFormat("#.##");
-		txtTotal.setText(total);
+		DecimalFormat df = new DecimalFormat("###,###.###");
+		txtTotal.setText("Rp "+df.format(Double.parseDouble(total)));
 		lstDataReport.addFooterView(footerView);
 	}
 	

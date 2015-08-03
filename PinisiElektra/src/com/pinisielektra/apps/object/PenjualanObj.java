@@ -14,6 +14,8 @@ public class PenjualanObj implements Serializable {
 	private String editor;
 	private String dateEdited;
 	private String hargaBarang;
+	private String merchantName;
+	
 	
 	public String getIdJual() {
 		return idJual;
@@ -77,5 +79,11 @@ public class PenjualanObj implements Serializable {
 	}
 	public void setHargaBarang(String hargaBarang) {
 		this.hargaBarang = hargaBarang;
+	}
+	public String getMerchantName() {
+		return merchantName;
+	}
+	public void setMerchantName(String merchantName) {
+		this.merchantName = merchantName;
 	}
 }

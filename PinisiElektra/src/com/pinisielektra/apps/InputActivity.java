@@ -263,7 +263,7 @@ public class InputActivity extends MenuObj implements JsonObjConstant, IHttpResp
 		});
 		edtSatuanPenjualan = (EditText) findViewById(R.id.edtSatuanPenjualan);
 		
-		edtMerchantId = (EditText) findViewById(R.id.edtMerchantId);
+//		edtMerchantId = (EditText) findViewById(R.id.edtMerchantId);
 		edtMerchantUserId = (EditText) findViewById(R.id.edtTUserUserId);
 		edtMerchantAddr  = (EditText) findViewById(R.id.edtMerchantAddress);
 		edtMerchantName  = (EditText) findViewById(R.id.edtMerchantName);

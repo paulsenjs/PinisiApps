@@ -47,8 +47,8 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		private EditText edtExpDateInventory;
 
 		// merchant
-		private EditText edtMerchantId;
-		private EditText edtMerchantUserId;
+//		private EditText edtMerchantId;
+//		private EditText edtMerchantUserId;
 		private EditText edtMerchantName;
 		private EditText edtMerchantAddr;
 		private String selectedKodeMerchant;
@@ -254,8 +254,8 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		});
 		edtSatuanPenjualan = (EditText) findViewById(R.id.edtSatuanPenjualan);
 		
-		edtMerchantId = (EditText) findViewById(R.id.edtMerchantId);
-		edtMerchantUserId = (EditText) findViewById(R.id.edtTUserUserId);
+//		edtMerchantId = (EditText) findViewById(R.id.edtMerchantId);
+//		edtMerchantUserId = (EditText) findViewById(R.id.edtTUserUserId);
 		edtMerchantAddr  = (EditText) findViewById(R.id.edtMerchantAddress);
 		edtMerchantName  = (EditText) findViewById(R.id.edtMerchantName);
 	}
@@ -368,10 +368,10 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 	}
 	
 	private void showMerchantCurrentData(String[] data) {
-		edtMerchantId.setText(data[1]);
+//		edtMerchantId.setText(data[1]);
 		edtMerchantName.setText(data[2]);
 		edtMerchantAddr.setText(data[3]);
-		edtMerchantUserId.setText(data[4]);
+//		edtMerchantUserId.setText(data[4]);
 	}
 	
 	public void actionSendData(View v) {
@@ -422,10 +422,10 @@ public class EditInputActivity extends MenuObj implements IHttpResponseListener,
 		}else if (menuIntent[0].equalsIgnoreCase("edit_merchant")) {
 			hashPost = new Hashtable<String, String>();
 			hashPost.put("cmd", "edit");
-			hashPost.put(OBJ_MERCHANT_ID, edtMerchantId.getText().toString());
+//			hashPost.put(OBJ_MERCHANT_ID, edtMerchantId.getText().toString());
 			hashPost.put(OBJ_MERCHANT_NAME, edtMerchantName.getText().toString());
 			hashPost.put(OBJ_ADDRESS, edtMerchantAddr.getText().toString());
-			hashPost.put(OBJ_MERCHANT_TUSER_ID, edtMerchantUserId.getText().toString());
+//			hashPost.put(OBJ_MERCHANT_TUSER_ID, edtMerchantUserId.getText().toString());
 			
 			new HttpConnectionTask(hashPost, this, 0).execute(Constants.API_POST_MERCHANT);
 		}

@@ -73,6 +73,7 @@ public class ReportAdapter extends BaseAdapter {
 				viewHolder.txtTglTransaksiPenjualan = (TextView) convertView.findViewById(R.id.txtTglTransaksiPenjualan);
 				viewHolder.txtSatuanPenjualan = (TextView) convertView.findViewById(R.id.txtSatuanPenjualan);
 				viewHolder.txtHargaPenjualan = (TextView) convertView.findViewById(R.id.txtHargaPenjualan);
+				viewHolder.txtMerchantNamePenjualan = (TextView) convertView.findViewById(R.id.txtMerchantNamePenjualan);
 				break;
 			case 2:
 				viewHolder.linearPembelian.setVisibility(View.VISIBLE);
@@ -122,6 +123,7 @@ public class ReportAdapter extends BaseAdapter {
 			viewHolder.txtTglTransaksiPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getTglTransaksi());
 			viewHolder.txtSatuanPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getSatuan());
 			viewHolder.txtHargaPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getHargaBarang());
+			viewHolder.txtMerchantNamePenjualan.setText(((PenjualanObj) arrObjs.get(position)).getMerchantName());
 			break;
 		case 2:
 			viewHolder.txtKodeBarangPembelian.setText(((PembelianObj) arrObjs.get(position)).getNamaBarang());
@@ -196,6 +198,7 @@ public class ReportAdapter extends BaseAdapter {
 		private TextView txtTglTransaksiPenjualan;
 		private TextView txtSatuanPenjualan;
 		private TextView txtHargaPenjualan;
+		private TextView txtMerchantNamePenjualan;
 	
 		//merchant
 //		private TextView txtMerchantId;

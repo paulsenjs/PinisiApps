@@ -56,6 +56,15 @@
             android:text="Harga"
             android:textStyle="bold" />
         
+        <TextView
+            android:id="@+id/column_header6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Merchant"
+            android:textStyle="bold" />
+        
     </LinearLayout>
 
     <LinearLayout
@@ -270,13 +279,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/holo_green_light"
+        android:layout_marginBottom="55dp"
         android:layout_below="@+id/linearMerchantHeader" >
     </ListView>
 
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/lstListData"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="goToFormInput"
         android:src="@drawable/plus_icon" />

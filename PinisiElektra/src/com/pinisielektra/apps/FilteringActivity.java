@@ -1,21 +1,33 @@
 package com.pinisielektra.apps;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Set;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-public class FilteringActivity extends ActionBarActivity implements OnClickListener {
+import com.pinisielektra.apps.adapter.SpinnerAdapter;
+import com.pinisielektra.apps.object.MenuObj;
+import com.pinisielektra.apps.utils.Constants;
+
+public class FilteringActivity extends MenuObj implements OnClickListener, OnItemSelectedListener {
 
 	private EditText edtFromDate;
 	private EditText edtToDate;
@@ -26,6 +38,12 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 	private static final int TO_DATE_DIALOG_ID = 999;
 	private Button btnSearch;
 	private String menuIntent;
+	private Spinner spnKodeMerchantPenjualan;
+	private TextView txtKodeMerchantPenjualan;
+	private SpinnerAdapter spinnerAdapterKodeMerchant;
+	private List<String> lstKodeMerchant;
+	private Set<String> setKodeMerchant;
+	private String selectedKodeMerchant;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +57,13 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 		
 		menuIntent = getIntent().getExtras().getString("menu");
 		btnSearch = (Button) findViewById(R.id.btnSearch);
+
+		SharedPreferences prefsKodeMerchant = getSharedPreferences(Constants.PREF_KODE_MERCHANT, MODE_PRIVATE);
+		setKodeMerchant = prefsKodeMerchant.getStringSet("kodemerch", null);
+		lstKodeMerchant = new ArrayList<String>(setKodeMerchant);
+		
+		Log.d("####-list", ""+lstKodeMerchant);
+		Log.d("####-set", ""+setKodeMerchant);
 		
 		edtFromDate = (EditText) findViewById(R.id.edtFrom);
 		edtToDate = (EditText) findViewById(R.id.edtTo);
@@ -46,6 +71,18 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 		edtFromDate.setOnClickListener(this);
 		edtToDate.setOnClickListener(this);
 		btnSearch.setOnClickListener(this);
+		
+		if ((menuIntent.equalsIgnoreCase("menu_penjualan"))) {
+			spnKodeMerchantPenjualan = (Spinner) findViewById(R.id.edtKodeMerchantPenjualan);
+			spnKodeMerchantPenjualan.setVisibility(View.VISIBLE);
+		
+			txtKodeMerchantPenjualan = (TextView) findViewById(R.id.txtKodeMerchantPenjualan);
+			txtKodeMerchantPenjualan.setVisibility(View.VISIBLE);
+		
+			spinnerAdapterKodeMerchant = new SpinnerAdapter(this, 0, lstKodeMerchant);
+			spnKodeMerchantPenjualan.setAdapter(spinnerAdapterKodeMerchant);
+			spnKodeMerchantPenjualan.setOnItemSelectedListener(this);
+		}
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setTitle("Filter Search");
@@ -62,6 +99,7 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 //		}
 	}
 
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		return true;
@@ -95,8 +133,11 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 			if (menuIntent != null) {
 				if (menuIntent.equalsIgnoreCase("menu_pembelian")){
 					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_pembelian").putExtra("startdate", edtFromDate.getText().toString()).putExtra("enddate", edtToDate.getText().toString()));
-				}else if (menuIntent.equalsIgnoreCase("menu_penjualan")) {
-					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_penjualan").putExtra("startdate", edtFromDate.getText().toString()).putExtra("enddate", edtToDate.getText().toString()));
+				}else if (menuIntent.equalsIgnoreCase("menu_penjualan") && getSelectedNameMerchant() != null) {
+					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_penjualan")
+							.putExtra("startdate", edtFromDate.getText().toString())
+							.putExtra("enddate", edtToDate.getText().toString())
+							.putExtra("merchantid", getSelectedNameMerchant()));
 				}else if (menuIntent.equalsIgnoreCase("menu_pelanggan")) {
 					startActivity(new Intent().setClass(this, ReportActivity.class).putExtra("menu", "menu_pelanggan"));
 				}else if (menuIntent.equalsIgnoreCase("menu_distributor")) {
@@ -159,4 +200,29 @@ public class FilteringActivity extends ActionBarActivity implements OnClickListe
 					.append(lDay));
 		}
 	};
+
+	private String getSelectedNameMerchant() {
+		return selectedKodeMerchant;
+	}
+
+	private void setSelectedNameMerchant(String selectedKodeMerchant) {
+		this.selectedKodeMerchant = selectedKodeMerchant;
+	}
+	
+	@Override
+	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2,
+			long arg3) {
+		switch (arg0.getId()) {
+		case R.id.edtKodeMerchantPenjualan:
+			setSelectedNameMerchant(spinnerAdapterKodeMerchant.getItem(arg2));
+			break;
+		}
+	}	
+
+
+	@Override
+	public void onNothingSelected(AdapterView<?> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

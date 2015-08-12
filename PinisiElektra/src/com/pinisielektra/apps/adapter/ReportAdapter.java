@@ -1,5 +1,6 @@
 package com.pinisielektra.apps.adapter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -52,6 +53,7 @@ public class ReportAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder viewHolder;
+		DecimalFormat df = new DecimalFormat("###,###.###");
 		
 		if (convertView==null) {
 			LayoutInflater mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -122,22 +124,22 @@ public class ReportAdapter extends BaseAdapter {
 			viewHolder.txtKodeBarangPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getNamaBarang());
 			viewHolder.txtTglTransaksiPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getTglTransaksi());
 			viewHolder.txtSatuanPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getSatuan());
-			viewHolder.txtHargaPenjualan.setText(((PenjualanObj) arrObjs.get(position)).getHargaBarang());
+			viewHolder.txtHargaPenjualan.setText("Rp "+df.format(Double.parseDouble(((PenjualanObj) arrObjs.get(position)).getHargaBarang())));
 			viewHolder.txtMerchantNamePenjualan.setText(((PenjualanObj) arrObjs.get(position)).getMerchantName());
 			break;
 		case 2:
 			viewHolder.txtKodeBarangPembelian.setText(((PembelianObj) arrObjs.get(position)).getNamaBarang());
 			viewHolder.txtSatuanPembelian.setText(((PembelianObj) arrObjs.get(position)).getSatuan());
 			viewHolder.txtKodeDistributorPembelian.setText(((PembelianObj) arrObjs.get(position)).getKodeDistributor());
-			viewHolder.txtHargaPembelian.setText("-");
+			viewHolder.txtHargaPembelian.setText("Rp "+df.format(Double.parseDouble("-")));
 			viewHolder.txtTanggalTransaksi.setText(((PembelianObj) arrObjs.get(position)).getTglTransaksi());
 //			viewHolder.txtHargaPembelian.setText(((PembelianObj) arrObjs.get(position)).getHargaPembelian());
 			break;
 		case 3:
 			viewHolder.txtNamaBarang.setText(((InventoryObj) arrObjs.get(position)).getNamaBarang());
 			viewHolder.txtSatuan.setText(((InventoryObj) arrObjs.get(position)).getSatuan());
-			viewHolder.txtHargaBeli.setText(((InventoryObj) arrObjs.get(position)).getHargaBeli());
-			viewHolder.txtHargaJual.setText(((InventoryObj) arrObjs.get(position)).getHargaJual());
+			viewHolder.txtHargaBeli.setText("Rp "+df.format(Double.parseDouble(((InventoryObj) arrObjs.get(position)).getHargaBeli())));
+			viewHolder.txtHargaJual.setText("Rp "+df.format(Double.parseDouble(((InventoryObj) arrObjs.get(position)).getHargaJual())));
 			break;
 		case 4:
 //			viewHolder.txtIdPelanggan.setText(((PelangganObj) arrObjs.get(position)).getIdPel());

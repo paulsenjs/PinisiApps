@@ -66,8 +66,9 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 	private PelangganObj pelangganObj;
 	private MerchantObj merchantObj;
 	private DistributorObj distributorObj;
-//	private String startDate;
-//	private String endDate;
+	private String startDate;
+	private String endDate;
+	private String merchantId;
 	private String savedId;
 	private ArrayList<Object> arrObj;
 	private View footerView;
@@ -128,14 +129,18 @@ public class ReportActivity extends MenuObj implements IHttpResponseListener, Js
 			} else if (strPassingIntent.equalsIgnoreCase("menu_penjualan")) {
 				getActionBar().setTitle("Laporan Penjualan");
 				setMenuPenjualan(true);
-				/*startDate = getIntent().getExtras().getString("startdate").trim();
-				endDate = getIntent().getExtras().getString("enddate").trim();
-				if ((startDate.length()==0) || (endDate.length()==0)) {
-					new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&orderby=satuan%20desc");
+				if ((getIntent().getExtras().getString("startdate") != null) && (getIntent().getExtras().getString("enddate") != null)) {
+					startDate = getIntent().getExtras().getString("startdate").trim();
+					endDate = getIntent().getExtras().getString("enddate").trim();
+					merchantId = getIntent().getExtras().getString("merchantid").trim();
+					if ((startDate.length()!=0) || (endDate.length()!=0)) {
+						new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&startdate="+startDate+"&enddate="+endDate+"&creator="+savedId);
+					}else if (merchantId.length() != 0) {
+						new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&startdate="+startDate+"&enddate="+endDate+"&merchantid="+merchantId+"&creator="+savedId);
+					}	
 				}else {
-					new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&startdate="+startDate+"&enddate="+endDate);
-				}*/
-				new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&creator="+savedId+"&orderby=satuan%20desc");
+					new HttpConnectionTask(this, this, 0, "GET").execute(Constants.API_LIST_PENJUALAN+"&creator="+savedId+"&orderby=satuan%20desc");
+				}
 			} else if (strPassingIntent.equalsIgnoreCase("menu_pelanggan")) {
 				getActionBar().setTitle("Laporan Pelanggan");
 				setMenuPelanggan(true);

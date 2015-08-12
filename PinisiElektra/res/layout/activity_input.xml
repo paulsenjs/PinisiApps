@@ -135,7 +135,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/relativePembelian"
         android:layout_marginTop="14dp"
-        android:visibility="gone" >
+        android:visibility="visible" >
 
         <TextView
             android:id="@+id/txtKodeBarangPenjualan"

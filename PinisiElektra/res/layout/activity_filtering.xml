@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
+            android:typeface="serif"
             android:text="Tanggal" />
 
         <LinearLayout
@@ -58,7 +59,8 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <!-- <TextView
+    <!--
+         <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,23 +68,36 @@
         android:layout_below="@+id/relativeLayout1"
         android:layout_marginTop="27dp"
         android:text="@string/title_filtering_sort" />
+    -->
 
     <Spinner
-        android:id="@+id/spinner1"
+        android:id="@+id/edtKodeMerchantPenjualan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@+id/textView3"
-        android:layout_centerInParent="true" /> -->
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/relativeLayout1"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/txtKodeMerchantPenjualan"
+        android:visibility="gone" />
 
     <Button
         android:id="@+id/btnSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spinner1"
+        android:layout_below="@+id/edtKodeMerchantPenjualan"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="30dp"
         android:text="@string/title_search" />
+
+    <TextView
+        android:id="@+id/txtKodeMerchantPenjualan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/relativeLayout1"
+        android:layout_alignTop="@+id/edtKodeMerchantPenjualan"
+        android:layout_marginRight="5dp"
+        android:text="Merchant"
+        android:typeface="serif"
+        android:visibility="gone" />
 
 </RelativeLayout>
